@@ -15,7 +15,7 @@ Tags:one-column, two-columns, left-sidebar, right-sidebar, responsive-layout, fl
 	GENERAL CSS
 
 	==================================================*/
-
+	
 body {
 	font: normal 14px "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 300;
@@ -740,7 +740,7 @@ body.rtl .swiper-container>.swiper-wrapper{float:left;}
 label, .radio label, .checkbox label {
 	font-weight: 300;
 }
-input[type="text"],input[type="password"],input[type="url"],input[type="input"],input[type="url"],
+/*input[type="text"],input[type="password"],input[type="url"],input[type="input"],input[type="url"],
 input[type="search"],input[type="number"],input[type="email"],input[type="tel"],input[type="datetime"],
 input[type="date"],input[type="datetime-local"],input[type="time"],input[type="month"],input[type="color"],
 input[type="week"],textarea,select {
@@ -844,7 +844,7 @@ input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focu
 	background-color: #FFF;
 	border-color: #ecf0f1;
 	color: #ecf0f1;
-}
+}*/
 
 /*	Contact Form 7
 	--------------------------------------------------*/
@@ -3385,8 +3385,8 @@ h3.widget-title {
 	background-color: #292929;
 }
 #footer [class^="col-"], #footer [class*=" col-"]{
-	padding-top: 100px;
-	padding-bottom: 100px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 #footer .woocommerce ul.cart_list li, #footer .woocommerce-page ul.cart_list li, #footer .woocommerce ul.product_list_widget li, #footer .woocommerce-page ul.product_list_widget li, #footer .widget_rss ul li {
 	border-bottom: 1px dotted #222;
@@ -3496,7 +3496,7 @@ a:hover, a:focus,
 .btn-link:hover, .btn-link:focus {
 	color: #16a085;
 }
-
+/* 
 .form-control:-moz-placeholder,input:-moz-placeholder,textarea:-moz-placeholder{color:#bdc3c7; font-weight: 300;}
 .form-control::-moz-placeholder,input::-moz-placeholder,textarea::-moz-placeholder{color:#bdc3c7; font-weight: 300;}
 .form-control:-ms-input-placeholder,input:-ms-input-placeholder,textarea:-ms-input-placeholder{color:#bdc3c7; font-weight: 300;}
@@ -3510,7 +3510,7 @@ a:hover, a:focus,
 /*
 	====================================================
 */
-
+/*
 blockquote,
 .btn-primary, .label-primary,
 .swiper-pagination-switch,
@@ -3526,7 +3526,7 @@ input[type="submit"],input[type="button"],input[type="reset"],
 .woocommerce a.button, .woocommerce-page a.button, .woocommerce button.button, .woocommerce-page button.button, .woocommerce input.button, .woocommerce-page input.button, .woocommerce #respond input#submit, .woocommerce-page #respond input#submit, .woocommerce #content input.button, .woocommerce-page #content input.button,
 .chzn-container .chzn-results .highlighted {
 	border-color: #1abc9c !important;
-}
+} */
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary.active,
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover,
@@ -3542,7 +3542,7 @@ input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focu
 .dropdown-menu,
 .modal-header, .modal-footer,
 .blox-element.pricing, .plan-price,
-input[type="text"],input[type="password"],input[type="url"],input[type="input"],input[type="url"],
+/* input[type="text"],input[type="password"],input[type="url"],input[type="input"],input[type="url"],
 input[type="search"],input[type="number"],input[type="email"],input[type="tel"],input[type="datetime"],
 input[type="date"],input[type="datetime-local"],input[type="time"],input[type="month"],input[type="color"],
 input[type="week"],textarea,select,
@@ -3589,7 +3589,7 @@ table>thead>tr>th, table>tbody>tr>th, table>tfoot>tr>th, table>thead>tr>td, tabl
 .portfolio-controls a:hover, .portfolio-controls a:focus,
 .widget_rss ul li {
 	border-color: #ECF0F1;
-}
+} */
 .woocommerce div.product .woocommerce-tabs ul.tabs:before, .woocommerce-page div.product .woocommerce-tabs ul.tabs:before, .woocommerce #content div.product .woocommerce-tabs ul.tabs:before, .woocommerce-page #content div.product .woocommerce-tabs ul.tabs:before,
 .woocommerce div.product .woocommerce-tabs ul.tabs li, .woocommerce-page div.product .woocommerce-tabs ul.tabs li, .woocommerce #content div.product .woocommerce-tabs ul.tabs li, .woocommerce-page #content div.product .woocommerce-tabs ul.tabs li,
 .woocommerce table.shop_attributes .alt td, .woocommerce table.shop_attributes .alt th, .woocommerce-page table.shop_attributes .alt td, .woocommerce-page table.shop_attributes .alt th, .woocommerce table.shop_attributes td, .woocommerce-page table.shop_attributes td, .woocommerce table.shop_attributes th, .woocommerce-page table.shop_attributes th,
@@ -3642,45 +3642,11 @@ input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focu
 .tagcloud a:hover   {
 	background-color: #16a085;
 }
+.react-form-message {
+	margin-bottom: 1rem;
+	display: block;
+  }
 
-
-
-pre,
-.wp-caption,
-.nav>li>a:hover, .nav>li>a:focus,
-.panel-default>.panel-heading,
-.progress, .popover-title,
-input[type="text"],input[type="password"],input[type="url"],input[type="input"],input[type="url"],
-input[type="search"],input[type="number"],input[type="email"],input[type="tel"],input[type="datetime"],
-input[type="date"],input[type="datetime-local"],input[type="time"],input[type="month"],input[type="color"],
-input[type="week"],textarea,select,
-input[type="submit"][disabled=disabled]:hover, input[type="submit"][disabled=disabled]:focus,
-input[disabled]:hover, textarea[disabled]:hover, select[disabled]:hover,
-input[disabled]:focus, textarea[disabled]:focus, select[disabled]:focus,
-input[readonly]:hover, textarea[readonly]:hover, select[readonly]:hover,
-input[readonly]:focus, textarea[readonly]:focus, select[readonly]:focus,
-input[disabled], textarea[disabled], select[disabled],
-input, textarea, select,
-.carousel-control,
-.blox-element.audio,
-.blox-element.video,
-.jp-seek-bar,
-.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus,
-.grid-loop.boxed article,
-.blox-element.boxed,
-.product-image-hover .cart-and-rating,
-.top-bar,
-.navbar-nav li .dropdown-menu>li>a:hover, .navbar-nav li .dropdown-menu>li>a:focus,
-.navbar-nav li.mega-menu ul.dropdown-menu li a:hover,
-.portfolio-controls a{
-	background-color: #ECF0F1;
-}
-.woocommerce div.product .woocommerce-tabs ul.tabs li, .woocommerce-page div.product .woocommerce-tabs ul.tabs li, .woocommerce #content div.product .woocommerce-tabs ul.tabs li, .woocommerce-page #content div.product .woocommerce-tabs ul.tabs li,
-.woocommerce #payment, .woocommerce-page #payment,
-.chzn-container-single .chzn-single, .chzn-container-single .chzn-search input,
-.chzn-container .chzn-results .no-results,
-.woocommerce-message, .woocommerce-error, .woocommerce-info,
-.woocommerce-message:before, .woocommerce-error:before, .woocommerce-info:before,
-.woocommerce .widget_price_filter .ui-slider .ui-slider-range, .woocommerce-page .widget_price_filter .ui-slider .ui-slider-range {
-	background-color: #ecf0f1 !important;
-}
+  .react-form-message-error {
+	color: #c32128;
+  }

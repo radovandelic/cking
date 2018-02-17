@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './styles/flatter-child/style.css';
 import './styles/res/css/language-selector.css';
 import './App.css';
@@ -14,14 +13,11 @@ class App extends Component {
       <div className="App">
         <div id="header_spacing" className="hidden-xs"></div>
         <Header />
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>*/}
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center">
-              <Register />
+              <img src="https://www.co-oking.be/wp-content/uploads/2016/03/atelier_four_gallerie.jpg" alt="" />
+              {/* <Register /> */}
             </div>
           </div>
         </div>
