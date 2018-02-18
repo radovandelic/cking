@@ -3642,11 +3642,3 @@ input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focu
 .tagcloud a:hover   {
 	background-color: #16a085;
 }
-.react-form-message {
-	margin-bottom: 1rem;
-	display: block;
-  }
-
-  .react-form-message-error {
-	color: #c32128;
-  }

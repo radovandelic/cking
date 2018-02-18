@@ -1,0 +1,49 @@
+.form-container{
+  max-width: 600px;
+  width: 100%;
+  margin: 10vh auto;
+  position: relative;
+  background: #F9F9F9;
+  padding: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.inline {
+    display: inline-flex;
+    width: 100%;
+}
+
+.react-form-input{
+    width: 100%;
+    height: 35px;
+}
+
+.input-div {
+    width: 100%;
+    padding: 1vh;
+}
+
+#submit {
+   background-color: #ed7b22;
+   border-color: #ed7b22;
+   width: 100%;
+   font-weight: bold;
+}
+
+#submit:hover {
+    background-color: #fff;
+    color: #ed7b22;
+ }
+
+.react-form-message {
+	margin-bottom: 1rem;
+	display: block;
+  }
+
+  .react-form-message-error {
+	color: #c32128;
+  }
+
+  .react-form-message-warning {
+	color: #c32128;
+  }

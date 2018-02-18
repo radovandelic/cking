@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from '../logo_co-ocking.png'
+import logo from '../logo_co-ocking.png';
+import { Link } from 'react-router-dom';
 
 export default function Header(params) {
     return (
@@ -11,10 +12,12 @@ export default function Header(params) {
                     <div className="row">
                         <div className="col-sm-12 no-pad-r no-pad-l">
                             <div className="top-bar-left text-left">
-                                <img src={logo} alt="logo" />
+                                <Link to="/">
+                                    <img src={logo} alt="logo" />
+                                </Link>
                             </div>
                             <div className="top-bar-right text-right">
-                                <div className="top-share-items top_share">
+                                <div className="top-share-items top_share hidden-xs">
                                     <ul className="share-items">
                                         <li>
                                             <a href="https://www.facebook.com/CookingBxl" className="facebook"
@@ -36,10 +39,10 @@ export default function Header(params) {
                                     </ul>
                                 </div>
                                 <div className="topbar-item login-item newsl-item">
-                                    <a id="btn_newsletter" href="index.html#" title="Newsletter"><i className="fa fa-envelope"></i><span>Login</span></a>
+                                    <Link to="/login" title="Login"><i className="fa fa-envelope"></i><span>Login</span></Link>
                                 </div>
                                 <div className="topbar-item login-item user-icons">
-                                    <a href="mon-compte/index.html"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Register</span></a>
+                                    <Link to="/register"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Register</span></Link>
                                 </div><div className="woocommerce-shcart woocommerce topbar-item hidden-sm hidden-xs">
                                     <div className="shcart-display">
                                         <i className="fa fa-shopping-cart"></i>
@@ -47,16 +50,9 @@ export default function Header(params) {
                                     </div>
                                     <div className="shcart-content">
                                         <div className="widget_shopping_cart_content">
-
                                             <ul className="cart_list product_list_widget ">
-
-
                                                 <li className="empty">Votre panier est vide.</li>
-
-
                                             </ul>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +64,7 @@ export default function Header(params) {
                                     </ul>
                                 </div>
 
-                                <div className="header-search topbar-item" title="Newsletter"><a className="search-icon"><i className="fa lo-search"></i></a><div className="search-form">
+                                <div className="header-search topbar-item" title="Search"><a className="search-icon"><i className="fa lo-search"></i></a><div className="search-form">
                                     <form method="get" id="searchform" action="index.html">
                                         <div className="input-group">
                                             <input type="text" className="form-control" name="s" placeholder="Votre recherche">
@@ -85,7 +81,7 @@ export default function Header(params) {
                     </div>
                 </div>
             </div>
-        </header>
+        </header >
 
 
     )

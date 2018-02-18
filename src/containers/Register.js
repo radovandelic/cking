@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 import {
     Form,
-    StyledText,
-    StyledTextArea,
-    StyledRadio,
-    StyledRadioGroup,
-    StyledSelect,
-    StyledCheckbox
+    StyledText
 } from 'react-form';
+import "../styles/forms.css";
 
-const statusOptions = [
-    {
-        label: 'Single',
-        value: 'single'
-    },
-    {
-        label: 'In a Relationship',
-        value: 'relationship'
-    },
-    {
-        label: "It's Complicated",
-        value: 'complicated'
-    }
-];
+//var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
 class StyledForm extends Component {
 
@@ -33,50 +17,44 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const validateFirstName = (firstName) => {
-            return !firstName ? '* First name is required.' : null;
+            return !firstName ? 'First name is required.' : null;
         };
         const validateLastName = (lastName) => {
-            return !lastName ? '* Last name is required.' : null;
+            return !lastName ? 'Last name is required.' : null;
         };
-        const validateGender = (gender) => {
-            return !gender ? '* Gender is required.' : null;
+        const validateEmail = (email) => {
+            return !email ? 'Email is required.' : null;
         };
-        const validateBio = (bio) => {
-            return !bio ? '* Bio is required.' : null;
-        };
-        const validateAuthorize = (authorize) => {
-            return !authorize ? '* Please check authorize.' : null;
-        };
-        const validateStatus = (status) => {
-            return !status ? '* Status is required.' : null;
+        const validatePassword = (password) => {
+            return !password ? 'Password is required.' : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            gender: validateGender(values.gender),
-            bio: validateBio(values.bio),
-            authorize: validateAuthorize(values.authorize),
-            status: validateStatus(values.status)
+            email: validateEmail(values.email),
+            password: validatePassword(values.password)
         };
     }
 
     warningValidator = (values) => {
         const validateFirstName = (firstName) => {
-            return firstName && firstName.length < 2 ? '* First name must be longer than 2 characters.' : null;
+            return firstName && firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
         };
         const validateLastName = (lastName) => {
-            return lastName && lastName.length < 2 ? '* Last name must be longer than 2 characters.' : null;
+            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
         };
-        const validateBio = (bio) => {
-            return bio && bio.replace(/s+/g, ' ').trim().split(' ').length < 5 ? '* Bio should have more than 5 words.' : null;
+        const validateEmail = (email) => {
+            return email && !regex.test(email) ? 'Please enter a valid email.' : null;
         };
+        const validatePassword = (password) => {
+            return password && password.length < 8 ? 'Password must be longer than 8 characters.' : null;
+        };
+
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            gender: null,
-            bio: validateBio(values.bio),
-            authorize: null,
-            status: null
+            email: validateEmail(values.email),
+            password: validatePassword(values.password)
         };
     }
 
@@ -87,26 +65,40 @@ class StyledForm extends Component {
         const validateLastName = () => {
             return !errors.lastName ? '' : null;
         };
-        const validateGender = () => {
-            return !errors.gender ? 'Thanks for entering your gender.' : null;
+        const validateEmail = () => {
+            return !errors.email ? '' : null;
         };
-        const validateBio = () => {
-            return !errors.bio ? 'Cool Bio!' : null;
-        };
-        const validateAuthorize = () => {
-            return !errors.authorize ? 'You are now authorized.' : null;
-        };
-        const validateStatus = () => {
-            return !errors.status ? 'Thanks for entering your status.' : null;
+        const validatePassword = () => {
+            return !errors.password ? '' : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            gender: validateGender(values.gender),
-            bio: validateBio(values.bio),
-            authorize: validateAuthorize(values.authorize),
-            status: validateStatus(values.status)
+            email: validateEmail(values.email),
+            password: validatePassword(values.password)
         };
+    }
+
+    submit = (submittedValues) => {
+        let url = 'http://0.0.0.0:9000/api/users/register';
+        let query = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(submittedValues)
+        }
+        fetch(url, query)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (typeof (Storage) !== undefined) {
+                    window.localStorage.setItem("access_token", data.token);
+                    console.log(window.localStorage.getItem("access_token"));
+                }
+            })
+            .catch(err => console.log(err));
     }
     render = () => {
         return (
@@ -114,28 +106,34 @@ class StyledForm extends Component {
                 validateError={this.errorValidator}
                 validateWarning={this.warningValidator}
                 validateSuccess={this.successValidator}
-                onSubmit={submittedValues => this.setState({ submittedValues }, () => { console.log(this.state) })}>
+                onSubmit={this.submit}>
                 {formApi => (
-                    <form onSubmit={formApi.submitForm} id="form2">
-                        <label htmlFor="firstName">First name</label>
-                        <StyledText field="firstName" id="firstName" />
-                        <label htmlFor="lastName">Last name</label>
-                        <StyledText field="lastName" id="lastName" />
-                        <label>Choose Gender</label>
-                        <StyledRadioGroup field="gender">
-                            {group => (
-                                <div>
-                                    <StyledRadio group={group} value="male" id="male" label="Male" className="mr-3 d-inline-block" />
-                                    <StyledRadio group={group} value="female" id="female" label="Female" className="d-inline-block" />
-                                </div>
-                            )}
-                        </StyledRadioGroup>
-                        <label htmlFor="bio">Bio</label>
-                        <StyledTextArea field="bio" id="bio" />
-                        <StyledCheckbox field="authorize" id="authorize" label="Authorize" className="d-inline-block" />
-                        <label htmlFor="status" className="d-block">Relationship status</label>
-                        <StyledSelect field="status" id="status" options={statusOptions} />
-                        <button type="submit" className="mb-4 btn btn-primary">Submit</button>
+                    <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                        <div className="inline">
+                            <div className="input-div">
+                                <label htmlFor="firstName">First name</label>
+                                <StyledText field="firstName" id="firstName" />
+                            </div>
+                            <div className="input-div">
+                                <label htmlFor="lastName">Last name</label>
+                                <StyledText field="lastName" id="lastName" />
+                            </div>
+                        </div>
+                        <div className="input-div" >
+                            <label htmlFor="username">Username</label>
+                            <StyledText field="name" id="name" />
+                        </div>
+                        <div className="input-div" >
+                            <label htmlFor="email">Email</label>
+                            <StyledText type="email" field="email" id="email" />
+                        </div>
+                        <div className="input-div" >
+                            <label htmlFor="password">Password</label>
+                            <StyledText type="password" field="password" id="password" />
+                        </div>
+                        <div className="input-div" >
+                            <button id="submit" type="submit" className="mb-4 btn btn-warning">Submit</button>
+                        </div>
                     </form>
                 )}
             </Form>
