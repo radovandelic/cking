@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Header(params) {
+export default () => {
     return (
         <div className="sub-footer hidden-xs">
             <div className="container">

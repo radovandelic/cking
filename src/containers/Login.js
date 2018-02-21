@@ -4,6 +4,7 @@ import {
     StyledText
 } from 'react-form';
 import "../styles/forms.css";
+import base64 from 'base-64';
 
 class StyledForm extends Component {
 
@@ -13,8 +14,6 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        let base64 = require('base-64');
-
         let url = 'http://0.0.0.0:9000/api/auth';
         let username = submittedValues.email;
         let password = submittedValues.password;
@@ -25,14 +24,16 @@ class StyledForm extends Component {
         headers.append('Content-Type', 'application/json');
         fetch(url, {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                access_token: "D1D7djby3fa9MaEBNt3o802cNx887ywy"
-            })
-            //credentials: 'user:passwd'
+            headers: headers
         })
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then(data => {
+                if (typeof (Storage) !== undefined) {
+                    window.localStorage.setItem("access_token", data.token);
+                    window.localStorage.setItem("user", JSON.stringify(data.user));
+                }
+                window.location.href = "/dashboard";
+            })
             .catch(err => console.log(err));
     }
     render = () => {

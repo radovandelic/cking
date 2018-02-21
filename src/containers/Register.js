@@ -92,11 +92,11 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
-                    console.log(window.localStorage.getItem("access_token"));
+                    window.localStorage.setItem("user", JSON.stringify(data.user));
                 }
+                window.location.href = "/dashboard";
             })
             .catch(err => console.log(err));
     }

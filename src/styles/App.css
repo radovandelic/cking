@@ -57,3 +57,39 @@
 .caption > h1 {
   margin: auto;
 }
+
+.home-container{
+  margin: 2vh auto;
+  max-width: 95vw;
+  width: 900px;
+}
+
+.img-home {
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.nav-tabs {
+  margin: 1vh auto;
+}
+
+.nav-item {
+  background-color: #ed7b22;
+  color: #fff;
+  margin: 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+.nav-item:hover  {
+  color: #ed7b22;
+  background-color: #fff;
+}
+
+
+.nav-item:first-of-type {
+  border-radius: 5px 0 0 5px;
+
+}
+
+.nav-item:last-of-type {
+  border-radius: 0 5px 5px 0;
+}

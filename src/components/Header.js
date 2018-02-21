@@ -2,7 +2,8 @@ import React from 'react';
 import logo from '../logo_co-ocking.png';
 import { Link } from 'react-router-dom';
 
-export default function Header(params) {
+export default () => {
+    var user = JSON.parse(localStorage.getItem("user"));
     return (
 
         <header id="header" className="navbar navbar-inverse navbar-fixed-top " role="banner">
@@ -38,12 +39,23 @@ export default function Header(params) {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="topbar-item login-item newsl-item">
-                                    <Link to="/login" title="Login"><i className="fa fa-envelope"></i><span>Login</span></Link>
-                                </div>
-                                <div className="topbar-item login-item user-icons">
-                                    <Link to="/register"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Register</span></Link>
-                                </div><div className="woocommerce-shcart woocommerce topbar-item hidden-sm hidden-xs">
+                                {!user ?
+                                    <div className="topbar-item login-item newsl-item">
+                                        <Link to="/login" title="Login"><i className="fa fa-envelope"></i><span>Login</span></Link>
+                                    </div>
+                                    :
+                                    <div className="topbar-item login-item user-icons">
+                                        <Link to="/dashboard"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Dashboard</span></Link>
+                                    </div>
+                                }
+                                {!user ?
+                                    <div className="topbar-item login-item user-icons">
+                                        <Link to="/register"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Register</span></Link>
+                                    </div>
+                                    :
+                                    null
+                                }
+                                <div className="woocommerce-shcart woocommerce topbar-item hidden-sm hidden-xs">
                                     <div className="shcart-display">
                                         <i className="fa fa-shopping-cart"></i>
                                         <span className="total-cart">0</span>
