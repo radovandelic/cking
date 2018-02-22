@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Form,
-    StyledText
-} from 'react-form';
+import { Form, StyledText } from 'react-form';
 import "../styles/forms.css";
 
 //var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -133,7 +130,7 @@ class StyledForm extends Component {
                             <StyledText type="password" field="password" id="password" />
                         </div>
                         <div className="input-div" >
-                            <button id="submit" type="submit" className="mb-4 btn btn-warning">Submit</button>
+                            <button id="submit" type="submit" className="mb-4 btn btn-warning">Register</button>
                         </div>
                     </form>
                 </div>

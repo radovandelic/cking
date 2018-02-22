@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Form,
-    StyledText
+    StyledText, StyledCheckbox
 } from 'react-form';
 import "../styles/forms.css";
 import base64 from 'base-64';
@@ -28,7 +28,7 @@ class StyledForm extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                if (typeof (Storage) !== undefined) {
+                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", JSON.stringify(data.user));
                 }
@@ -39,7 +39,8 @@ class StyledForm extends Component {
     render = () => {
         return (
             <Form
-                onSubmit={this.submit}>
+                onSubmit={this.submit}
+                defaultValues={{ rememberMe: true }}>
                 {formApi => (
                     <form onSubmit={formApi.submitForm} id="form2" className="form-container">
                         <div className="input-div" >
@@ -49,6 +50,9 @@ class StyledForm extends Component {
                         <div className="input-div" >
                             <label htmlFor="password">Password</label>
                             <StyledText type="password" field="password" id="password" />
+                        </div>
+                        <div className="input-div" >
+                            <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me" />
                         </div>
                         <div className="input-div" >
                             <button id="submit" type="submit" className="mb-4 btn btn-warning">Login</button>
