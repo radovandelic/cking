@@ -107,7 +107,8 @@ class StyledForm extends Component {
                 validateWarning={this.warningValidator}
                 validateSuccess={this.successValidator}
                 onSubmit={this.submit}>
-                {formApi => (
+                {formApi => (<div>
+                    <div></div>
                     <form onSubmit={formApi.submitForm} id="form2" className="form-container">
                         <div className="inline">
                             <div className="input-div">
@@ -135,6 +136,7 @@ class StyledForm extends Component {
                             <button id="submit" type="submit" className="mb-4 btn btn-warning">Submit</button>
                         </div>
                     </form>
+                </div>
                 )}
             </Form>
 

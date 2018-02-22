@@ -11,7 +11,7 @@ export default () => {
 
     return (<div>
         <Tabs />
-        <div className="form-container">
+        <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
             <br />
             <img src={user.picture} alt={user.name} />
