@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div id="header_spacing" className="hidden-xs"></div>
+          <div id="header_spacing"></div>
           <Header />
           <div className="container" style={{ height: '100%' }}>
             <div className="row" style={{ height: '100%' }}>

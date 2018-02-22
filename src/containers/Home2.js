@@ -1,13 +1,19 @@
 import React from 'react';
 import { Tabs } from '../components';
+//import '../styles/bg2.css';
 
 export default () => {
-    return (<div className="form-container">
+    return (<div className="home-container">
         <Tabs />
-        <img src="/img/atelier_four_gallerie.jpg" alt="atelier four gallerie"
-            className="img-rounded img-responsive center-block img-home" />
-        <div className="caption">
-            <h1>Rent a kitchen and hire extra resources</h1>
+        <div className="dashoard-container">
+            <h4>Welcome to cookwork.be </h4>
+            <br /><br />
+            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Browse kitchen listings</button>
+            <br /><br />
+            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Find a chef</button>
+            <br /><br />
+            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Find a consultant</button>
+            <br />
         </div>
     </div>
     );

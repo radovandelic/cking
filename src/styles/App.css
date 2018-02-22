@@ -1,25 +1,3 @@
-/* html,body {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ), url('/img/atelier_four_gallerie.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-} */
-
-/* html,body {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ), url('/img/bf_1825.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-} */
-
 @media screen and (max-width: 600px){
   /*
   .share-items, .top-bar-left, .sub-footer {
@@ -45,7 +23,7 @@
 
 .caption {
   position: absolute;
-  bottom: 20%;
+  bottom: 10%;
   left: 50%;
   width: 100%;
   height: 50px;
@@ -63,7 +41,7 @@
 }
 
 .home-container{
-  margin: 2vh auto;
+  margin: 1vh auto;
   max-width: 95vw;
   width: 95vh;
   max-height: 70vh;
@@ -74,7 +52,8 @@
 }
 
 .nav-tabs {
-  margin: 2vh auto;
+  max-width: 700px;
+  margin: 0vh auto;
 }
 
 .nav-item {
