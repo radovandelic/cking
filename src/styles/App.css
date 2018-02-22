@@ -21,6 +21,10 @@
   */
 }
 
+.logo{
+  height: 40px;
+}
+
 .caption {
   position: absolute;
   bottom: 10%;

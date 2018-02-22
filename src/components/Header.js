@@ -14,7 +14,7 @@ export default () => {
                         <div className="col-sm-12 no-pad-r no-pad-l">
                             <div className="top-bar-left text-left">
                                 <Link to="/">
-                                    <img src={logo} alt="logo" />
+                                    <img className="logo" src={logo} alt="logo" />
                                 </Link>
                             </div>
                             <div className="top-bar-right text-right">
