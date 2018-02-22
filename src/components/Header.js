@@ -76,7 +76,7 @@ export default () => {
                                     </ul>
                                 </div>
 
-                                <div className="header-search topbar-item" title="Search"><a className="search-icon"><i className="fa lo-search"></i></a><div className="search-form">
+                                <div className="header-search topbar-item hidden-xs" title="Search"><a className="search-icon"><i className="fa lo-search"></i></a><div className="search-form">
                                     <form method="get" id="searchform" action="index.html">
                                         <div className="input-group">
                                             <input type="text" className="form-control" name="s" placeholder="Votre recherche">
