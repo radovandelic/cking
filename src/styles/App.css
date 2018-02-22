@@ -21,11 +21,11 @@
 } */
 
 @media screen and (max-width: 600px){
-  
+  /*
   .share-items, .top-bar-left, .sub-footer {
     display: none;
   }
-  /*
+  
   .icon {
     display: inline-block;
   }
