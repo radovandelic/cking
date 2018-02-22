@@ -13,7 +13,6 @@ export default () => {
         <Tabs />
         <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
-            <br />
             <img src={user.picture} alt={user.name} />
             <br /><br />
             <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Create kitchen listing</button>
