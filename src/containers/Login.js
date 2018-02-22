@@ -14,7 +14,7 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        let url = 'http://0.0.0.0:9000/api/auth';
+        let url = '/api/auth';
         let username = submittedValues.email;
         let password = submittedValues.password;
 

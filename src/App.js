@@ -7,7 +7,6 @@ import Footer from './components/Footer';
 import { Register, Login, Home, Dashboard } from './containers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-
 class App extends Component {
   render() {
     return (

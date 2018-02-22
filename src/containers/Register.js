@@ -80,7 +80,7 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        let url = 'http://0.0.0.0:9000/api/users/register';
+        let url = '/api/users/register';
         let query = {
             headers: {
                 'Accept': 'application/json',
