@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from '../components';
-//import '../styles/bg2.css';
+import '../styles/bg2.css';
 
 export default () => {
     return (<div className="home-container">

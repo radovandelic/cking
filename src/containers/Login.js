@@ -52,7 +52,7 @@ class StyledForm extends Component {
                             <StyledText type="password" field="password" id="password" />
                         </div>
                         <div className="input-div" >
-                            <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me" />
+                            <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
                         </div>
                         <div className="input-div" >
                             <button id="submit" type="submit" className="mb-4 btn btn-warning">Login</button>

@@ -7,7 +7,7 @@ export default () => {
                 <a className="nav-link" data-toggle="tab" role="tab">Find a kitchen</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" data-toggle="tab" role="tab">Find a cook</a>
+                <a className="nav-link" data-toggle="tab" role="tab">Find a chef</a>
             </li>
             <li className="nav-item">
                 <a className="nav-link" data-toggle="tab" role="tab">Find a consultant</a>
