@@ -86,3 +86,17 @@ input {
   background: #fff;
   
 }
+
+.create-listing-item {
+  line-height: 34px;
+  background-color: #ed7b22;
+  padding: 0 12px;
+  border: solid 1px #ed7b22;
+}
+
+.create-listing-item:hover {
+  background-color: #fff;
+}
+.create-listing-item:hover a {
+  color: #ed7b22;
+}

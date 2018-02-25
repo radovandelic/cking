@@ -6,14 +6,12 @@ export default () => {
     return (<div className="home-container">
         <Tabs />
         <div className="dashoard-container">
-            <h4>Welcome to cookwork.be </h4>
-            <br /><br />
-            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Browse kitchen listings</button>
-            <br /><br />
-            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Find a chef</button>
-            <br /><br />
-            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Find a consultant</button>
+            <h4>Welcome to CookWork </h4>
             <br />
+            <p>
+                CookWork matches professional kitchen owners
+    with cooks and foodies looking for a cooking space to rent. CookWork provides additional services such as finding extra personnel and HORECA consultants
+            </p>
         </div>
     </div>
     );
