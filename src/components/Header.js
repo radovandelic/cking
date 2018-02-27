@@ -43,7 +43,7 @@ export default () => {
                                     </div>
                                     <div id="lang_sel_list" className="lang_sel_list_horizontal">
                                         <ul>
-                                            <li className="icl-en"><a href="en/index.html" className="lang_sel_other">EN</a></li>
+                                            <li className="icl-en"><a className="lang_sel_other">EN</a></li>
                                             {/* <li className="icl-nl"><a href="nl/index.html" className="lang_sel_other">NL</a></li>
                                         <li className="icl-fr"><a href="index.html" className="lang_sel_sel">FR</a></li> */}
                                         </ul>
@@ -62,7 +62,7 @@ export default () => {
                                     </div>
                                     <div id="lang_sel_list" className="lang_sel_list_horizontal">
                                         <ul>
-                                            <li className="icl-en"><a href="en/index.html" className="lang_sel_other">EN</a></li>
+                                            <li className="icl-en"><a className="lang_sel_other">EN</a></li>
                                             {/* <li className="icl-nl"><a href="nl/index.html" className="lang_sel_other">NL</a></li>
                                         <li className="icl-fr"><a href="index.html" className="lang_sel_sel">FR</a></li> */}
                                         </ul>

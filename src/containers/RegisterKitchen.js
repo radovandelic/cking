@@ -11,6 +11,14 @@ for (let index = 0; index < 25; index++) {
     hourOptions.push({ label: String(index), value: String(index) });
 }
 
+const equipment = [
+    "parking", "toilets", "fridge", "bainMarie", "mixer", "electronicCashier", "coolingCell", "nColdRoom",
+    "pColdRoom", "etuve", "extraction", "oven", "pizzaOven", "fryer", "grill", "juicer", "pastaMachine",
+    "mixMachine", "sauceMachine", "vacuumMachine", "microwave", "piano", "workplan", "griddle", "ceramicHob", "induction",
+    "dishwasher", "sink", "threePhase", "cleaningProducts", "baker", "sauteuse", "freezer", "tableware", "vmc",
+    "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
+]
+
 class StyledForm extends Component {
 
     constructor(props) {
@@ -80,7 +88,15 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        console.log(submittedValues);
+        submittedValues.events = Boolean(submittedValues.events);
+        submittedValues.equipment = {}
+        for (let e of equipment) {
+            if (submittedValues[e]) {
+                submittedValues.equipment[e] = submittedValues[e];
+                submittedValues[e] = undefined;
+            }
+        }
+        console.log(JSON.parse(JSON.stringify(submittedValues)));
         /*       let url = '/api/users/register';
                let query = {
                    headers: {
@@ -221,8 +237,11 @@ class StyledForm extends Component {
                                 <li>  <StyledCheckbox field="displays" id="displays" label="Présentoirs" className="d-inline-block" /> </li>
                                 <li>  <StyledCheckbox field="slicer" id="slicer" label="Trancheuse" className="d-inline-block" /> </li>
                                 <li>  <StyledCheckbox field="dryStorage" id="dry-storage" label="Stockage sec (étagères)" className="d-inline-block" /> </li>
-                                <li>  <StyledCheckbox field="smallEquipment" id="small-equipment" label="Petit matériel (cul de poule, ustensiles...)" className="d-inline-block" /> </li>
                                 <li>  <StyledCheckbox field="furniture" id="furniture" label="Mobilier de salle (tables, chaises...)" className="d-inline-block" /> </li>
+                                <li>  <StyledCheckbox field="smallEquipment" id="small-equipment" label="Petit matériel (cul de poule, ustensiles...)" className="d-inline-block" /> </li>
+                                {/* <li> &nbsp;</li>
+                                <li> &nbsp;</li> */}
+                                {/* <li>  &nbsp;</li> */}
                                 <li>  <StyledCheckbox field="ownEquipment" id="own-equipment" label="Possibilité d’apporter son matériel (sous conditions)" className="d-inline-block" /> </li>
                             </ul>
                         </div>
@@ -238,30 +257,30 @@ class StyledForm extends Component {
                                 <li> <StyledCheckbox field="reception" id="reception" label="Réception de marchandises" className="d-inline-block" /> </li>
                             </ul>
                         </div>
-                        <div htmlFor="cancellation" className="input-div">
+                        <div htmlFor="cancellation" className="input-div" style={{ height: '140px' }}>
                             <label>Vos conditions d'annulation:</label>
-                            <StyledRadioGroup field="cancellation">
+                            <StyledRadioGroup field="cancellation" >
                                 {group => (
                                     <ul className="radio-grid" >
-                                        <li> <StyledRadio group={group} value="fexible" id="fexible" label="Flexible: remboursement à hauteur de 50% jusqu'à 48h avant la réservation" className="d-inline-block" /> </li>
-                                        <li> <StyledRadio group={group} value="moderate" id="moderate" label="Modérée: Remboursement à hauteur de 50% jusqu'à 7 jours avant la réservation" className="d-inline-block" /> </li>
-                                        <li> <StyledRadio group={group} value="strict" id="strict" label="Stricte: Remboursement à hauteur de 50% jusqu'à 30 jours avant la réservation" className="d-inline-block" /> </li>
+                                        <li> <StyledRadio group={group} value="fexible" id="fexible" label="Flexible: remboursement à hauteur de 50% jusqu'à 48h avant la réservation" className="d-inline-block cancellation-item" /> </li>
+                                        <li> <StyledRadio group={group} value="moderate" id="moderate" label="Modérée: Remboursement à hauteur de 50% jusqu'à 7 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
+                                        <li> <StyledRadio group={group} value="strict" id="strict" label="Stricte: Remboursement à hauteur de 50% jusqu'à 30 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
                                     </ul>
                                 )}
                             </StyledRadioGroup>
                         </div>
                         <div htmlFor="events" className="input-div">
                             <label>Espace disponible pour évènement?</label>
-                            <StyledRadioGroup onChange={(e) => { this.setState({ events: e }); console.log(e) }} field="events">
+                            <StyledRadioGroup onChange={(e) => { this.setState({ events: Boolean(e) }) }} field="events">
                                 {group => (
                                     <ul className="radio-grid" >
                                         <li> <StyledRadio group={group} value="true" id="true" label="Oui" className="d-inline-block" /> </li>
-                                        <li> <StyledRadio group={group} value="false" id="false" label="Non" className="d-inline-block" /> </li>
+                                        <li> <StyledRadio group={group} value="" id="false" label="Non" className="d-inline-block" /> </li>
                                     </ul>
                                 )}
                             </StyledRadioGroup>
                         </div>
-                        {this.state.events === "true" ? (
+                        {this.state.events === true ? (
                             <div className="input-div" >
                                 <label htmlFor="event-capacity1">Capacité debout pour évènement:</label>
                                 <StyledText type="number" field="eventCapacity1" id="event-capacity1" />
