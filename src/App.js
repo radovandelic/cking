@@ -4,7 +4,7 @@ import './styles/res/css/language-selector.css';
 import './styles/App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Register, Login, Home2, Dashboard } from './containers';
+import { Register, Login, Home2, Dashboard, RegisterKitchen } from './containers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
                 <Route exact path="/" component={Home2} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/registerkitchen" component={RegisterKitchen} />
                 <Route exact path="/dashboard" component={Dashboard} />
               </div>
             </div>

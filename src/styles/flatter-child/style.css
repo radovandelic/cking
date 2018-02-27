@@ -596,7 +596,7 @@ a.lien1:hover, a.lien1:hover span.fa {
 /*
 */
 .sub-footer {
-    position:absolute;
+    position:fixed;
     width: 100%;
     bottom:0;
     padding: 0.5vh 0;
