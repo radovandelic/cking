@@ -19,6 +19,10 @@ const equipment = [
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
 ]
 
+const staff = [
+    "cookstaff", "roomstaff", "dishwashers", "cleaning", "storage", "refrigeratorVehicle", "reception"
+]
+
 class StyledForm extends Component {
 
     constructor(props) {
@@ -87,35 +91,62 @@ class StyledForm extends Component {
         };
     }
 
-    submit = (submittedValues) => {
-        submittedValues.events = Boolean(submittedValues.events);
+    shapeData = (submittedValues) => {
+        submittedValues.events = Boolean(submittedValues.events) || undefined;
+        submittedValues.size = Number(submittedValues.size);
+        submittedValues.AFSCA = Number(submittedValues.AFSCA);
+        submittedValues.VAT = Number(submittedValues.VAT) || undefined;
+        submittedValues.price = Number(submittedValues.price);
+        submittedValues.rent = Number(submittedValues.rent) || undefined;
+        submittedValues.capacity = Number(submittedValues.capacity) || undefined;
+        submittedValues.standingCapacity = Number(submittedValues.standingCapacity) || undefined;
+        submittedValues.sittingCapacity = Number(submittedValues.sittingCapacity) || undefined;
+        submittedValues.hours = {
+            hoursFrom: Number(submittedValues.hoursFrom) || undefined,
+            hoursTo: Number(submittedValues.hoursTo) || undefined
+        }
         submittedValues.equipment = {}
+        submittedValues.staff = {}
+        submittedValues.staff = {}
         for (let e of equipment) {
             if (submittedValues[e]) {
                 submittedValues.equipment[e] = submittedValues[e];
                 submittedValues[e] = undefined;
             }
         }
-        console.log(JSON.parse(JSON.stringify(submittedValues)));
-        /*       let url = '/api/users/register';
-               let query = {
-                   headers: {
-                       'Accept': 'application/json',
-                       'Content-Type': 'application/json'
-                   },
-                   method: 'POST',
-                   body: JSON.stringify(submittedValues)
-               }
-               fetch(url, query)
-                   .then(res => res.json())
-                   .then(data => {
-                       if (typeof (Storage) !== undefined) {
-                           window.localStorage.setItem("access_token", data.token);
-                           window.localStorage.setItem("user", JSON.stringify(data.user));
-                       }
-                       window.location.href = "/dashboard";
-                   })
-                   .catch(err => console.log(err));*/
+
+        for (let s of staff) {
+            if (submittedValues[s]) {
+                submittedValues.staff[s] = submittedValues[s];
+                submittedValues[s] = undefined;
+            }
+        }
+        return submittedValues;
+    }
+
+    submit = (submittedValues) => {
+        submittedValues = this.shapeData(submittedValues);
+        submittedValues.access_token = window.localStorage.getItem("access_token");
+        let url = '/api/kitchens';
+        let query = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(submittedValues)
+        }
+        fetch(url, query)
+            .then(res => res.json() || res.text())
+            .then(data => {
+                window.localStorage.setItem("mykitchen", JSON.stringify(data));
+                alert("Your kitchen has been saved");
+                window.location.href = "/dashboard";
+            })
+            .catch(err => {
+                console.log(err);
+                alert("There has been an error");
+            });
     }
     render = () => {
         return (
@@ -180,9 +211,9 @@ class StyledForm extends Component {
                         </div>
                         <label htmlFor="hours">Heures de disponibilité</label>
                         <div className="input-div-hours" >
-                            <StyledSelect field="hours1" id="hours1" options={hourOptions} />
+                            <StyledSelect field="hoursFrom" id="hoursFrom" options={hourOptions} />
                             &nbsp;&nbsp;-&nbsp;&nbsp;
-                            <StyledSelect field="hours2" id="hours2" options={hourOptions} />
+                            <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
                         </div>
                         <div className="input-div" >
                             <label htmlFor="capacity">Nombre de personnes pouvant travailler en cuisine</label>
@@ -239,13 +270,12 @@ class StyledForm extends Component {
                                 <li>  <StyledCheckbox field="dryStorage" id="dry-storage" label="Stockage sec (étagères)" className="d-inline-block" /> </li>
                                 <li>  <StyledCheckbox field="furniture" id="furniture" label="Mobilier de salle (tables, chaises...)" className="d-inline-block" /> </li>
                                 <li>  <StyledCheckbox field="smallEquipment" id="small-equipment" label="Petit matériel (cul de poule, ustensiles...)" className="d-inline-block" /> </li>
-                                {/* <li> &nbsp;</li>
-                                <li> &nbsp;</li> */}
-                                {/* <li>  &nbsp;</li> */}
+                                {/* <li> &nbsp;</li> */}
+                                {/* <li> &nbsp;</li> */}
                                 <li>  <StyledCheckbox field="ownEquipment" id="own-equipment" label="Possibilité d’apporter son matériel (sous conditions)" className="d-inline-block" /> </li>
                             </ul>
                         </div>
-                        <label htmlFor="price">Services disponibles (en option payante pour le locataire):</label>
+                        <label htmlFor="staff">Services disponibles (en option payante pour le locataire):</label>
                         <div className="input-div" style={{ height: '80px' }}>
                             <ul className="checkbox-grid">
                                 <li> <StyledCheckbox field="cookstaff" id="cookstaff" label="Personnel de cuisine" className="d-inline-block" /></li>
@@ -283,9 +313,9 @@ class StyledForm extends Component {
                         {this.state.events === true ? (
                             <div className="input-div" >
                                 <label htmlFor="event-capacity1">Capacité debout pour évènement:</label>
-                                <StyledText type="number" field="eventCapacity1" id="event-capacity1" />
+                                <StyledText type="number" field="standingCapacity" id="standing-capacity1" />
                                 <label htmlFor="event-capacity2">Capacité assis pour évènement:</label>
-                                <StyledText type="number" field="eventCapacity2" id="event-capacity2" />
+                                <StyledText type="number" field="sittingCapacity" id="sitting-capacity" />
                             </div>
                         ) : null}
                         <div className="input-div" >

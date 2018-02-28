@@ -100,3 +100,7 @@ input {
 .create-listing-item:hover a {
   color: #ed7b22;
 }
+
+.topbar-item{
+  border-radius: 5px;
+}

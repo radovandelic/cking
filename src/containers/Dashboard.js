@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Tabs } from '../components';
+
 
 const logout = () => {
     localStorage.removeItem('user');
@@ -14,8 +16,8 @@ export default () => {
         <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
             <img src={user.picture} alt={user.name} />
-            <br /><br />
-            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Create kitchen listing</button>
+            <br /><br /><Link to="/registerkitchen">
+                <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Create kitchen listing</button></Link>
             <br /><br />
             <button id="dashboard-btn" type="submit" className="mb-4 btn btn-warning">Register as cook</button>
             <br /><br />

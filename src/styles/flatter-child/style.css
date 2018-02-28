@@ -617,8 +617,8 @@ a.lien1:hover, a.lien1:hover span.fa {
 .footer-menu li a {
     color: #fff;
     text-transform: uppercase;
-    font-size: 14px;
-    line-height: 40px;
+    font-size: 11px;
+    line-height: 20px;
     display: inline-block;
 }
 .footer-menu li a:hover {

@@ -39,7 +39,7 @@ export default () => {
                                         <Link to="/register"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Register</span></Link>
                                     </div>
                                     <div className="topbar-item create-listing-item">
-                                        <Link to="/registerkitchen"><i className="fa fa-user-plus add-user"></i><span className="create-listing-item-txt">Create listing</span></Link>
+                                        <Link to="/register"><i className="fa fa-user-plus add-user"></i><span className="create-listing-item-txt">Create listing</span></Link>
                                     </div>
                                     <div id="lang_sel_list" className="lang_sel_list_horizontal">
                                         <ul>
@@ -57,8 +57,8 @@ export default () => {
                                     <div className="topbar-item login-item user-icons">
                                         <Link to="/dashboard"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Dashboard</span></Link>
                                     </div>
-                                    <div className="topbar-item login-item user-icons">
-                                        <Link to="/registerkitchen"><i className="fa fa-user-plus add-user"></i><span className="login-item-txt">Create listing</span></Link>
+                                    <div className="topbar-item create-listing-item user-icons">
+                                        <Link to="/registerkitchen"><i className="fa fa-user-plus add-user"></i><span className="create-listing-item-txt">Create listing</span></Link>
                                     </div>
                                     <div id="lang_sel_list" className="lang_sel_list_horizontal">
                                         <ul>

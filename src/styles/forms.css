@@ -47,7 +47,7 @@ label {
   display: flex;
   float: left;
   flex-direction: row-reverse;
-  font-size: 60%;
+  font-size: 55%;
 }
 .react-form-control-indicator.react-form-input.react-form-radio, .react-form-control-indicator.react-form-input.react-form-checkbox{
   height: 0px;
