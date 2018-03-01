@@ -1,6 +1,7 @@
 import React from 'react';
-import logo from '../logo_co-ocking.png';
+import logo from '../logo_co-oking.png';
 import { Link } from 'react-router-dom';
+import '../styles/flatter-child/style.css'
 
 export default () => {
     var user = JSON.parse(localStorage.getItem("user"));

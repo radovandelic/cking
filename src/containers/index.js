@@ -4,6 +4,6 @@ import RegisterKitchen from './RegisterKitchen';
 import Home from './Home';
 import Dashboard from './Dashboard';
 
-import Home2 from './Home2';
+import Home2 from './Home3';
 
 export { Home, Home2, Login, Register, RegisterKitchen, Dashboard }

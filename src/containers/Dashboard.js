@@ -12,7 +12,7 @@ export default () => {
     var user = JSON.parse(localStorage.getItem("user"));
 
     return (<div className="home-container">
-        <Tabs />
+        {/* <Tabs /> */}
         <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
             <img src={user.picture} alt={user.name} />
