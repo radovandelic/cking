@@ -119,10 +119,12 @@ label {
     border-radius: 20px;
     background-color: #788d25;
     color: #fff;
-    margin: 5% auto;
+    margin: 10px auto;
     width: 30%;
-    height: 50px;
-    font-size: 18px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 4px;
 }
 
 #go:hover {

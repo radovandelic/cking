@@ -13,7 +13,7 @@ export default () => {
         </div>
         <div className="select left">
             <select>
-                <option>--Ville/Region--</option>
+                <option>Ville/Region</option>
                 <option>Bruxelles</option>
                 <option>Brabant</option>
                 <option>Antwerpen</option>
@@ -23,7 +23,7 @@ export default () => {
         </div>
         <div className="select">
             <select>
-                <option>--Espace de cuisine--</option>
+                <option>Espace de cuisine</option>
                 <option>Kitchen</option>
                 <option>Cook</option>
                 <option>Consultant</option>
@@ -32,7 +32,7 @@ export default () => {
             </div>
         </div>
         <a>
-            <button className="btn btn-warning" id="go">Go</button>
+            {/* <button className="btn" id="go">Go</button> */}
         </a>
     </div>
     );
