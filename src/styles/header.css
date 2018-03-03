@@ -2,9 +2,14 @@ nav {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.40);
 }
 
+.navbar.navbar-fixed-top {
+    background-color: #fff;
+    border-color: #fff;
+}
+
 .navbar-header,
 .navbar-right>li>a {
-    padding: 7px 3px 10px 3px;
+    padding: 5px 3px;
 }
 
 .nav-link {
