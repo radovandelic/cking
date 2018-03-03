@@ -13,7 +13,7 @@ export default () => {
     var user = JSON.parse(localStorage.getItem("user"));
     return (
         <header>
-            <nav className="navbar navbar-fixed-top" id="home">
+            <nav className="navbar navbar-default navbar-fixed-top" id="home">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <button onClick={toggleMenu} type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
