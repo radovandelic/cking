@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 //import './styles/flatter-child/style.css';
-import './styles/res/css/language-selector.css';
+//import './styles/res/css/language-selector.css';
 import './styles/App.css';
 import { Header, Footer } from './components';
-import { Register, Login, Home2, Dashboard, RegisterKitchen } from './containers';
+import { Register, Login, Home2, Dashboard, RegisterKitchen, ImageUpload } from './containers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -12,8 +12,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Header />
-          <div id="header_spacing"></div>
           <main>
+            <div id="header_spacing"></div>
             <div className="container" style={{ height: '100%' }}>
               <div className="row" style={{ height: '100%' }}>
                 <div className="col-md-12 text-center" style={{ height: '100%' }}>
@@ -21,6 +21,7 @@ class App extends Component {
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/registerkitchen" component={RegisterKitchen} />
+                  <Route exact path="/uploadimage" component={ImageUpload} />
                   <Route exact path="/dashboard" component={Dashboard} />
                 </div>
               </div>

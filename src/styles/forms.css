@@ -1,86 +1,91 @@
-.form-container, .dashoard-container{
-  max-width: 600px;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 0vh auto;
-  background: #F9F9F9;
-  padding: 20px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+.form-container,
+.dashoard-container {
+    max-width: 600px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0vh auto;
+    background: #F9F9F9;
+    padding: 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
 label {
-  white-space: nowrap;
-  overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.dashoard-container{
-  max-width: 700px;
-  position: relative;
+.dashoard-container {
+    max-width: 700px;
+    position: relative;
 }
 
-.checkbox-grid, .radio-grid  {
-  padding-left: 0;
+.checkbox-grid,
+.radio-grid {
+    padding-left: 0;
 }
 
-.checkbox-grid li, .radio-grid li {
-  display: flex;
-  float: left;
+.checkbox-grid li,
+.radio-grid li {
+    display: flex;
+    float: left;
 }
 
-.checkbox-grid li{
-  width: 33%;
+.checkbox-grid li {
+    width: 33%;
 }
 
 .radio-grid li {
-  width: 100%;
-  padding-left: 0;
+    width: 100%;
+    padding-left: 0;
 }
 
 .react-form-control-radio {
-  display: block;
-  margin: 0;
+    display: block;
+    margin: 0;
 }
 
-.d-inline-block{
-  display: flex;
-  float: left;
-  flex-direction: row-reverse;
-  font-size: 55%;
-}
-.react-form-control-indicator.react-form-input.react-form-radio, .react-form-control-indicator.react-form-input.react-form-checkbox{
-  height: 0px;
-}
-
-@media screen and (max-width: 768px){
-  .d-inline-block{
+.d-inline-block {
+    display: flex;
+    float: left;
+    flex-direction: row-reverse;
     font-size: 55%;
-  }
-  .checkbox-grid li{
-    width: 50%;
-  }
-  .cancellation-item{
-    font-size: 45%;
-  }
 }
 
-@media screen and (max-width: 350px){
-  .d-inline-block{
-    font-size: 45%;
-  }
-  .cancellation-item{
-    font-size: 40%;
-  }
+.react-form-control-indicator.react-form-input.react-form-radio,
+.react-form-control-indicator.react-form-input.react-form-checkbox {
+    height: 0px;
 }
 
+@media screen and (max-width: 768px) {
+    .d-inline-block {
+        font-size: 55%;
+    }
+    .checkbox-grid li {
+        width: 50%;
+    }
+    .cancellation-item {
+        font-size: 45%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .d-inline-block {
+        font-size: 45%;
+    }
+    .cancellation-item {
+        font-size: 40%;
+    }
+}
 
 .inline {
     display: inline-flex;
     width: 100%;
 }
 
-.react-form-input{
+.react-form-input {
     width: 100%;
     height: 35px;
 }
@@ -90,50 +95,71 @@ label {
     padding: 1vh;
 }
 
-.input-div-checkbox, .input-div-hours {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.input-div-checkbox,
+.input-div-hours {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#submit, #dashboard-btn {
-   background-color: #ed7b22;
-   border-color: #ed7b22;
-   width: 100%;
-   font-weight: bold;
+.btn-orange {
+    background-color: #ed7b22;
+    border-color: #ed7b22;
+    font-weight: bold;
+    color: #fff;
 }
 
+#submit {
+    width: 100%;
+    margin: auto;
+}
+
+#go {
+    border: 2px solid #788d25;
+    border-radius: 20px;
+    background-color: #788d25;
+    color: #fff;
+    margin: 5% auto;
+    width: 30%;
+    height: 50px;
+    font-size: 18px;
+}
+
+#go:hover {
+    color: #788d25;
+    background-color: #fff;
+}
 
 #dashboard-btn {
-  width: 80%;
+    width: 80%;
 }
 
-#submit:hover, #dashboard-btn:hover {
-  background-color: #fff;
-  color: #ed7b22;
+.btn-orange:hover {
+    background-color: #fff;
+    color: #ed7b22;
 }
 
- #logout {
-  width: 50%;
-  font-weight: bold;  
- }
+#logout {
+    width: 50%;
+    font-weight: bold;
+}
 
- #logout:hover {
-  background-color: #fff;
-  color: red;
-  width: 50%;
-  font-weight: bold;  
- }
+#logout:hover {
+    background-color: #fff;
+    color: red;
+    width: 50%;
+    font-weight: bold;
+}
 
 .react-form-message {
-	margin-bottom: 1rem;
-	display: block;
-  }
+    margin-bottom: 1rem;
+    display: block;
+}
 
-  .react-form-message-error {
-	color: #c32128;
-  }
+.react-form-message-error {
+    color: #c32128;
+}
 
-  .react-form-message-warning {
-	color: #c32128;
-  }
+.react-form-message-warning {
+    color: #c32128;
+}

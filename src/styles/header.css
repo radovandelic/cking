@@ -13,6 +13,7 @@ nav {
     margin: 0;
     border: solid 1px #484848;
     color: #484848;
+    background-color: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.40);
 }
 
@@ -40,4 +41,24 @@ nav {
 .nav-link-orange:hover {
     background-color: #fff;
     color: #ed7b22;
+}
+
+@media screen and (max-width: 600px) {
+    .nav-link {
+        margin: 0;
+        box-shadow: 0;
+        border-radius: 0;
+        width: 100%;
+        text-align: left;
+        background-color: #ed7b22;
+        color: #fff;
+    }
+    .nav-link:hover {
+        color: #ed7b22;
+        background-color: #fff;
+    }
+    .navbar-right>li>a {
+        padding: 0;
+        box-shadow: 0;
+    }
 }

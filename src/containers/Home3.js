@@ -11,23 +11,29 @@ export default () => {
             Trouver du personnel <br />
             Trouver des experts <br />
         </div>
-        <div id="mainselection" >
+        <div className="select left">
             <select>
-                <option>Ville/Region</option>
+                <option>--Ville/Region--</option>
                 <option>Bruxelles</option>
                 <option>Brabant</option>
                 <option>Antwerpen</option>
             </select>
-        </div> &nbsp;&nbsp;&nbsp;
-
-            <div id="mainselection" >
+            <div className="select_arrow">
+            </div>
+        </div>
+        <div className="select">
             <select>
-                <option>Espace de cuisine</option>
+                <option>--Espace de cuisine--</option>
                 <option>Kitchen</option>
                 <option>Cook</option>
                 <option>Consultant</option>
             </select>
+            <div className="select_arrow">
+            </div>
         </div>
+        <a>
+            <button className="btn btn-warning" id="go">Go</button>
+        </a>
     </div>
     );
 }

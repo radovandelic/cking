@@ -1,5 +1,4 @@
 import React from 'react';
-import { Tabs } from '../components';
 import '../styles/bg2.css';
 
 export default () => {

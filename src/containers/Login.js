@@ -28,7 +28,7 @@ class StyledForm extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
+                if (/*submittedValues.rememberMe &&*/ typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", JSON.stringify(data.user));
                 }
@@ -55,7 +55,7 @@ class StyledForm extends Component {
                             <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
                         </div>
                         <div className="input-div" >
-                            <button id="submit" type="submit" className="mb-4 btn btn-warning">Login</button>
+                            <button id="submit" type="submit" className="mb-4 btn btn-orange">Login</button>
                         </div>
                     </form>
                 )}

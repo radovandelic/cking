@@ -129,7 +129,7 @@ class StyledForm extends Component {
                             <StyledText type="password" field="password" id="password" />
                         </div>
                         <div className="input-div" >
-                            <button id="submit" type="submit" className="mb-4 btn btn-warning">Register</button>
+                            <button id="submit" type="submit" className="mb-4 btn btn-orange">Register</button>
                         </div>
                     </form>
                 )}
