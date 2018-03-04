@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import './styles/res/css/language-selector.css';
 import './styles/App.css';
 import { Header, Footer } from './components';
-import { Register, Login, Home2, Dashboard, RegisterKitchen, ImageUpload } from './containers';
+import { Register, Login, Home2, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen } from './containers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -23,6 +23,8 @@ class App extends Component {
                   <Route exact path="/registerkitchen" component={RegisterKitchen} />
                   <Route exact path="/uploadimage" component={ImageUpload} />
                   <Route exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/browse" component={Browse} />
+                  <Route exact path="/kitchenid" component={Kitchen} />
                 </div>
               </div>
             </div>

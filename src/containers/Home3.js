@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/bg2.css';
 
 export default () => {
@@ -31,9 +32,9 @@ export default () => {
             <div className="select_arrow">
             </div>
         </div>
-        <a>
-            {/* <button className="btn" id="go">Go</button> */}
-        </a>
+        <Link to="/browse">
+            <button className="btn" id="go">Go</button>
+        </Link>
     </div>
     );
 }

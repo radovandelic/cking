@@ -35,7 +35,6 @@ class StyledForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: "pending",
             overlay: "overlay",
             redirect: false,
             popup: {
@@ -154,7 +153,7 @@ class StyledForm extends Component {
         }
         this.setState({ overlay: "overlay on" })
         fetch(url, query)
-            .then(res => res.json() || res.text())
+            .then(res => res.json())
             .then(data => {
                 window.localStorage.setItem("mykitchen", JSON.stringify(data));
                 this.setState({
@@ -179,8 +178,8 @@ class StyledForm extends Component {
     }
     render = () => {
         return (
-            this.state.redirect ?
-                <Redirect push to={this.state.redirect} />
+            this.state.redirect
+                ? <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
@@ -192,11 +191,11 @@ class StyledForm extends Component {
                             <form onSubmit={formApi.submitForm} id="form2" className="form-container">
                                 <h4>Formulaire location de cuisine</h4>
                                 <p style={{ textAlign: "justify" }}> Vous cherchez à diminuer vos frais fixes et augmenter votre rentabilité ?
-                    <br />
+                                <br />
                                     Louez votre cuisine les moments durant laquelle vous ne l'utilisez pas !<br />
                                     Merci de remplir ce formulaire pour nous aider à publier votre annonce.<br />
                                     Ce petit formulaire ne vous engage en rien, il nous permet tout simplement d'obtenir des informations complémentaires sur votre bien.
-                            <br /><br />
+                                <br /><br />
 
                                     Si vous avez une question, contactez nous au 02.223/10.37<br />
                                     Ou bien sur <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
