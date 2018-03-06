@@ -34,12 +34,13 @@ label {
 }
 
 .checkbox-grid li {
-    width: 33%;
+    width: 50%;
 }
 
 .radio-grid li {
     width: 100%;
     padding-left: 0;
+    margin: 2px;
 }
 
 .react-form-control-radio {
@@ -51,33 +52,13 @@ label {
     display: flex;
     float: left;
     flex-direction: row-reverse;
-    font-size: 55%;
+    font-size: 75%;
+    font-weight: 500;
 }
 
 .react-form-control-indicator.react-form-input.react-form-radio,
 .react-form-control-indicator.react-form-input.react-form-checkbox {
     height: 0px;
-}
-
-@media screen and (max-width: 768px) {
-    .d-inline-block {
-        font-size: 55%;
-    }
-    .checkbox-grid li {
-        width: 50%;
-    }
-    .cancellation-item {
-        font-size: 45%;
-    }
-}
-
-@media screen and (max-width: 350px) {
-    .d-inline-block {
-        font-size: 45%;
-    }
-    .cancellation-item {
-        font-size: 40%;
-    }
 }
 
 .inline {
@@ -165,4 +146,36 @@ label {
 
 .react-form-message-warning {
     color: #c32128;
+}
+
+.react-form-control>input[type="checkbox"],
+.react-form-control>input[type="radio"] {
+    margin: 0 6px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .d-inline-block {
+        font-size: 55%;
+    }
+    .cancellation-item {
+        font-size: 45%;
+    }
+    label.react-form-control.react-form-control-checkbox.d-inline-block,
+    label.react-form-control.react-form-control-radio.d-inline-block {
+        padding: 2px;
+        margin-bottom: 2px;
+    }
+    .react-form-control>input[type="checkbox"],
+    .react-form-control>input[type="radio"] {
+        margin: -2px 5px 0;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .d-inline-block {
+        font-size: 45%;
+    }
+    .cancellation-item {
+        font-size: 40%;
+    }
 }
