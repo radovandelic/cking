@@ -27,7 +27,8 @@ nav {
     background-color: #484848;
 }
 
-.nav-link-grey {
+.nav-link-grey,
+.nav-link-grey:focus {
     color: #fff;
     background-color: #484848;
 }
@@ -37,7 +38,8 @@ nav {
     color: #484848;
 }
 
-.nav-link-orange {
+.nav-link-orange,
+.nav-link-orange:focus {
     background-color: #ed7b22;
     color: #fff;
     border: solid 1px #ed7b22;

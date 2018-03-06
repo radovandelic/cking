@@ -102,11 +102,17 @@ label {
     justify-content: center;
 }
 
-.btn-orange {
+.btn-orange,
+.btn-orange:focus {
     background-color: #ed7b22;
     border-color: #ed7b22;
     font-weight: bold;
     color: #fff;
+}
+
+.btn-orange:hover {
+    background-color: #fff;
+    color: #ed7b22;
 }
 
 #submit {
@@ -134,11 +140,6 @@ label {
 
 #dashboard-btn {
     width: 80%;
-}
-
-.btn-orange:hover {
-    background-color: #fff;
-    color: #ed7b22;
 }
 
 #logout {
