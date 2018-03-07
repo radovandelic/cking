@@ -1,8 +1,9 @@
 .form-container,
-.dashoard-container {
+.dashoard-container,
+.images-container {
     max-width: 600px;
     width: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -10,6 +11,23 @@
     background: #F9F9F9;
     padding: 20px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.images-container {
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.images-container>div {
+    display: inline-flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.images-container>div>div {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -123,12 +141,16 @@ label {
     width: 80%;
 }
 
-#logout {
+#logout,
+#logout:focus,
+#delete,
+#delete:focus {
     width: 50%;
     font-weight: bold;
 }
 
-#logout:hover {
+#logout:hover,
+#delete:hover {
     background-color: #fff;
     color: red;
     width: 50%;
@@ -151,6 +173,17 @@ label {
 .react-form-control>input[type="checkbox"],
 .react-form-control>input[type="radio"] {
     margin: 0 6px 0;
+}
+
+.uploaded-message {
+    color: #788d25;
+    font-weight: 600;
+}
+
+.upload-thumb {
+    max-height: 40vh;
+    max-width: 95%;
+    margin: 5px;
 }
 
 @media screen and (max-width: 768px) {

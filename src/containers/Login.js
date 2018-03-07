@@ -58,10 +58,18 @@ class StyledForm extends Component {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", JSON.stringify(data.user));
                 }
-                this.setState({ redirect: "/dashboard" })
+                url = `/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
+                return fetch(url, { method: 'POST', headers: headers })
+            })
+            .then(response => response.json())
+            .then(kitchen => {
+                if (/*submittedValues.rememberMe &&*/ typeof (Storage) !== undefined) {
+                    console.log(kitchen);
+                    window.localStorage.setItem("mykitchen", JSON.stringify(kitchen.id));
+                    this.setState({ redirect: "/dashboard" });
+                }
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
-        //.catch(err => console.log(err));
     }
     render = () => {
         return (

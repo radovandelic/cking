@@ -55,8 +55,8 @@ class StyledForm extends Component {
         const validateAddress = (address) => {
             return !address ? 'Adresse du bien est requis' : null;
         };
-        const validateAFSCA = (AFSCA) => {
-            return !AFSCA ? "Numéro d'unité d'établissement est requis" : null;
+        const validateVAT = (VAT) => {
+            return !VAT ? "Numéro de TVA est requis" : null;
         };
         const validateSize = (size) => {
             return !size ? "Superficie du bien est requis" : null;
@@ -68,7 +68,7 @@ class StyledForm extends Component {
             type: validateType(values.type),
             phone: validatePhone(values.phone),
             address: validateAddress(values.address),
-            AFSCA: validateAFSCA(values.AFSCA),
+            VAT: validateVAT(values.VAT),
             size: validateSize(values.size),
             price: validatePrice(values.price)
         };
@@ -79,30 +79,21 @@ class StyledForm extends Component {
         const validateSize = (size) => {
             return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
         };
+        const validateVAT = (VAT) => {
+            return VAT && (VAT.length !== 13) ? 'TVA non valide' : null;
+        };
         const validatePrice = (price) => {
             return price && (price < 5 || price > 200) ? 'Prix non valide' : null;
         };
         const validateRent = (rent) => {
-            return rent && (rent < 200 || rent > 20000 || isNaN(rent)) ? 'Prix non valide' : null;
+            return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? 'Prix non valide' : null;
         };
 
         return {
             size: validateSize(values.size),
+            VAT: validateVAT(values.VAT),
             price: validatePrice(values.price),
             rent: validateRent(values.rent)
-        };
-    }
-
-    successValidator = (values, errors) => {
-        const validateEmail = () => {
-            return !errors.email ? '' : null;
-        };
-        const validatePassword = () => {
-            return !errors.password ? '' : null;
-        };
-        return {
-            email: validateEmail(values.email),
-            password: validatePassword(values.password)
         };
     }
 
@@ -155,7 +146,7 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                window.localStorage.setItem("mykitchen", JSON.stringify(data));
+                window.localStorage.setItem("mykitchen", data.id);
                 this.setState({
                     overlay: "overlay on",
                     popup: {
@@ -231,15 +222,15 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="size">Superficie du bien (en m2)</label>
-                                    <StyledText type="number" field="size" id="size" />
+                                    <StyledText type="number" field="size" id="size" min="1" max="2000" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="AFSCA">Numéro d'unité d'établissement (AFSCA)</label>
-                                    <StyledText type="number" field="AFSCA" id="AFSCA" />
+                                    <StyledText type="text" field="AFSCA" id="AFSCA" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="VAT">Numéro de TVA</label>
-                                    <StyledText type="number" field="VAT" id="VAT" />
+                                    <StyledText type="number" field="VAT" id="VAT" min="1000000000000" max="9999999999999" />
                                 </div>
                                 <label htmlFor="hours">Heures de disponibilité</label>
                                 <div className="input-div-hours" >
@@ -253,11 +244,11 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="price">Prix à l'heure (HTVA)</label>
-                                    <StyledText type="number" field="price" id="price" />
+                                    <StyledText type="number" field="price" id="price" min="5" max="200" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="rent">Prix au mois pour un entrepreneur (une équipe de 2 personnes max) (HTVA)</label>
-                                    <StyledText type="number" field="rent" id="rent" />
+                                    <StyledText type="number" field="rent" id="rent" min="100" max="20000" />
                                 </div>
                                 <label htmlFor="equipment">Equipements disponibles:</label>
                                 <div className="input-div-checkbox" >
@@ -324,7 +315,7 @@ class StyledForm extends Component {
                                     <StyledRadioGroup field="cancellation" >
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="fexible" id="fexible" label="Flexible: remboursement à hauteur de 50% jusqu'à 48h avant la réservation" className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="flexible" id="fexible" label="Flexible: remboursement à hauteur de 50% jusqu'à 48h avant la réservation" className="d-inline-block cancellation-item" /> </li>
                                                 <li> <StyledRadio group={group} value="moderate" id="moderate" label="Modérée: Remboursement à hauteur de 50% jusqu'à 7 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
                                                 <li> <StyledRadio group={group} value="strict" id="strict" label="Stricte: Remboursement à hauteur de 50% jusqu'à 30 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
                                             </ul>
