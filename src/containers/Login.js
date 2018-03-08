@@ -59,13 +59,12 @@ class StyledForm extends Component {
                     window.localStorage.setItem("user", JSON.stringify(data.user));
                 }
                 url = `/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
-                return fetch(url, { method: 'POST', headers: headers })
+                return fetch(url, { method: 'GET', headers: headers })
             })
             .then(response => response.json())
             .then(kitchen => {
                 if (/*submittedValues.rememberMe &&*/ typeof (Storage) !== undefined) {
-                    console.log(kitchen);
-                    window.localStorage.setItem("mykitchen", JSON.stringify(kitchen.id));
+                    window.localStorage.setItem("mykitchen", kitchen.id);
                     this.setState({ redirect: "/dashboard" });
                 }
             })
