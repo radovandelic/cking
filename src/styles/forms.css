@@ -119,24 +119,6 @@ label {
     margin: auto;
 }
 
-#go {
-    border: 2px solid #788d25;
-    border-radius: 20px;
-    background-color: #788d25;
-    color: #fff;
-    margin: 10px auto;
-    width: 30%;
-    height: 40px;
-    font-size: 20px;
-    font-weight: 500;
-    padding-top: 4px;
-}
-
-#go:hover {
-    color: #788d25;
-    background-color: #fff;
-}
-
 #dashboard-btn {
     width: 80%;
 }
@@ -184,6 +166,11 @@ label {
     max-height: 40vh;
     max-width: 95%;
     margin: 5px;
+}
+
+.btn.btn-orange.inline {
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 768px) {

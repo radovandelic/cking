@@ -79,11 +79,8 @@ class StyledForm extends Component {
         const validateSize = (size) => {
             return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
         };
-        const validateVAT = (VAT) => {
-            return VAT && (VAT.length !== 13) ? 'TVA non valide' : null;
-        };
         const validatePrice = (price) => {
-            return price && (price < 5 || price > 200) ? 'Prix non valide' : null;
+            return price && (price < 15 || price > 200) ? 'Prix non valide' : null;
         };
         const validateRent = (rent) => {
             return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? 'Prix non valide' : null;
@@ -91,7 +88,6 @@ class StyledForm extends Component {
 
         return {
             size: validateSize(values.size),
-            VAT: validateVAT(values.VAT),
             price: validatePrice(values.price),
             rent: validateRent(values.rent)
         };
@@ -100,8 +96,7 @@ class StyledForm extends Component {
     shapeData = (submittedValues) => {
         submittedValues.events = Boolean(submittedValues.events) || undefined;
         submittedValues.size = Number(submittedValues.size);
-        submittedValues.AFSCA = Number(submittedValues.AFSCA);
-        submittedValues.VAT = Number(submittedValues.VAT) || undefined;
+        submittedValues.AFSCA = submittedValues.AFSCA || undefined;
         submittedValues.price = Number(submittedValues.price);
         submittedValues.rent = Number(submittedValues.rent) || undefined;
         submittedValues.capacity = Number(submittedValues.capacity) || undefined;
@@ -113,7 +108,8 @@ class StyledForm extends Component {
         }
         submittedValues.equipment = {}
         submittedValues.staff = {}
-        submittedValues.staff = {}
+
+        //place equipment booleans inside equipment object
         for (let e of equipment) {
             if (submittedValues[e]) {
                 submittedValues.equipment[e] = submittedValues[e];
@@ -121,6 +117,7 @@ class StyledForm extends Component {
             }
         }
 
+        //place staff booleans inside staff object
         for (let s of staff) {
             if (submittedValues[s]) {
                 submittedValues.staff[s] = submittedValues[s];
@@ -230,7 +227,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="VAT">Numéro de TVA</label>
-                                    <StyledText type="number" field="VAT" id="VAT" min="1000000000000" max="9999999999999" />
+                                    <StyledText type="text" field="VAT" id="VAT" min="1000000000000" max="9999999999999" />
                                 </div>
                                 <label htmlFor="hours">Heures de disponibilité</label>
                                 <div className="input-div-hours" >

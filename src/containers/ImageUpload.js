@@ -66,8 +66,7 @@ class StyledForm extends Component {
         }
         return (<div>
             <Form
-                onSubmit={this.submit}
-                defaultValues={{ rememberMe: true }}>
+                onSubmit={this.submit}>
                 {formApi => (
                     <div>
                         <form onSubmit={formApi.submitForm} id="form2" className="form-container">

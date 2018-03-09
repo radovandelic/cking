@@ -7,6 +7,10 @@ nav {
     border-color: #fff;
 }
 
+.logo {
+    height: 40px;
+}
+
 .navbar-header,
 .navbar-right>li>a {
     padding: 5px 3px;
