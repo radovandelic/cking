@@ -11,7 +11,7 @@ export default () => {
                 </li>
 
                 <li >
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.co-oking.be/contact/">Contact</a>
+                    <a href="#contact">Contact</a>
                 </li>
             </ul></footer>
     )

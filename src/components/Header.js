@@ -45,7 +45,7 @@ export default () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="https://www.co-oking.be/contact/" target="_blank" rel="noopener noreferrer" onClick={toggleMenu}>
+                                    <a href="#contact" onClick={toggleMenu}>
                                         <button className="btn navbar-btn nav-link nav-link-grey">
                                             Contact
                                         </button>
@@ -69,7 +69,7 @@ export default () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a href="https://www.co-oking.be/contact/" target="_blank" rel="noopener noreferrer" onClick={toggleMenu}>
+                                    <a href="#contact" onClick={toggleMenu}>
                                         <button className="btn navbar-btn nav-link nav-link-grey">
                                             Contact
                                         </button>

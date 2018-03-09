@@ -1,42 +1,65 @@
 .home-container {
-    margin: auto;
+    margin: 0 auto;
     text-align: center;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
 }
 
 .home-block-1 {
     color: #fff;
-    margin: 50px auto;
-    max-width: 1200px;
-    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 100px 0;
+    height: calc(100vh - 50px);
 }
 
 .home-block-2 {
     background-color: #fff;
     color: #ed7b22;
-    padding: 50px;
     margin: 0;
+    padding: 50px;
 }
 
 .home-block-3 {
     background-color: #f0f3f5;
     color: #ed7b22;
-    padding: 50px;
     margin: 0;
+    padding: 50px;
+}
+
+.home-block-4 {
+    background-color: #fff;
+    color: #ed7b22;
+    margin: 0;
+    margin-bottom: -50px;
+    padding: 50px 0;
+}
+
+.home-title {
+    margin: 10px;
 }
 
 .home-description {
-    margin: 50px;
+    margin: 40px;
 }
 
 .home-inline {
     display: inline-flex;
     justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
 }
 
 .inline-element {
-    width: 25%;
-    max-width: 250px;
-    overflow-wrap: break-word;
+    width: 33%;
+    max-width: 200px;
+    margin: 20px;
+}
+
+#contact>.inline-element {
+    width: 50%;
+    max-width: 300px;
 }
 
 .select {
@@ -124,6 +147,11 @@
     background-color: #fff;
 }
 
+.input-div>div>input,
+.input-div>textarea {
+    color: #000;
+}
+
 @media screen and (max-width: 600px) {
     .select select {
         font-size: 11px;
@@ -142,8 +170,16 @@
         display: flex;
         flex-direction: column;
     }
-    .inline-element {
+    .inline-element,
+    #contact>.inline-element {
         width: 100%;
+        margin: 20px auto;
+    }
+    #contact>.inline-element>img {
+        display: none;
+    }
+    .inline-element>p {
+        font-size: 12px;
     }
     #go {
         width: 100%;

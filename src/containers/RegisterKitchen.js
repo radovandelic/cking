@@ -339,7 +339,7 @@ class StyledForm extends Component {
                                     </div>
                                 ) : null}
                                 <div className="input-div" >
-                                    <button id="submit" type="submit" className="mb-4 btn btn-orange">Register Kitchen</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">Register Kitchen</button>
                                 </div>
                                 <div id="header_spacing"></div>
                             </form>

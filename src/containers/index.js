@@ -7,5 +7,9 @@ import Dashboard from './Dashboard';
 import Browse from './Browse';
 import Kitchen from './Kitchen';
 import ImageUpload from './ImageUpload';
+import ContactForm from './ContactForm';
 
-export { Home, Login, Register, RegisterKitchen, UpdateKitchen, Dashboard, ImageUpload, Browse, Kitchen }
+export {
+    Home, Login, Register, RegisterKitchen, UpdateKitchen, Dashboard, ImageUpload, Browse, Kitchen,
+    ContactForm
+}

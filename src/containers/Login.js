@@ -93,7 +93,7 @@ class StyledForm extends Component {
                                     <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
                                 </div>
                                 <div className="input-div" >
-                                    <button id="submit" type="submit" className="mb-4 btn btn-orange">Login</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">Login</button>
                                 </div>
                             </form>
                         )}

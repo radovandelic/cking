@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ContactForm } from '.'
+
 import '../styles/home.css';
 
 export default () => {
     return (<div className="home-container">
-        <div className="home-block-1">
+        <div className="home-block-1" id="top">
             <div className="home-title">
                 <h1>Louez une cuisine près de chez vous, facilement</h1>
             </div>
@@ -67,6 +69,18 @@ export default () => {
                     <h1>03</h1>
                     <p><b>Vous cuisinez</b></p>
                     <p>Vous réalisez votre production dans des conditions optimales</p>
+                </div>
+            </div>
+        </div>
+        <div className="home-block-4" id="contact">
+            <div className="home-inline home-contact" id="contact">
+                <div className="inline-element">
+                    <p><b>Des questions sur notre fonctionnement ? </b></p>
+                    <img src="/img/contact.png" alt="contact" />
+                </div>
+                <div className="inline-element">
+                    <ContactForm />
+
                 </div>
             </div>
         </div>
