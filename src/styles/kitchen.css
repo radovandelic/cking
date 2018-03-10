@@ -2,11 +2,7 @@
 .listing-container {
     max-width: 1200px;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0vh auto;
+    margin: 50px auto;
     background: #F9F9F9;
     padding: 20px 50px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);

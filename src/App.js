@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-//import './styles/flatter-child/style.css';
-//import './styles/res/css/language-selector.css';
 import './styles/App.css';
 import { Header, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
-  UpdateKitchen
+  UpdateKitchen, ContactForm
 } from './containers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
-  render() {
+  render = () => {
     return (
       <Router>
-        <div className="App">
+        <div className="App text-center">
           <Header />
           <main>
             <div id="header_spacing"></div>
@@ -28,6 +26,16 @@ class App extends Component {
             {/* <Route exact path="/updatekitchen/:id" component={UpdateKitchen} /> */}
           </main>
           <Footer />
+          <div className="contact-overlay" id="contact">
+            <div className="contact-form" >
+              <a className="close" href="#home">&times;</a>
+              <div className="input-div">
+                <br />
+                <p><b>Des questions sur notre fonctionnement ? </b></p>
+              </div>
+              <ContactForm />
+            </div>
+          </div>
         </div>
       </Router>
     );

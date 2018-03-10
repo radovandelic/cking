@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, StyledText, TextArea } from 'react-form';
 import "../styles/forms.css";
+import "../styles/contact.css"
 import { Popup } from '../components';
 
+var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
 var successTitle = "Message sent"
 var successMessage =
@@ -27,7 +29,32 @@ class StyledForm extends Component {
             }
         };
     }
+    errorValidator = (values) => {
+        const validateEmail = (email) => {
+            return !email ? 'email est requis' : null;
+        };
+        const validateMessage = (message) => {
+            return !message ? 'message is required' : null;
+        };
+        return {
+            email: validateEmail(values.email),
+            message: validateMessage(values.message)
+        };
+    }
 
+    warningValidator = (values) => {
+        const validateEmail = (email) => {
+            return email && !regex.test(email) ? 'email invalide' : null;
+        };
+        const validateMessage = (message) => {
+            return message && message.length < 10 ? 'Message is too short.' : null;
+        };
+
+        return {
+            email: validateEmail(values.email),
+            message: validateMessage(values.message)
+        };
+    }
     submit = (submittedValues) => {
         let url = '/api/mails/enquiry';
 
@@ -66,8 +93,9 @@ class StyledForm extends Component {
                 :
                 <div>
                     <Form
-                        onSubmit={this.submit}
-                        defaultValues={{ rememberMe: true }}>
+                        validateError={this.errorValidator}
+                        validateWarning={this.warningValidator}
+                        onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2">
                                 <div className="input-div" >

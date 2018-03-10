@@ -3,10 +3,6 @@
 .images-container {
     max-width: 600px;
     width: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
     margin: 50px auto;
     background: #F9F9F9;
     padding: 20px;

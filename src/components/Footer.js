@@ -13,6 +13,7 @@ export default () => {
                 <li >
                     <a href="#contact">Contact</a>
                 </li>
-            </ul></footer>
+            </ul>
+        </footer>
     )
 }
