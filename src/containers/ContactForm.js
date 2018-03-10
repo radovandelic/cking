@@ -94,8 +94,8 @@ class StyledForm extends Component {
     closePopup = () => {
         this.setState({ overlay: "overlay off" }, () => {
             if (this.state.popup.title !== "Error") {
-                document.getElementById("email").value = "";
                 document.getElementById("message").value = "";
+                document.getElementById("email").value = "";
                 window.location.href = "#top";
             }
         }
