@@ -108,7 +108,7 @@ class StyledForm extends Component {
             return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
         };
         const validatePostalCode = (postalCode) => {
-            return postalCode && (postalCode.length !== 4) ? 'Code Postal non valide' : null;
+            return postalCode && (String(postalCode).length !== 4) ? 'Code Postal non valide' : null;
         };
         const validateSize = (size) => {
             return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
