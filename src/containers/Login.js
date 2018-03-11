@@ -109,8 +109,8 @@ class StyledForm extends Component {
                 </div>
 
         )
-
     }
+
     closePopup = () => {
         this.setState({ overlay: "overlay off" });
     }

@@ -7,15 +7,23 @@ import {
 } from './containers';
 import './styles/App.css';
 
+const ScrollToTop = () => {
+  if (window.location.href.indexOf("#") === -1) {
+    window.scrollTo(0, 0);
+  }
+  return null;
+}
+
 class App extends Component {
 
   render = () => {
     return (
-      <Router>
+      <Router onUpdate={() => window.scrollTo(0, 0)} >
         <div className="App text-center">
           <Header />
           <main>
             <div id="header_spacing"></div>
+            <Route component={ScrollToTop} />
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
@@ -23,8 +31,8 @@ class App extends Component {
             <Route exact path="/uploadimage" component={ImageUpload} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/browse" component={Browse} />
-            <Route exact path="/kitchenid" component={Kitchen} />
-            <Route exact path="/updatekitchen/:id" component={UpdateKitchen} />
+            <Route exact path="/updatekitchen" component={UpdateKitchen} />
+            <Route exact path="/listings/kitchens/:id" component={Kitchen} />
           </main>
           <Footer />
           <div className="contact-overlay" id="contact">

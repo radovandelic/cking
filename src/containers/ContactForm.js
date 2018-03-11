@@ -18,7 +18,6 @@ var successMessage =
         You will receive a response soon.
     </p>
 
-
 class StyledForm extends Component {
 
     constructor(props) {
@@ -34,6 +33,7 @@ class StyledForm extends Component {
     }
 
     componentDidMount = () => {
+
         if (!this.props.user.id) {
             let { updateUser } = this.props;
             let user = localStorage.getItem("user");
@@ -109,6 +109,7 @@ class StyledForm extends Component {
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
     }
+
     render = () => {
         return (
             this.state.redirect
@@ -143,6 +144,7 @@ class StyledForm extends Component {
         )
 
     }
+
     closePopup = () => {
         this.setState({ overlay: "overlay off" }, () => {
             if (this.state.popup.title !== "Error") {
@@ -150,8 +152,7 @@ class StyledForm extends Component {
                 document.getElementById("email").value = "";
                 window.location.href = "#top";
             }
-        }
-        );
+        });
     }
 }
 

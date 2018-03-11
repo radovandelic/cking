@@ -1,3 +1,30 @@
+.carousel {
+    height: 100%;
+    width: 70%;
+    background-color: #000;
+    margin: 10px auto;
+}
+
+.listing-container img {
+    margin: 10px auto;
+    height: 360px;
+    overflow: hidden;
+    display: block;
+    width: auto !important;
+    position: static !important;
+}
+
+.listing-container .p img {
+    margin: 0 auto;
+    height: 100%;
+    /* 
+    overflow: hidden;
+    display: block; */
+    width: auto !important;
+    position: static !important;
+}
+
+
 /*jssor slider loading skin spin css*/
 
 .jssorl-009-spin img {
@@ -136,4 +163,10 @@
 .jssort101 .pav .t,
 .jssort101 .p:hover .t {
     opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+    .carousel {
+        width: 90%;
+    }
 }

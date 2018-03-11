@@ -1,11 +1,13 @@
 .thumb-listing-container {
     display: inline-flex;
     margin: 5px;
-    padding: 0;
+    padding: 10px 20px;
     max-width: 600px;
     width: 100%;
     background: #F9F9F9;
     box-shadow: 5px 0 5px 5px rgba(0, 0, 0, 0.40), 0 5px 5px 0 rgba(0, 0, 0, 0.40);
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 .img-thumbnail {
@@ -14,11 +16,18 @@
     padding: 0;
 }
 
+.listing-info {
+    margin: auto;
+}
+
+.listing-info>h3,
+.listing-info>h3:hover,
 .listing-info>h4,
 .listing-info>h4:hover,
 .listing-info>h6,
 .listing-info>h6:hover {
     color: black;
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {
