@@ -22,7 +22,7 @@ let Dashboard = (props) => {
         <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
             <img src={user.picture} alt={user.name} />
-            <br /><br /><Link to={kitchen.id ? `/updatekitchen/${kitchen.id}` : "/registerkitchen"}>
+            <br /><br /><Link to={kitchen.id ? `/updatekitchen` : "/registerkitchen"}>
                 <button id="dashboard-btn" type="submit" className="mb-4 btn btn-orange">{kitchen.id ? "Edit your kitchen listing" : "Create kitchen listing"}</button>
             </Link>
             <br /><br />
