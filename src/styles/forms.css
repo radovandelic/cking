@@ -148,6 +148,10 @@ label {
     color: #c32128;
 }
 
+.react-form-message-success {
+    color: #ed7b22;
+}
+
 .react-form-control>input[type="checkbox"],
 .react-form-control>input[type="radio"] {
     margin: 0 6px 0;

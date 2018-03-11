@@ -102,6 +102,16 @@ class StyledForm extends Component {
         };
     }
 
+    successValidator = (values, errors) => {
+        const validatePrice = () => {
+            return !errors.price ? '* CookWork prend une commission de 10% sur les réservations effectuées sur sa plateforme.' : null;
+        };
+
+        return {
+            price: validatePrice(values.price)
+        };
+    }
+
     shapeData = (submittedValues) => {
         submittedValues.events = Boolean(submittedValues.events) || undefined;
         submittedValues.size = Number(submittedValues.size);
@@ -212,6 +222,7 @@ class StyledForm extends Component {
                     <Form
                         validateError={this.errorValidator}
                         validateWarning={this.warningValidator}
+                        validateSuccess={this.successValidator}
                         defaultValues={kitchen}
                         onSubmit={this.submit}>
                         {formApi => (
