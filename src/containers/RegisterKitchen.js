@@ -139,10 +139,10 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        const { updateKitchen } = this.props;
+        const { updateKitchen, user } = this.props;
         submittedValues = this.shapeData(submittedValues);
-        submittedValues.access_token = window.localStorage.getItem("access_token");
-        let url = 'https://cookwork.be/api/kitchens';
+        submittedValues.access_token = user.access_token;
+        let url = '/api/kitchens';
         let query = {
             headers: {
                 'Accept': 'application/json',
@@ -155,7 +155,7 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                if (window.localStorage.getItem("user")) {
+                if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
                     window.localStorage.setItem("mykitchen",
                         base64.encode(JSON.stringify(data)));
                 }
@@ -377,6 +377,12 @@ class StyledForm extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         updateKitchen: (kitchen) => {
@@ -386,7 +392,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 StyledForm = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(StyledForm)
 
