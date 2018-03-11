@@ -16,6 +16,21 @@ for (let index = 0; index < 25; index++) {
     hourOptions.push({ label: String(index), value: String(index) });
 }
 
+const regionOptions = [
+    {
+        label: "Antwerpen",
+        value: "Antwerpen"
+    },
+    {
+        label: "Brabant",
+        value: "Brabant"
+    },
+    {
+        label: "Bruxelles",
+        value: "Bruxelles"
+    }
+]
+
 const equipment = [
     "parking", "toilets", "fridge", "bainMarie", "mixer", "electronicCashier", "coolingCell", "nColdRoom",
     "pColdRoom", "etuve", "extraction", "oven", "pizzaOven", "fryer", "grill", "juicer", "pastaMachine",
@@ -62,6 +77,12 @@ class StyledForm extends Component {
         const validateAddress = (address) => {
             return !address ? 'Adresse du bien est requis' : null;
         };
+        const validatePostalCode = (postalCode) => {
+            return !postalCode ? 'Code Postal est requis' : null;
+        };
+        const validateRegion = (region) => {
+            return !region ? 'Region est requis' : null;
+        };
         const validateVAT = (VAT) => {
             return !VAT ? "Numéro de TVA est requis" : null;
         };
@@ -76,6 +97,8 @@ class StyledForm extends Component {
             type: validateType(values.type),
             phone: validatePhone(values.phone),
             address: validateAddress(values.address),
+            postalCode: validatePostalCode(values.postalCode),
+            region: validateRegion(values.region),
             VAT: validateVAT(values.VAT),
             size: validateSize(values.size),
             price: validatePrice(values.price)
@@ -86,6 +109,9 @@ class StyledForm extends Component {
 
         const validateName = (name) => {
             return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
+        };
+        const validatePostalCode = (postalCode) => {
+            return postalCode && (postalCode.length !== 4) ? 'Code Postal non valide' : null;
         };
         const validateSize = (size) => {
             return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
@@ -99,6 +125,7 @@ class StyledForm extends Component {
 
         return {
             name: validateName(values.name),
+            postalCode: validatePostalCode(values.postalCode),
             size: validateSize(values.size),
             price: validatePrice(values.price),
             rent: validateRent(values.rent)
@@ -242,6 +269,15 @@ class StyledForm extends Component {
                                 <div className="input-div" >
                                     <label htmlFor="address">Adresse du bien</label>
                                     <StyledText type="text" field="address" id="address" />
+                                </div>
+                                <div className="input-div" >
+                                    <label htmlFor="postalcode">Code postal</label>
+                                    <StyledText type="number" field="postalCode" id="postalcode" min="1000" max="9999" />
+                                </div>
+                                <div className="input-div" >
+                                    <label htmlFor="region">Ville/Region</label>
+                                    <StyledSelect type="text" field="region" id="region"
+                                        options={regionOptions} defaultValue="Bruxelles" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="size">Superficie du bien (en m2)</label>
