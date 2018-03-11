@@ -1,6 +1,5 @@
 .thumb-listing-container {
-    display: inline-flex;
-    margin: 5px;
+    margin: 5px auto;
     padding: 10px 20px;
     max-width: 600px;
     width: 100%;
@@ -20,12 +19,12 @@
     margin: auto;
 }
 
-.listing-info>h3,
-.listing-info>h3:hover,
-.listing-info>h4,
-.listing-info>h4:hover,
-.listing-info>h6,
-.listing-info>h6:hover {
+.listing-info h3,
+.listing-info h3:hover,
+.listing-info h4,
+.listing-info h4:hover,
+.listing-info h6,
+.listing-info h6:hover {
     color: black;
     text-align: center;
 }
