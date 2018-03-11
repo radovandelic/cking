@@ -77,7 +77,7 @@ class Header extends Component {
                                         </a>
                                     </li>
                                     <li>
-                                        <Link to={this.props.kitchen.id ? "/updatekitchen" : "/registerkitchen"}
+                                        <Link to={this.props.kitchen.id ? `/updatekitchen/${this.props.kitchen.id}` : "/registerkitchen"}
                                             onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
                                                 {this.props.kitchen.id ? "Edit listing" : "Create listing"}
