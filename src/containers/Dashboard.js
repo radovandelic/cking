@@ -30,8 +30,8 @@ let Dashboard = (props) => {
             <br /><br />
             <button id="dashboard-btn" type="submit" className="mb-4 btn btn-orange">Register as consultant</button>
             <br /><br />
-            <button id="dashboard-btn" type="submit" className="mb-4 btn btn-orange">Account Settings</button>
-            <br /><br />
+            {/* <button id="dashboard-btn" type="submit" className="mb-4 btn btn-orange">Account Settings</button>
+            <br /><br /> */}
             <button id="logout" type="submit" onClick={logout} className="mb-4 btn btn-danger">Logout</button>
 
         </div>

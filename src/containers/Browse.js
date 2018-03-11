@@ -43,19 +43,22 @@ class Browse extends Component {
         for (const kitchen of kitchens) {
             listings.push(
                 <div className="thumb-listing-container">
-                    <Link to={`/listings/kitchens/${kitchen.id}`}>
-                        <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/img/no-image.jpg"}
-                            alt={kitchen.name} className="img-thumbnail" />
-                    </Link>
+                    <div className="listing-info">
+                        <Link to={`/listings/kitchens/${kitchen.id}`}>
+                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/img/no-image.jpg"}
+                                alt={kitchen.name} className="img-thumbnail" />
+                        </Link>
+                    </div>
                     <div className="listing-info">
                         <Link to={`/listings/kitchens/${kitchen.id}`}>
                             <h4>{kitchen.name}</h4>
                             <h6>{kitchen.type}</h6>
                             <h4>{kitchen.size} m<sup>2</sup> </h4>
+                            <h3 className="price-m">€{kitchen.price} / h</h3>
                         </Link>
-                        <Link to={`/listings/kitchens/${kitchen.id}`}>{kitchen.address}</Link>
+                        <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>{kitchen.address}</Link>
                     </div>
-                    <div className="listing-info">
+                    <div className="listing-info price">
                         <h3>€{kitchen.price} / h</h3>
                     </div>
                 </div>

@@ -153,6 +153,10 @@
 }
 
 @media screen and (max-width: 600px) {
+    .home-block-1 {
+        width: 90%;
+        height: calc(100vh - 50px);
+    }
     .select select {
         font-size: 11px;
     }

@@ -6,17 +6,20 @@
     background: #F9F9F9;
     box-shadow: 5px 0 5px 5px rgba(0, 0, 0, 0.40), 0 5px 5px 0 rgba(0, 0, 0, 0.40);
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .img-thumbnail {
     height: 100px;
-    margin: 10px 50px 10px 40px;
-    padding: 0;
+    margin: auto;
 }
 
 .listing-info {
-    margin: auto;
+    margin: auto 5px;
+}
+
+.listing-info .price-m {
+    display: none;
 }
 
 .listing-info h3,
@@ -37,5 +40,18 @@
     }
     .thumb-listing-container {
         width: 100%;
+        padding: 5px;
+    }
+    .listing-info h3,
+    .listing-info h4,
+    .listing-info h6 {
+        font-size: 70%;
+    }
+    .listing-info.price,
+    .listing-info .address {
+        display: none;
+    }
+    .listing-info .price-m {
+        display: block;
     }
 }
