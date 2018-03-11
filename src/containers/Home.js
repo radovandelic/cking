@@ -76,11 +76,10 @@ export default () => {
             <div className="home-inline home-contact" id="contact">
                 <div className="inline-element">
                     <p><b>Des questions sur notre fonctionnement ? </b></p>
-                    <img src="/img/contact.png" alt="contact" />
+                    <img src="/static/img/contact.png" alt="contact" />
                 </div>
                 <div className="inline-element">
                     <ContactForm />
-
                 </div>
             </div>
         </div>

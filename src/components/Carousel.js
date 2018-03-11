@@ -25,7 +25,7 @@ export default class App extends Component {
 
             script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "/js/carousel.js";
+            script.src = "/static/js/carousel.js";
             script.async = true;
             document.getElementsByTagName("head")[0].appendChild(script);
         } else {
@@ -50,7 +50,7 @@ export default class App extends Component {
                 <div id="jssor_1" style={{ position: "relative", margin: "0 auto", top: "0px", left: "0px", width: "980px", height: "480px", overflow: "hidden", visibility: "hidden" }}>
                     {/* <!-- Loading Screen --> */}
                     <div data-u="loading" className="jssorl-009-spin" style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", textAlign: "center", backgroundColor: "rgba(0,0,0,0.7)" }}>
-                        <img alt="kitchen" style={{ marginTop: "-19px", position: "relative", top: "50%", width: "38px", height: "38px" }} src="img/carouseltest/spin.svg" />
+                        <img alt="kitchen" style={{ marginTop: "-19px", position: "relative", top: "50%", width: "38px", height: "38px" }} src="/static/img/spin.svg" />
                     </div>
                     <div data-u="slides" style={{ cursor: "default", position: "relative", top: "0px", left: "0px", width: "980px", height: "380px", overflow: "hidden" }}>
                         {this.state.gallery}
