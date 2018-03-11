@@ -34,6 +34,13 @@ class StyledForm extends Component {
 
     componentDidMount = () => {
 
+        if (localStorage.getItem("mykitchen") && localStorage.getItem("mykitchen").length < 25) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('mykitchen');
+            localStorage.removeItem('mykitchen_id');
+        }
+
         if (!this.props.user.id) {
             let { updateUser } = this.props;
             let user = localStorage.getItem("user");
