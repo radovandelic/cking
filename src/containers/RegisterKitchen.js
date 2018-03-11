@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Form, StyledText, TextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
+import base64 from 'base-64';
+import { Popup } from '../components';
+import { updateKitchen } from '../actions'
 import "../styles/forms.css";
-import { Popup } from '../components'
 
 const capacityOptions = [];
 const hourOptions = [];
@@ -46,6 +49,10 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
+
+        const validateName = (name) => {
+            return !name ? 'Nom du bien est requis' : null;
+        };
         const validateType = (type) => {
             return !type ? 'Type de bien est requis' : null;
         };
@@ -65,6 +72,7 @@ class StyledForm extends Component {
             return !price ? "Prix est requis" : null;
         };
         return {
+            name: validateName(values.name),
             type: validateType(values.type),
             phone: validatePhone(values.phone),
             address: validateAddress(values.address),
@@ -76,6 +84,9 @@ class StyledForm extends Component {
 
     warningValidator = (values) => {
 
+        const validateName = (name) => {
+            return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
+        };
         const validateSize = (size) => {
             return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
         };
@@ -87,6 +98,7 @@ class StyledForm extends Component {
         };
 
         return {
+            name: validateName(values.name),
             size: validateSize(values.size),
             price: validatePrice(values.price),
             rent: validateRent(values.rent)
@@ -96,7 +108,6 @@ class StyledForm extends Component {
     shapeData = (submittedValues) => {
         submittedValues.events = Boolean(submittedValues.events) || undefined;
         submittedValues.size = Number(submittedValues.size);
-        submittedValues.AFSCA = submittedValues.AFSCA || undefined;
         submittedValues.price = Number(submittedValues.price);
         submittedValues.rent = Number(submittedValues.rent) || undefined;
         submittedValues.capacity = Number(submittedValues.capacity) || undefined;
@@ -128,9 +139,10 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
+        const { updateKitchen } = this.props;
         submittedValues = this.shapeData(submittedValues);
         submittedValues.access_token = window.localStorage.getItem("access_token");
-        let url = '/api/kitchens';
+        let url = 'https://cookwork.be/api/kitchens';
         let query = {
             headers: {
                 'Accept': 'application/json',
@@ -143,7 +155,11 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                window.localStorage.setItem("mykitchen", data.id);
+                if (window.localStorage.getItem("user")) {
+                    window.localStorage.setItem("mykitchen",
+                        base64.encode(JSON.stringify(data)));
+                }
+                updateKitchen(data);
                 this.setState({
                     overlay: "overlay on",
                     popup: {
@@ -360,5 +376,18 @@ class StyledForm extends Component {
         this.setState({ overlay: 'overlay off', redirect: redirect })
     }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateKitchen: (kitchen) => {
+            dispatch(updateKitchen(kitchen));
+        }
+    }
+}
+
+StyledForm = connect(
+    null,
+    mapDispatchToProps
+)(StyledForm)
 
 export default StyledForm;

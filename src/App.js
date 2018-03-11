@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import './styles/App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
   UpdateKitchen, ContactForm
 } from './containers';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './styles/App.css';
 
 class App extends Component {
+
   render = () => {
     return (
       <Router>
@@ -23,7 +24,7 @@ class App extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/browse" component={Browse} />
             <Route exact path="/kitchenid" component={Kitchen} />
-            {/* <Route exact path="/updatekitchen/:id" component={UpdateKitchen} /> */}
+            <Route exact path="/updatekitchen/:id" component={UpdateKitchen} />
           </main>
           <Footer />
           <div className="contact-overlay" id="contact">

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Form, StyledText, TextArea } from 'react-form';
-import "../styles/forms.css";
-import "../styles/contact.css"
+import base64 from 'base-64';
 import { Popup } from '../components';
+import { updateKitchen, updateUser } from '../actions';
+import "../styles/forms.css";
+import "../styles/contact.css";
 
 var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
@@ -29,6 +32,27 @@ class StyledForm extends Component {
             }
         };
     }
+
+    componentDidMount = () => {
+        if (!this.props.user.id) {
+            let { updateUser } = this.props;
+            let user = localStorage.getItem("user");
+            user = user ? JSON.parse(base64.decode(user)) : null;
+            if (user) {
+                user.access_token = localStorage.getItem("access_token");
+                updateUser(user);
+            }
+
+        }
+
+        if (!this.props.kitchen.id) {
+            let { updateKitchen } = this.props;
+            let mykitchen = localStorage.getItem("mykitchen");
+            mykitchen = mykitchen ? JSON.parse(base64.decode(mykitchen)) : null;
+            if (mykitchen) updateKitchen(mykitchen);
+        }
+    }
+
     errorValidator = (values) => {
         const validateEmail = (email) => {
             return !email ? 'email est requis' : null;
@@ -57,7 +81,6 @@ class StyledForm extends Component {
     }
     submit = (submittedValues) => {
         let url = '/api/mails/enquiry';
-
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
@@ -93,6 +116,7 @@ class StyledForm extends Component {
                 :
                 <div>
                     <Form
+                        defaultValues={{ email: this.props.user.email || "" }}
                         validateError={this.errorValidator}
                         validateWarning={this.warningValidator}
                         onSubmit={this.submit}>
@@ -130,5 +154,29 @@ class StyledForm extends Component {
         );
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+        kitchen: state.kitchen
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateKitchen: (kitchen) => {
+            dispatch(updateKitchen(kitchen));
+        },
+        updateUser: (user) => {
+            dispatch(updateUser(user));
+        }
+    }
+}
+
+StyledForm = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(StyledForm)
 
 export default StyledForm;

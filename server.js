@@ -6,12 +6,15 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
+const morgan = require('morgan');
 
 const app = express()
 const port = 5000;
 const ip = "0.0.0.0";
 const env = "production";
 
+app.use(morgan('dev'))
+app.use(morgan(' - :date[clf] - :remote-addr'))
 app.use(compression())
 app.use(express.static('build'))
 app.get('*', (req, res) => {

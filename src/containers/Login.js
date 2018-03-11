@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-    Form,
-    StyledText, StyledCheckbox
-} from 'react-form';
-import "../styles/forms.css";
+import { Form, StyledText, StyledCheckbox } from 'react-form';
+import { connect } from 'react-redux';
 import base64 from 'base-64';
 import { Popup } from '../components';
+import { updateKitchen, updateUser } from '../actions';
+import "../styles/forms.css";
 
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
@@ -26,7 +25,8 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        let url = '/api/auth';
+        let { updateKitchen, updateUser } = this.props;
+        let url = 'https://cookwork.be/api/auth';
         let username = submittedValues.email;
         let password = submittedValues.password;
 
@@ -56,19 +56,25 @@ class StyledForm extends Component {
             .then(data => {
                 if (/*submittedValues.rememberMe &&*/ typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
-                    window.localStorage.setItem("user", JSON.stringify(data.user));
+                    window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
                 }
-                url = `/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
+                data.user.access_token = data.token;
+                updateUser(data.user);
+                url = `https://cookwork.be/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
                 return fetch(url, { method: 'GET', headers: headers })
             })
             .then(response => response.json())
             .then(kitchen => {
                 if (/*submittedValues.rememberMe &&*/ typeof (Storage) !== undefined) {
-                    window.localStorage.setItem("mykitchen", kitchen.id);
-                    this.setState({ redirect: "/dashboard" });
+                    window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(kitchen)));
                 }
+                updateKitchen(kitchen);
+                this.setState({ redirect: "/dashboard" });
             })
-            .catch(err => this.setState({ overlay: "overlay on" }));
+            .catch(err => {
+                if (!this.props.user.id) this.setState({ overlay: "overlay on" })
+                else this.setState({ redirect: "/dashboard" })
+            });
     }
     render = () => {
         return (
@@ -109,5 +115,27 @@ class StyledForm extends Component {
         this.setState({ overlay: "overlay off" });
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateKitchen: (kitchen) => {
+            dispatch(updateKitchen(kitchen));
+        },
+        updateUser: (user) => {
+            dispatch(updateUser(user));
+        }
+    }
+}
+
+StyledForm = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(StyledForm)
 
 export default StyledForm;

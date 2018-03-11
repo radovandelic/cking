@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {
-    Form
-} from 'react-form';
+import { connect } from 'react-redux';
+import { Form } from 'react-form';
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -14,9 +13,8 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        let id = localStorage.getItem('mykitchen');
-        let access_token = localStorage.getItem('access_token');
-        let url = `/api/kitchens/${id}/images/upload`;
+        const { kitchen, user } = this.props;
+        let url = `/api/kitchens/${kitchen.id}/images/upload`;
 
         fetch(url, {
             method: 'PUT',
@@ -25,7 +23,7 @@ class StyledForm extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                access_token,
+                access_token: user.access_token,
                 image: this.state.image
             })
         })
@@ -50,12 +48,16 @@ class StyledForm extends Component {
             });
         };
 
+        reader.onerror = (err) => {
+            console.log(err);
+            this.setState({ message: "Error reading file." })
+        }
         reader.readAsDataURL(file);
     }
 
     render = () => {
         if (this.state.images) {
-            var images = []
+            var images = [];
             for (let image of this.state.images) {
                 images.push(<div>
                     <img src={image.thumbnail} alt={this.state.kitchenName} />
@@ -105,5 +107,15 @@ class StyledForm extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+StyledForm = connect(
+    mapStateToProps,
+    null
+)(StyledForm)
 
 export default StyledForm;
