@@ -45,7 +45,7 @@ class Browse extends Component {
                 <div className="thumb-listing-container">
                     <div className="listing-info">
                         <Link to={`/listings/kitchens/${kitchen.id}`}>
-                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/img/no-image.jpg"}
+                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/img/no-image.jpg"}
                                 alt={kitchen.name} className="img-thumbnail" />
                         </Link>
                     </div>
