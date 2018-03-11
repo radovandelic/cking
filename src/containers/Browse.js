@@ -19,7 +19,7 @@ class Browse extends Component {
         };
     }
     componentDidMount = () => {
-        let url = 'https://cookwork.be/api/kitchens';
+        let url = '/api/kitchens';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
