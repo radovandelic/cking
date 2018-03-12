@@ -83,9 +83,11 @@ jssor_1_slider_init = function () {
     /*#endregion responsive code end*/
 };
 
-var interval = setInterval(() => {
-    if ($Jease$) { //wait for the jssor library to be loaded before initializing
-        jssor_1_slider_init();
-        clearInterval(interval);
-    }
-}, 50)
+if (document.getElementsByClassName("carousel")[0]) { //check if we're on the right page
+    var interval = setInterval(() => {
+        if ($Jease$) { //wait for the jssor library to be loaded before initializing
+            jssor_1_slider_init();
+            clearInterval(interval);
+        }
+    }, 50)
+}

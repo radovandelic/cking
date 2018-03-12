@@ -64,13 +64,13 @@ class Kitchen extends Component {
                         script.async = true;
                         //script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
                         //script.crossorigin = "anonymous";
-                        document.getElementsByTagName("head")[0].appendChild(script);
+                        document.body.appendChild(script);
 
                         script = document.createElement("script");
                         script.type = "text/javascript";
                         script.src = "/static/js/carousel.js";
                         script.async = true;
-                        document.getElementsByTagName("head")[0].appendChild(script);
+                        document.body.appendChild(script);
                     } else {
                         window.jssor_1_slider_init();
                     }

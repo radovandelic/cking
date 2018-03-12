@@ -35,6 +35,23 @@ class Browse extends Component {
             .catch(err => {
                 this.setState({ overlay: "overlay on" })
             });
+
+        //load carousel scripts here so we don't slow down the rest of the app
+        if (!document.getElementById("jssor")) { //check if scripts are already loaded
+            let script = document.createElement("script");
+            script.id = "jssor";
+            script.src = "https://cdnjs.cloudflare.com/ajax/libs/jssor-slider/27.1.0/jssor.slider.min.js";
+            script.async = true;
+            //script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
+            //script.crossorigin = "anonymous";
+            document.body.appendChild(script);
+
+            script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "/static/js/carousel.js";
+            script.async = true;
+            document.body.appendChild(script);
+        }
     }
 
     render = () => {
