@@ -14,7 +14,7 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         const { kitchen, user } = this.props;
-        let url = `/api/kitchens/${kitchen.id}/images/upload`;
+        let url = `https://cookwork.be/api/kitchens/${kitchen.id}/images/upload`;
 
         fetch(url, {
             method: 'PUT',

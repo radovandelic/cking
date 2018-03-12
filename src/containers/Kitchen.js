@@ -24,7 +24,7 @@ class Kitchen extends Component {
 
     componentDidMount = () => {
         const { id } = this.props.match.params;
-        let url = '/api/kitchens/' + id;
+        let url = 'https://cookwork.be/api/kitchens/' + id;
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');

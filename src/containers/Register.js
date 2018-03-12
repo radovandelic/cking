@@ -90,7 +90,7 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         const { updateUser } = this.props;
-        let url = '/api/users/register';
+        let url = 'https://cookwork.be/api/users/register';
         let query = {
             headers: {
                 'Accept': 'application/json',

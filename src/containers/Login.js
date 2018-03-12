@@ -26,7 +26,7 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         let { updateKitchen, updateUser } = this.props;
-        let url = '/api/auth';
+        let url = 'https://cookwork.be/api/auth';
         let username = submittedValues.email;
         let password = submittedValues.password;
 
@@ -60,7 +60,7 @@ class StyledForm extends Component {
                 }
                 data.user.access_token = data.token;
                 updateUser(data.user);
-                url = `/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
+                url = `https://cookwork.be/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
                 return fetch(url, { method: 'GET', headers: headers })
             })
             .then(response => response.json())
