@@ -31,11 +31,6 @@ label {
     overflow: hidden;
 }
 
-.dashoard-container {
-    max-width: 700px;
-    position: relative;
-}
-
 .checkbox-grid,
 .radio-grid {
     padding-left: 0;

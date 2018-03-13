@@ -87,7 +87,7 @@ class StyledForm extends Component {
         };
     }
     submit = (submittedValues) => {
-        let url = '/api/mails/enquiry';
+        let url = 'http://0.0.0.0:9000/api/mails/enquiry';
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');

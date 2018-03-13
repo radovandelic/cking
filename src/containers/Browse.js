@@ -19,7 +19,7 @@ class Browse extends Component {
         };
     }
     componentDidMount = () => {
-        let url = 'https://cookwork.be/api/kitchens';
+        let url = 'http://0.0.0.0:9000/api/kitchens';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -62,7 +62,7 @@ class Browse extends Component {
                 <div className="thumb-listing-container">
                     <div className="listing-info">
                         <Link to={`/listings/kitchens/${kitchen.id}`}>
-                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/img/no-image.jpg"}
+                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/media/no-image.jpg"}
                                 alt={kitchen.name} className="img-thumbnail" />
                         </Link>
                     </div>

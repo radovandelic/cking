@@ -11,7 +11,7 @@ nav {
     height: 50px;
 }
 
-.container-fluid>.navbar-header.navbar-brand {
+.navbar-header.navbar-logo {
     padding: 0;
     margin-left: 0;
 }

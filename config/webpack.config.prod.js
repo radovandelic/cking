@@ -131,8 +131,8 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         options: {
-          search: 'https://cookwork.be/',
-          replace: '/',
+          search: 'http://0.0.0.0:9000/api',
+          replace: '/api',
         },
         loader: require.resolve('string-replace-loader')
       },

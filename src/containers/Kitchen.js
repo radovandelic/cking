@@ -24,7 +24,7 @@ class Kitchen extends Component {
 
     componentDidMount = () => {
         const { id } = this.props.match.params;
-        let url = 'https://cookwork.be/api/kitchens/' + id;
+        let url = 'http://0.0.0.0:9000/api/kitchens/' + id;
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -49,8 +49,8 @@ class Kitchen extends Component {
                 } else {
                     gallery = (
                         <div data-p="170.00">
-                            <img alt={data.name} data-u="image" src="/static/img/no-image.jpg" />
-                            <img alt={data.name} data-u="thumb" src="/static/img/no-image.jpg" />
+                            <img alt={data.name} data-u="image" src="/static/media/no-image.jpg" />
+                            <img alt={data.name} data-u="thumb" src="/static/media/no-image.jpg" />
                         </div>
                     )
                 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form } from 'react-form';
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -12,9 +11,10 @@ class StyledForm extends Component {
         };
     }
 
-    submit = (submittedValues) => {
+    submit = (e) => {
+        e.preventDefault();
         const { kitchen, user } = this.props;
-        let url = `https://cookwork.be/api/kitchens/${kitchen.id}/images/upload`;
+        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
 
         fetch(url, {
             method: 'PUT',
@@ -66,50 +66,45 @@ class StyledForm extends Component {
                 );
             }
         }
-        return (<div>
-            <Form
-                onSubmit={this.submit}>
-                {formApi => (
-                    <div>
-                        <form onSubmit={formApi.submitForm} id="form2" className="form-container">
-                            <div className="input-div" >
-                                <label htmlFor="image">Upload an image</label>
-                                <input type="file" accept="image/*" field="image" id="image" onChange={this.handleFile} />
-                            </div>
-                            {this.state.image ?
-                                <img src={this.state.image} alt="kitchen" className="upload-thumb" />
-                                :
-                                null
-                            }
-                            <div className="input-div" >
-                                <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
-                            </div>
-                            <h4 className="uploaded-message">{this.state.message}</h4>
-                        </form>
-                        {images ?
-                            <div className="images-container">
-                                <div>
-                                    {images}
-                                </div>
-
-                                <button id="delete" type="submit" className="mb-4 btn btn-danger">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Remove
-                                    </button>
-                            </div>
-
-                            : null
-                        }
+        return (
+            <div>
+                <form onSubmit={this.submit} id="form2" className="form-container">
+                    <div className="input-div" >
+                        <label htmlFor="image">Upload an image</label>
+                        <input type="file" accept="image/*" field="image" id="image" onChange={this.handleFile} />
                     </div>
-                )}
-            </Form>
-        </div>
+                    {this.state.image ?
+                        <img src={this.state.image} alt="kitchen" className="upload-thumb" />
+                        :
+                        null
+                    }
+                    <div className="input-div" >
+                        <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
+                    </div>
+                    <h4 className="uploaded-message">{this.state.message}</h4>
+                </form>
+                {images ?
+                    <div className="images-container">
+                        <div>
+                            {images}
+                        </div>
+
+                        <button id="delete" type="submit" className="mb-4 btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Remove
+                        </button>
+                    </div>
+
+                    : null
+                }
+            </div>
 
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        kitchen: state.kitchen
     }
 }
 

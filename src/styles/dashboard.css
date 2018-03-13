@@ -1,0 +1,8 @@
+.dashoard-container {
+    max-width: 700px;
+    position: relative;
+}
+
+.dashboard-btn {
+    margin: 10px auto;
+}

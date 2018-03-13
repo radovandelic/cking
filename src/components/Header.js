@@ -16,7 +16,7 @@ class Header extends Component {
             <header>
                 <nav className="navbar navbar-default navbar-fixed-top" id="home">
                     <div className="container-fluid">
-                        <div className="navbar-header navbar-brand">
+                        <div className="navbar-header navbar-logo">
                             <button onClick={toggleMenu} type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="icon-bar"></span>

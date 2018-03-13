@@ -179,7 +179,7 @@ class StyledForm extends Component {
         const { updateKitchen, user } = this.props;
         submittedValues = this.shapeData(submittedValues);
         submittedValues.access_token = user.access_token;
-        let url = 'https://cookwork.be/api/kitchens';
+        let url = 'http://0.0.0.0:9000/api/kitchens';
         let query = {
             headers: {
                 'Accept': 'application/json',
