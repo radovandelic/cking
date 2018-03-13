@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../styles/header.css';
-import logo from '../logo_co-oking.png';
+import logo from '../cookwork_logo.jpg';
 
 const toggleMenu = () => {
     const collapse = document.getElementsByClassName('navbar-collapse')[0]
@@ -16,7 +16,7 @@ class Header extends Component {
             <header>
                 <nav className="navbar navbar-default navbar-fixed-top" id="home">
                     <div className="container-fluid">
-                        <div className="navbar-header">
+                        <div className="navbar-header navbar-brand">
                             <button onClick={toggleMenu} type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="icon-bar"></span>
