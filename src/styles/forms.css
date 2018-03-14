@@ -110,26 +110,6 @@ label {
     margin: auto;
 }
 
-#dashboard-btn {
-    width: 80%;
-}
-
-#logout,
-#logout:focus,
-#delete,
-#delete:focus {
-    width: 50%;
-    font-weight: bold;
-}
-
-#logout:hover,
-#delete:hover {
-    background-color: #fff;
-    color: red;
-    width: 50%;
-    font-weight: bold;
-}
-
 .react-form-message {
     margin-bottom: 1rem;
     display: block;
@@ -166,6 +146,12 @@ label {
 .btn.btn-orange.inline {
     display: inline-flex;
     justify-content: space-between;
+}
+
+.input-div>p {
+    font-size: 12px;
+    font-weight: normal;
+    text-align: justify;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,7 +1,3 @@
-/* import http from 'http'
-import express from 'express'
-import path from 'path'
-import compression from 'compression' */
 const http = require('http');
 const express = require('express');
 const path = require('path');

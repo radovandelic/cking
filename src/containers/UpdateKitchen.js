@@ -186,7 +186,6 @@ class StyledForm extends Component {
             method: 'PUT',
             body: JSON.stringify(submittedValues)
         }
-        this.setState({ overlay: "overlay on" })
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
@@ -267,7 +266,7 @@ class StyledForm extends Component {
                                 </p>
                                 <div className="input-div" >
                                     <label htmlFor="name">Nom du bien</label>
-                                    <StyledText type="text" field="name" id="name" value={this.state.defaultValues.name} />
+                                    <StyledText type="text" field="name" id="name" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="phone">Votre numéro de téléphone</label>
@@ -327,7 +326,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="price">Prix à l'heure (HTVA)</label>
-                                    <StyledText type="number" field="price" id="price" min="5" max="200" />
+                                    <StyledText type="number" field="price" id="price" min="15" max="200" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="rent">Prix au mois pour un entrepreneur (une équipe de 2 personnes max) (HTVA)</label>

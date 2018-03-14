@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Popup } from '../components';
+import { Popup, Map } from '../components';
 import '../styles/browse.css';
 
 var errorTitle = "Error"
@@ -56,33 +56,49 @@ class Browse extends Component {
 
     render = () => {
         let { kitchens } = this.state;
-        let listings = [];
+        let Listings = [];
         for (const kitchen of kitchens) {
-            listings.push(
-                <div className="thumb-listing-container">
-                    <div className="listing-info">
-                        <Link to={`/listings/kitchens/${kitchen.id}`}>
-                            <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/media/no-image.jpg"}
-                                alt={kitchen.name} className="img-thumbnail" />
-                        </Link>
+            Listings.push(
+                <div className="thumb-container">
+                    <div class="circle-container">
+                        <div class="circle"></div>
                     </div>
-                    <div className="listing-info">
-                        <Link to={`/listings/kitchens/${kitchen.id}`}>
-                            <h4>{kitchen.name}</h4>
-                            <h6>{kitchen.type}</h6>
-                            <h4>{kitchen.size} m<sup>2</sup> </h4>
-                            <h3 className="price-m">€{kitchen.price} / h</h3>
-                        </Link>
-                        <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>{kitchen.address}</Link>
-                    </div>
-                    <div className="listing-info price">
-                        <h3>€{kitchen.price} / h</h3>
+                    <div className="flex-thumb-container">
+                        <div className="listing-info">
+                            <Link to={`/listings/kitchens/${kitchen.id}`}>
+                                <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/media/no-image.jpg"}
+                                    alt={kitchen.name} className="img-thumbnail" />
+                            </Link>
+                        </div>
+                        <div className="listing-info">
+                            <Link to={`/listings/kitchens/${kitchen.id}`}>
+                                <h4>{kitchen.name}</h4>
+                                <h6>{kitchen.type}</h6>
+                                <h4>{kitchen.size} m<sup>2</sup> </h4>
+                                <h3 className="price-m">€{kitchen.price} / h</h3>
+                            </Link>
+                            <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>{kitchen.address}</Link>
+                        </div>
+                        <div className="listing-info price">
+                            <h3>€{kitchen.price} / h</h3>
+                        </div>
                     </div>
                 </div>
             )
         }
-        return (<div className="home-container">
-            {listings}
+        return (<div className="browse-container">
+            <div className="listings">
+                {Listings}
+            </div>{/* 
+            <div className="map-container">
+                <Map
+                    isMarkerShown
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `400px` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                />
+            </div> */}
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>

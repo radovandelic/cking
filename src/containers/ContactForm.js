@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, StyledText, TextArea } from 'react-form';
-import base64 from 'base-64';
 import { Popup } from '../components';
-import { updateKitchen, updateUser } from '../actions';
 import "../styles/forms.css";
 import "../styles/contact.css";
 
@@ -32,33 +30,6 @@ class StyledForm extends Component {
         };
     }
 
-    componentDidMount = () => {
-
-        if (localStorage.getItem("mykitchen") && localStorage.getItem("mykitchen").length < 25) {
-            localStorage.removeItem('user');
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('mykitchen');
-            localStorage.removeItem('mykitchen_id');
-        }
-
-        if (!this.props.user.id) {
-            let { updateUser } = this.props;
-            let user = localStorage.getItem("user");
-            user = user ? JSON.parse(base64.decode(user)) : null;
-            if (user) {
-                user.access_token = localStorage.getItem("access_token");
-                updateUser(user);
-            }
-
-        }
-
-        if (!this.props.kitchen.id) {
-            let { updateKitchen } = this.props;
-            let mykitchen = localStorage.getItem("mykitchen");
-            mykitchen = mykitchen ? JSON.parse(base64.decode(mykitchen)) : null;
-            if (mykitchen) updateKitchen(mykitchen);
-        }
-    }
 
     errorValidator = (values) => {
         const validateEmail = (email) => {
@@ -118,13 +89,14 @@ class StyledForm extends Component {
     }
 
     render = () => {
+        let { email } = this.props.user;
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
-                        defaultValues={{ email: this.props.user.email || "" }}
+                        defaultValues={{ email: email || "" }}
                         validateError={this.errorValidator}
                         validateWarning={this.warningValidator}
                         onSubmit={this.submit}>
@@ -166,25 +138,13 @@ class StyledForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user,
-        kitchen: state.kitchen
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updateKitchen: (kitchen) => {
-            dispatch(updateKitchen(kitchen));
-        },
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
+        user: state.user
     }
 }
 
 StyledForm = connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(StyledForm)
 
 export default StyledForm;

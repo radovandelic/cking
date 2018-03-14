@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateKitchen, updateUser } from '../actions';
 import '../styles/dashboard.css';
@@ -18,26 +18,30 @@ let Dashboard = (props) => {
 
     const { user, kitchen } = props;
 
-    return (!user.id ? <Redirect to="/login" />
-        :
+    return (
         <div className="dashoard-container">
             <h4>Welcome back {user.firstName || user.name} </h4>
-            <img src={user.picture} alt={user.name} /> <br /> <br />
+            <div>
+                <img src={user.picture} alt={user.name} />
+            </div> <br />
             <Link to={kitchen.id ? `/updatekitchen` : "/registerkitchen"}>
-                <button id="dashboard-btn" className="mb-4 btn btn-orange dashboard-btn">{kitchen.id ? "Edit your kitchen info" : "Create kitchen listing"}</button>
+                <button className="mb-4 btn btn-orange dashboard-btn">{kitchen.id ? "Edit your kitchen info" : "Create kitchen listing"}</button>
             </Link>
             {kitchen.id ?
                 <Link to={kitchen.id ? `/uploadimage` : "/registerkitchen"}>
-                    <button id="dashboard-btn" className="mb-4 btn btn-orange dashboard-btn">Upload kitchen images</button>
+                    <button className="mb-4 btn btn-orange dashboard-btn">Upload kitchen images</button>
                 </Link>
                 :
                 null
             }
-            <button id="dashboard-btn" className="mb-4 btn btn-orange dashboard-btn">Register as cook</button>
-            {/* <button id="dashboard-btn" className="mb-4 btn btn-orange">Register as consultant</button> */}
-            <button id="dashboard-btn" className="mb-4 btn btn-orange dashboard-btn">Account Information</button>
+            <Link to="/registerextra">
+                <button className="mb-4 btn btn-orange dashboard-btn">Register as chef or extra</button>
+            </Link>
+            {/* <button className="mb-4 btn btn-orange">Register as consultant</button> */}
+            <Link to="/updateaccount">
+                <button className="mb-4 btn btn-orange dashboard-btn">Account Information</button>
+            </Link>
             <button id="logout" type="submit" onClick={logout} className="mb-4 btn btn-danger dashboard-btn">Logout</button>
-
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import logo from '../logo.jpg';
 import '../styles/header.css';
-import logo from '../cookwork_logo.jpg';
 
 const toggleMenu = () => {
     const collapse = document.getElementsByClassName('navbar-collapse')[0]
@@ -11,6 +11,7 @@ const toggleMenu = () => {
 }
 
 class Header extends Component {
+
     render = () => {
         return (
             <header>
@@ -93,7 +94,6 @@ class Header extends Component {
         )
     }
 }
-
 
 const mapStateToProps = state => {
     return {

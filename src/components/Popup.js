@@ -16,8 +16,8 @@ export default (props) => {
                     <button className="btn btn-orange" onClick={props.close}>Ok</button>
                     : props.btn === "yesno" ?
                         <div className="inline" >
-                            <button value="/uploadimage" className="btn btn-orange inline" onClick={props.close}>Yes</button>
-                            <button value="/dashboard" className="btn btn-orange inline" onClick={props.close}>No</button>
+                            <button value={props.yes} className="btn btn-orange inline" onClick={props.close}>Yes</button>
+                            <button value={props.no} className="btn btn-orange inline" onClick={props.close}>No</button>
                         </div>
                         : null
                 }

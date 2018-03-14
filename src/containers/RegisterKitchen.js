@@ -188,7 +188,6 @@ class StyledForm extends Component {
             method: 'POST',
             body: JSON.stringify(submittedValues)
         }
-        this.setState({ overlay: "overlay on" })
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
@@ -289,7 +288,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="VAT">Numéro de TVA</label>
-                                    <StyledText type="text" field="VAT" id="VAT" min="1000000000000" max="9999999999999" />
+                                    <StyledText type="text" field="VAT" id="VAT" />
                                 </div>
                                 <label htmlFor="hours">Heures de disponibilité</label>
                                 <div className="input-div-hours" >
@@ -413,7 +412,7 @@ class StyledForm extends Component {
                         btn={this.state.popup.btn}
                         title={this.state.popup.title}
                         overlay={this.state.overlay}
-                        close={this.closePopup} />
+                        close={this.closePopup} yes="/uploadimage" no="dashboard" />
                 </div>
         )
     }

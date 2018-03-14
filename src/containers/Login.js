@@ -10,6 +10,7 @@ import "../styles/forms.css";
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
 var errorMessageNotFound = "E-mail or password not found."
+var errorMessageUnauthorized = "Unauthorized access."
 
 class StyledForm extends Component {
 
@@ -36,12 +37,15 @@ class StyledForm extends Component {
         headers.append('Content-Type', 'application/json');
         fetch(url, {
             method: 'POST',
-            headers: headers
+            headers: headers,
+            body: JSON.stringify({
+                role: "user"
+            })
         })
             .then(response => {
                 switch (response.status) {
                     case 401:
-                        this.setState({ popup: { message: errorMessageNotFound } });
+                        this.setState({ popup: { message: errorMessageUnauthorized } });
                         throw new Error(errorMessageNotFound);
                     case 400:
                         this.setState({ popup: { message: errorMessageNotFound } });

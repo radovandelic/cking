@@ -10,7 +10,6 @@ import "../styles/forms.css";
 var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
-var errorMessageAlreadyRegistered = "This email address is already registered.";
 
 class StyledForm extends Component {
 
@@ -38,20 +37,10 @@ class StyledForm extends Component {
             if (!email || !email.trim()) return 'Email is required.';
             return email && !regex.test(email) ? 'Please enter a valid email.' : null;
         };
-        const validatePassword = (password) => {
-            if (!password || !password.trim()) return 'Password is required.';
-            return password && password.length < 8 ? 'Password must be longer than 8 characters.' : null;
-        };
-        const validateConfirmPassword = (password, confirmPassword) => {
-            if (!confirmPassword || !confirmPassword.trim()) return 'Password is required.';
-            return password && confirmPassword !== password ? 'Passwords do not match' : null;
-        };
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            email: validateEmail(values.email),
-            password: validatePassword(values.password),
-            confirmPassword: validateConfirmPassword(values.password, values.confirmPassword)
+            email: validateEmail(values.email)
         };
     }
 
@@ -65,40 +54,32 @@ class StyledForm extends Component {
         const validateEmail = (email) => {
             return email && !regex.test(email) ? 'Please enter a valid email.' : null;
         };
-        const validatePassword = (password) => {
-            return password && password.length < 8 ? 'Password must be longer than 8 characters.' : null;
-        };
-        const validateConfirmPassword = (confirmPassword, password) => {
-            return password && confirmPassword !== password ? 'Passwords do not match' : null;
-        };
 
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            email: validateEmail(values.email),
-            password: validatePassword(values.password),
-            confirmPassword: validateConfirmPassword(values.confirmPassword, values.password)
+            email: validateEmail(values.email)
         };
     }
 
     submit = (submittedValues) => {
-        const { updateUser } = this.props;
-        let url = 'http://0.0.0.0:9000/api/users/register';
+        const { updateUser, user } = this.props;
+        submittedValues.access_token = user.access_token;
+        let url = `http://0.0.0.0:9000/api/users/${user.id}`;
         let query = {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(submittedValues)
         }
         fetch(url, query)
             .then(res => {
                 switch (res.status) {
-                    case 409:
-                        this.setState({ popup: { message: errorMessageAlreadyRegistered } });
-                        throw new Error(errorMessageAlreadyRegistered);
-                    case 201:
+                    case 204:
+                        return res.json();
+                    case 200:
                         return res.json();
                     default:
                         this.setState({ popup: { message: errorMessageConnect } });
@@ -106,26 +87,26 @@ class StyledForm extends Component {
                 }
 
             })
-            .then(data => {
-                if (typeof (Storage) !== undefined) {
-                    window.localStorage.setItem("access_token", data.token);
-                    window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
+            .then(user => {
+                console.log(user)
+                if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
+                    window.localStorage.setItem("user", base64.encode(JSON.stringify(user)));
                 }
-                data.user.access_token = data.token;
-                updateUser(data.user);
+                updateUser(user);
                 this.setState({ redirect: '/dashboard' });
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
 
     }
     render = () => {
+        const { user } = this.props;
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
-                        validateError={this.errorValidator}
+                        validateError={this.errorValidator} defaultValues={user}
                         onSubmit={this.submit} onSubmitFailure={e => { console.log(e) }}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2" className="form-container">
@@ -145,18 +126,10 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="email">Email</label>
-                                    <StyledText type="email" field="email" id="email" />
+                                    <StyledText value={user.email} type="email" field="email" id="email" />
                                 </div>
                                 <div className="input-div" >
-                                    <label htmlFor="password">Password</label>
-                                    <StyledText type="password" field="password" id="password" />
-                                </div>
-                                <div className="input-div" >
-                                    <label htmlFor="confirm-password">Confirm Password</label>
-                                    <StyledText type="password" field="confirmPassword" id="confirm-password" />
-                                </div>
-                                <div className="input-div" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Register</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">Update Information</button>
                                 </div>
                             </form>
                         )}
@@ -172,6 +145,12 @@ class StyledForm extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         updateUser: (user) => {
@@ -181,7 +160,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 StyledForm = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(StyledForm)
 
