@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logo from '../logo.jpg';
 import '../styles/header.css';
+import '../index.css';
 
 const toggleMenu = () => {
     const collapse = document.getElementsByClassName('navbar-collapse')[0]
