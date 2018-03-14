@@ -58,6 +58,7 @@ module.exports = {
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
+    libraryTarget: 'umd',
     // The build folder.
     path: paths.appBuild,
     // Generated JS file names (with nested folders).
@@ -72,6 +73,44 @@ module.exports = {
       path
         .relative(paths.appSrc, info.absoluteResourcePath)
         .replace(/\\/g, '/'),
+  },
+  externals: {
+    'react': {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    },
+    'react-router': {
+      root: 'ReactRouter',
+      commonjs2: 'react-router',
+      commonjs: 'react-router',
+      amd: 'react-router'
+    },
+    'react-router-dom': {
+      root: 'ReactRouterDOM',
+      commonjs2: 'react-router-dom',
+      commonjs: 'react-router-dom',
+      amd: 'react-router-dom'
+    },
+    'react-redux': {
+      root: 'ReactRedux',
+      commonjs2: 'react-redux',
+      commonjs: 'react-redux',
+      amd: 'react-redux'
+    },
+    'redux': {
+      root: 'Redux',
+      commonjs2: 'redux',
+      commonjs: 'redux',
+      amd: 'redux'
+    }
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.

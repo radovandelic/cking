@@ -5,11 +5,12 @@ body {
     font-family: sans-serif;
 }
 
-body,
+
+/* body,
 .App {
     background: linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, .6)), url('/static/media/background.501cc556.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+} */

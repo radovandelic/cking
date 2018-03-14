@@ -6,6 +6,9 @@ import {
   UpdateKitchen, ContactForm, LoadUserInfo, RegisterExtra, UpdateAccount
 } from './containers';
 import './styles/App.css';
+import backgroundImg from './background.jpg'
+
+const background = "linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, .6)), url(" + backgroundImg + ") no-repeat center center fixed";
 
 const ScrollToTop = () => {
   if (window.location.href.indexOf("#") === -1) {
@@ -19,7 +22,7 @@ class App extends Component {
   render = () => {
     return (
       <Router>
-        <div className="App text-center" >
+        <div className="App text-center" style={{ background: background, backgroundSize: "cover" }} >
           <LoadUserInfo />
           <Header />
           <main>
