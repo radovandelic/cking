@@ -28,6 +28,7 @@ class StyledForm extends Component {
     submit = (submittedValues) => {
         let { updateKitchen, updateUser } = this.props;
         let url = 'http://0.0.0.0:9000/api/auth';
+        console.log(url)
         let username = submittedValues.email;
         let password = submittedValues.password;
 
@@ -65,6 +66,7 @@ class StyledForm extends Component {
                 data.user.access_token = data.token;
                 updateUser(data.user);
                 url = `http://0.0.0.0:9000/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
+                console.log(url)
                 return fetch(url, { method: 'GET', headers: headers })
             })
             .then(response => response.json())
