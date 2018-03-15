@@ -13,6 +13,7 @@ app.use(compression())
 app.use(morgan('dev'))
 app.use(morgan(' - :date[clf] - :remote-addr'))
 app.use(express.static('build'))
+app.use(express.static('../cookwork-admin/build'))
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });

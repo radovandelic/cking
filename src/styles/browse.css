@@ -23,8 +23,7 @@ listings {
     max-width: 800px;
     background: #F9F9F9;
     box-shadow: 5px 0 5px 5px rgba(0, 0, 0, 0.40), 0 5px 5px 0 rgba(0, 0, 0, 0.40);
-    border: 5px solid #484848;
-    border-radius: 10px;
+    border: 2px solid #484848;
 }
 
 .flex-thumb-container {
@@ -32,7 +31,6 @@ listings {
     margin: 20px 20px;
     display: inline-flex;
     justify-content: space-between;
-    border-radius: 10px;
 }
 
 .circle-container {

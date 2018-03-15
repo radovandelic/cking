@@ -36,28 +36,28 @@ class Header extends Component {
                                         <Link to="/login" onClick={toggleMenu} >
                                             <button className="btn navbar-btn nav-link nav-link-white">
                                                 Login
-                                        </button>
+                                            </button>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="/register" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-white">
                                                 Register
-                                        </button>
+                                            </button>
                                         </Link>
                                     </li>
                                     <li>
                                         <a href="#contact" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
                                                 Contact
-                                        </button>
+                                            </button>
                                         </a>
                                     </li>
                                     <li>
                                         <Link to="/register" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
                                                 Create listing
-                                        </button>
+                                            </button>
                                         </Link>
                                     </li>
                                 </ul>
@@ -67,21 +67,21 @@ class Header extends Component {
                                         <Link to="/dashboard" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
                                                 Dashboard
-                                        </button>
+                                            </button>
                                         </Link>
                                     </li>
                                     <li>
                                         <a href="#contact" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
                                                 Contact
-                                        </button>
+                                            </button>
                                         </a>
                                     </li>
                                     <li>
                                         <Link to={this.props.kitchen.id ? `/updatekitchen` : "/registerkitchen"}
                                             onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {this.props.kitchen.id ? "Edit listing" : "Create listing"}
+                                                {this.props.kitchen.id ? "J’édite mon annonce" : "Je loue ma cuisine"}
                                             </button>
                                         </Link>
                                     </li>

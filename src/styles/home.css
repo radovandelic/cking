@@ -16,21 +16,21 @@
 
 .home-block-2 {
     background-color: #fff;
-    color: #ed7b22;
+    color: #ff6114;
     margin: 0;
     padding: 50px;
 }
 
 .home-block-3 {
     background-color: #f0f3f5;
-    color: #ed7b22;
+    color: #ff6114;
     margin: 0;
     padding: 50px;
 }
 
 .home-block-4 {
     background-color: #fff;
-    color: #ed7b22;
+    color: #ff6114;
     margin: 0;
     margin-bottom: -50px;
     padding: 50px 0;
@@ -82,9 +82,9 @@
     cursor: pointer;
     padding: 10px 10px;
     outline: 0;
-    border: 2px solid #ed7b22;
+    border: 2px solid #ff6114;
     border-radius: 10px;
-    background: #ed7b22;
+    background: #ff6114;
     color: #ffffff;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -96,7 +96,7 @@
 
 .select select:hover,
 .select select:focus {
-    color: #ed7b22;
+    color: #ff6114;
     background: #ffffff;
 }
 

@@ -6,7 +6,6 @@
     margin: 50px auto;
     background: #F9F9F9;
     padding: 20px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 main {
@@ -22,5 +21,19 @@ input {
 }
 
 .btn {
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.40);
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.40); */
+    border-radius: 0;
+}
+
+.btn-orange,
+.btn-orange:focus {
+    background-color: #ff6114;
+    border-color: #ff6114;
+    font-weight: bold;
+    color: #fff;
+}
+
+.btn-orange:hover {
+    background-color: #fff;
+    color: #ff6114;
 }
