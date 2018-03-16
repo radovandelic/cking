@@ -3,7 +3,9 @@ import '../styles/footer.css';
 
 class AdminRedirect extends Component {
     componentWillMount = () => {
-        window.location.reload(true);
+        if (!window.chrome && !window.chrome.webstore) {
+            window.location.reload(true);
+        }
     }
 
     render = () => {
