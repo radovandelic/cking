@@ -131,9 +131,8 @@ class StyledForm extends Component {
 
     successValidator = (values, errors) => {
         const validatePrice = () => {
-            return !errors.price ? '* CookWork prend une commission de 10% sur les réservations effectuées sur sa plateforme.' : null;
+            return !errors.price ? '* CookWork prend une commission de 15% sur les réservations effectuées sur sa plateforme à intégrer qu prix total.' : null;
         };
-
         return {
             price: validatePrice(values.price)
         };

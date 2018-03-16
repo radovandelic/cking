@@ -90,7 +90,7 @@ class Browse extends Component {
             <div className="listings">
                 {Listings}
             </div>
-            {/* <div className="map-container">
+            <div className="map-container">
                 <Map
                     isMarkerShown
                     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
@@ -98,7 +98,7 @@ class Browse extends Component {
                     containerElement={<div style={{ height: `400px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                 />
-            </div> */}
+            </div>
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>
