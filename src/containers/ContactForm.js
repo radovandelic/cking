@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText, TextArea } from 'react-form';
+import { Form, StyledText, StyledTextArea } from 'react-form';
 import { Popup } from '../components';
 import "../styles/forms.css";
 import "../styles/contact.css";
@@ -36,7 +36,7 @@ class StyledForm extends Component {
             return !email ? 'email est requis' : null;
         };
         const validateMessage = (message) => {
-            return !message ? 'message is required' : null;
+            return !message ? 'message est requis' : null;
         };
         return {
             email: validateEmail(values.email),
@@ -103,12 +103,10 @@ class StyledForm extends Component {
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2">
                                 <div className="input-div" >
-                                    <label htmlFor="email">Email</label>
-                                    <StyledText type="email" field="email" id="email" />
+                                    <StyledText placeholder="Email" type="email" field="email" id="email" />
                                 </div>
                                 <div className="input-div" >
-                                    <label htmlFor="message">Message</label>
-                                    <TextArea style={{ width: '100%' }} rows="4" field="message" id="message" />
+                                    <StyledTextArea placeholder="Message" style={{ width: '100%' }} rows="4" field="message" id="message" />
                                 </div>
                                 <div className="input-div" >
                                     <button id="submit" type="submit" className="btn btn-orange">Envoyer</button>

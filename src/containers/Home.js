@@ -73,14 +73,9 @@ export default () => {
             </div>
         </div>
         <div className="home-block-4" id="contact">
-            <div className="home-inline home-contact" id="contact">
-                <div className="inline-element">
-                    <p><b>Des questions sur notre fonctionnement ? </b></p>
-                    <img src="/static/media/contact.png" alt="contact" />
-                </div>
-                <div className="inline-element">
-                    <ContactForm />
-                </div>
+            <div className="home-contact">
+                <h3><b>Des questions ? </b></h3>
+                <ContactForm />
             </div>
         </div>
     </div>

@@ -16,24 +16,30 @@
 
 .home-block-2 {
     background-color: #fff;
-    color: #ff6114;
+    color: #000;
     margin: 0;
     padding: 50px;
 }
 
 .home-block-3 {
     background-color: #f0f3f5;
-    color: #ff6114;
+    color: #000;
     margin: 0;
     padding: 50px;
 }
 
 .home-block-4 {
     background-color: #fff;
-    color: #ff6114;
+    color: #000;
     margin: 0;
     margin-bottom: -50px;
     padding: 50px 0;
+}
+
+.home-contact {
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
 }
 
 .home-title {

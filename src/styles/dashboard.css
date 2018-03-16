@@ -17,7 +17,7 @@
 #logout:focus,
 #delete,
 #delete:focus {
-    background-color: red;
+    background-color: #484848;
     width: 40%;
     font-weight: bold;
 }
@@ -25,5 +25,5 @@
 #logout:hover,
 #delete:hover {
     background-color: #fff;
-    color: red;
+    color: #484848;
 }

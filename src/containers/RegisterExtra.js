@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText, StyledRadioGroup, StyledRadio, TextArea } from 'react-form';
+import { Form, StyledText, StyledRadioGroup, StyledRadio, StyledTextArea } from 'react-form';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
 import "../styles/forms.css";
@@ -105,7 +105,7 @@ class StyledForm extends Component {
                                         Ville, Pays: Bruxelles, Belgique; Site web de la société:
                                         <a href="https://www.etiquette.be"> www.etiquette.be</a>;
                                         Description du job: Commandes, mise en place, service, plan de nettoyage...</p>
-                                    <TextArea style={{ width: '100%' }} rows="5" field="experience" id="experience" />
+                                    <StyledTextArea style={{ width: '100%' }} rows="5" field="experience" id="experience" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="VAT">Votre numéro de TVA </label>

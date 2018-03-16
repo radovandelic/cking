@@ -89,8 +89,8 @@ class Browse extends Component {
         return (<div className="browse-container">
             <div className="listings">
                 {Listings}
-            </div>{/* 
-            <div className="map-container">
+            </div>
+            {/* <div className="map-container">
                 <Map
                     isMarkerShown
                     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"

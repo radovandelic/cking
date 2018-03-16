@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText, TextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
+import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
 import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateKitchen } from '../actions'
@@ -250,7 +250,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="description">Descriptif du bien </label>
-                                    <TextArea style={{ width: '100%' }} rows="4" field="description" id="description" />
+                                    <StyledTextArea style={{ width: '100%' }} rows="4" field="description" id="description" />
                                 </div>
                                 <div className="input-div" style={{ height: '150px' }}>
                                     <label>Type de bien:</label>
