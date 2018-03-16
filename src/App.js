@@ -15,8 +15,8 @@ const ScrollToTop = () => {
 }
 
 class App extends Component {
-
   render = () => {
+    console.log("it worked!")
     return (
       <Router>
         <div className="App text-center">
