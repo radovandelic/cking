@@ -89,7 +89,7 @@ class Browse extends Component {
         return (<div className="browse-container">
             <div className="listings">
                 {Listings}
-            </div>
+            </div>{/* 
             <div className="map-container">
                 <Map
                     isMarkerShown
@@ -98,7 +98,7 @@ class Browse extends Component {
                     containerElement={<div style={{ height: `400px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                 />
-            </div>
+            </div> */}
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>

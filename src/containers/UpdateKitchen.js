@@ -235,6 +235,17 @@ class StyledForm extends Component {
         return kitchen;
     }
 
+    onSubmitFailure = (errors) => {
+        console.log(errors)
+        for (let e in errors) {
+            if (errors[e]) {
+                window.location.href = "#" + e;
+                window.scrollBy(0, -100);
+                break;
+            }
+        }
+    }
+
     render = () => {
 
         let { kitchen } = this.props;
@@ -248,7 +259,7 @@ class StyledForm extends Component {
                         validateError={this.errorValidator}
                         validateWarning={this.warningValidator}
                         validateSuccess={this.successValidator}
-                        defaultValues={kitchen}
+                        defaultValues={kitchen} onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2" className="form-container">
@@ -293,8 +304,8 @@ class StyledForm extends Component {
                                     <StyledText type="text" field="address" id="address" />
                                 </div>
                                 <div className="input-div" >
-                                    <label htmlFor="postalcode">Code postal</label>
-                                    <StyledText type="number" field="postalCode" id="postalcode" min="1000" max="9999" />
+                                    <label htmlFor="postalCode">Code postal</label>
+                                    <StyledText type="number" field="postalCode" id="postalCode" min="1000" max="9999" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="region">Ville/Region</label>

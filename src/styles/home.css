@@ -6,12 +6,20 @@
     flex-direction: column;
 }
 
+.home-container h1 {
+    color: #ff6114;
+}
+
 .home-block-1 {
     color: #fff;
     margin: 0 auto;
     max-width: 800px;
     padding: 50px 0;
     height: calc(100vh - 100px);
+}
+
+.home-block-1>.home-title>h1 {
+    color: #fff;
 }
 
 .home-block-2 {
@@ -73,10 +81,7 @@
     display: inline-block;
     margin-bottom: 15px;
     height: 40px;
-    width: 48%;
-}
-
-.select.left {
+    width: 31%;
     margin-right: 4%;
 }
 
@@ -88,9 +93,8 @@
     cursor: pointer;
     padding: 10px 10px;
     outline: 0;
-    border: 2px solid #ff6114;
-    border-radius: 10px;
-    background: #ff6114;
+    border: 2px solid #484848;
+    background: #484848;
     color: #ffffff;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -102,7 +106,7 @@
 
 .select select:hover,
 .select select:focus {
-    color: #ff6114;
+    color: #484848;
     background: #ffffff;
 }
 
@@ -135,10 +139,7 @@
 }
 
 #go {
-    border: 2px solid #484848;
-    border-radius: 10px;
-    background-color: #484848;
-    color: #fff;
+    border: 2px solid #ff6114;
     margin: 10px auto;
     width: 30%;
     height: 40px;
@@ -149,7 +150,7 @@
 }
 
 #go:hover {
-    color: #484848;
+    color: #ff6114;
     background-color: #fff;
 }
 
@@ -190,6 +191,12 @@
     }
     .inline-element>p {
         font-size: 12px;
+    }
+    .select {
+        width: 48%;
+    }
+    .select.right {
+        margin-right: 0;
     }
     #go {
         width: 100%;

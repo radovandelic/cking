@@ -14,7 +14,7 @@ export default () => {
                 <h4>CookWork vous permet de louer un atelier pro</h4>
                 <h4>aux normes AFSCA en toute flexibilité</h4>
             </div>
-            <div className="select left">
+            <div className="select">
                 <select>
                     <option>Ville/Region</option>
                     <option value="antwerpen">Antwerpen</option>
@@ -24,7 +24,7 @@ export default () => {
                 <div className="select_arrow">
                 </div>
             </div>
-            <div className="select">
+            <div className="select right">
                 <select defaultValue="kitchen" >
                     <option disabled>Espace de cuisine</option>
                     <option value="kitchen">Kitchen</option>
@@ -35,7 +35,7 @@ export default () => {
                 </div>
             </div>
             <Link to="/browse">
-                <button className="btn btn-grey" id="go">Trouver une cuisine</button>
+                <button className="btn btn-orange" id="go">Trouver une cuisine</button>
             </Link>
         </div>
         <div className="home-block-2">
@@ -74,7 +74,7 @@ export default () => {
         </div>
         <div className="home-block-4" id="contact">
             <div className="home-contact">
-                <h3><b>Des questions ? </b></h3>
+                <h1>Des questions ?</h1>
                 <ContactForm />
             </div>
         </div>

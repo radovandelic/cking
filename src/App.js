@@ -54,9 +54,7 @@ class App extends Component {
           <div id="contact" className="contact-form" >
             <a className="close" href="#home">&times;</a>
             <div className="input-div">
-              <br />
-              <br />
-              <p><b>Des questions sur notre fonctionnement ? </b></p>
+              <h3><b>Des questions ? </b></h3>
             </div>
             <ContactForm />
           </div>

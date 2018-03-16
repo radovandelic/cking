@@ -55,32 +55,6 @@ class StyledForm extends Component {
         };
     }
 
-    warningValidator = (values) => {
-        const validateFirstName = (firstName) => {
-            return firstName && firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
-        };
-        const validateLastName = (lastName) => {
-            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
-        };
-        const validateEmail = (email) => {
-            return email && !regex.test(email) ? 'Please enter a valid email.' : null;
-        };
-        const validatePassword = (password) => {
-            return password && password.length < 8 ? 'Password must be longer than 8 characters.' : null;
-        };
-        const validateConfirmPassword = (confirmPassword, password) => {
-            return password && confirmPassword !== password ? 'Passwords do not match' : null;
-        };
-
-        return {
-            firstName: validateFirstName(values.firstName),
-            lastName: validateLastName(values.lastName),
-            email: validateEmail(values.email),
-            password: validatePassword(values.password),
-            confirmPassword: validateConfirmPassword(values.confirmPassword, values.password)
-        };
-    }
-
     submit = (submittedValues) => {
         const { updateUser } = this.props;
         let url = 'http://0.0.0.0:9000/api/users/register';

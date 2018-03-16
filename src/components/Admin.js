@@ -3,9 +3,7 @@ import '../styles/footer.css';
 
 class Admin extends Component {
     componentWillMount = () => {
-        setTimeout(() => {
-            window.location.reload(true);
-        }, 100);
+        window.location.reload(true);
     }
 
     render = () => {
