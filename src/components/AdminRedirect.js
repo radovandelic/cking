@@ -3,11 +3,8 @@ import '../styles/footer.css';
 
 class AdminRedirect extends Component {
     componentWillMount = () => {
-        if (!window.chrome && !window.chrome.webstore) {
-            // reload page without cache to get to admin page on non-chrome browsers
-            window.location.reload(true);
-        } else {
-            // clear cache before reloading on chrome
+        if (!!window.chrome && !!window.chrome.webstore) {
+            // clear cache before reloading content to get to admin page on chrome
             let id = `sw-precache-v3-sw-precache-webpack-plugin-https://${window.location.hostname}/`;
             caches.open(id)
                 .then(cache => cache.keys()
@@ -19,6 +16,9 @@ class AdminRedirect extends Component {
                             }
                         }
                     }));
+        } else {
+            // just reload page without cache to get to admin page on non-chrome browsers
+            window.location.reload(true);
         }
     }
 
