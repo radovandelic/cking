@@ -5,7 +5,7 @@ import Popup from './Popup';
 import Carousel from './Carousel';
 import Footer from './Footer';
 import NotFound from './NotFound';
-import Admin from './Admin';
+import AdminRedirect from './AdminRedirect';
 import Map from './Map';
 
-export { Header, Tabs, Popup, Carousel, Map, NotFound, Admin, Footer }
+export { Header, Tabs, Popup, Carousel, Map, NotFound, AdminRedirect, Footer }

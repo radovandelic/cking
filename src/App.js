@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Header, NotFound, Admin, Footer } from './components';
+import { Header, NotFound, AdminRedirect, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
   UpdateKitchen, ContactForm, LoadUserInfo, RegisterExtra, UpdateAccount
@@ -36,7 +36,7 @@ class App extends Component {
               <Route exact path="/browse" component={Browse} />
               <Route exact path="/updatekitchen" component={UpdateKitchen} />
               <Route exact path="/updateaccount" component={UpdateAccount} />
-              <Route exact path="/admin" component={Admin} />
+              <Route exact path="/admin" component={AdminRedirect} />
               <Route exact path="/listings/kitchens/:id" component={Kitchen} />
               <Route component={NotFound} />
             </Switch>

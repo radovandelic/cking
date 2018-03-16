@@ -1,8 +1,11 @@
 import { Component } from 'react';
 import '../styles/footer.css';
 
-class Admin extends Component {
+class AdminRedirect extends Component {
     componentWillMount = () => {
+        if (!!window.chrome && !!window.chrome.webstore) {
+            Cache.delete()
+        }
         window.location.reload(true);
     }
 
@@ -11,4 +14,4 @@ class Admin extends Component {
     }
 }
 
-export default Admin;
+export default AdminRedirect;
