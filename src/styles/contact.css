@@ -1,29 +1,34 @@
 .contact-overlay {
+    cursor: default;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.7);
-    transition: opacity 500ms;
     visibility: hidden;
+    z-index: 2;
+    /* "delay" the visibility transition */
+    -webkit-transition: opacity .5s, visibility 0s linear .5s;
+    transition: opacity .5s, visibility 0s linear .5s;
     opacity: 0;
 }
 
-.contact-overlay:target {
-    visibility: visible;
-    opacity: 1;
-}
-
 .contact-form {
-    margin: 100px auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
     width: 90%;
     max-width: 410px;
-    position: relative;
-    transition: all 5s ease-in-out;
+    /* "delay" the visibility transition */
+    -webkit-transition: opacity .2s, visibility 0s linear .2s;
+    transition: opacity .2s, visibility 0s linear .2s;
+    z-index: 3;
 }
 
 .contact-form .close {
@@ -35,4 +40,20 @@
     font-weight: bold;
     text-decoration: none;
     color: #333;
+}
+
+.contact-form:target {
+    visibility: visible;
+    opacity: 1;
+    /* cancel visibility transition delay */
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+.contact-form:target+.contact-overlay {
+    opacity: 1;
+    visibility: visible;
+    /* cancel visibility transition delay */
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
 }

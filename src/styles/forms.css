@@ -3,6 +3,10 @@
     padding: 10px;
 }
 
+.form-container.login-container {
+    max-width: 400px;
+}
+
 .images-container>div {
     display: inline-flex;
     justify-content: space-around;
@@ -128,6 +132,16 @@ label {
     font-size: 12px;
     font-weight: normal;
     text-align: justify;
+}
+
+.inputicon {
+    float: right;
+    margin-right: 6px;
+    margin-top: -32px;
+    position: relative;
+    font-size: 24px;
+    z-index: 1;
+    color: #ff6114;
 }
 
 @media screen and (max-width: 768px) {

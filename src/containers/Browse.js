@@ -59,9 +59,9 @@ class Browse extends Component {
         let Listings = [];
         for (const kitchen of kitchens) {
             Listings.push(
-                <div className="thumb-container">
-                    <div class="circle-container">
-                        <div class="circle"></div>
+                <div key={kitchen.id} className="thumb-container">
+                    <div className="circle-container">
+                        <div className="circle"></div>
                     </div>
                     <div className="flex-thumb-container">
                         <div className="listing-info">

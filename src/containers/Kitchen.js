@@ -40,7 +40,7 @@ class Kitchen extends Component {
                     gallery = [];
                     for (let image of data.images) {
                         gallery.push(
-                            <div key={image.id} data-p="170.00">
+                            <div key={image._id} data-p="170.00">
                                 <img alt={data.name} data-u="image" src={image.large} />
                                 <img alt={data.name} data-u="thumb" src={image.thumbnail} />
                             </div>

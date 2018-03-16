@@ -90,20 +90,24 @@ class StyledForm extends Component {
                         onSubmit={this.submit}
                         defaultValues={{ rememberMe: true }}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form2" className="form-container login-container">
                                 <div className="input-div" >
-                                    <label htmlFor="email">Email</label>
-                                    <StyledText type="email" field="email" id="email" />
+                                    {/*  <label htmlFor="email">Email</label> */}
+                                    <StyledText placeholder="Email" type="email" field="email" id="email" />
+                                    <span class="fa fa-keyboard-o inputicon"></span>
                                 </div>
                                 <div className="input-div" >
-                                    <label htmlFor="password">Password</label>
-                                    <StyledText type="password" field="password" id="password" />
+                                    {/*  <label htmlFor="password">Password</label> */}
+                                    <StyledText placeholder="Password" type="password" field="password" id="password" />
+                                    <span class="fa fa-lock inputicon"></span>
                                 </div>
-                                <div className="input-div" >
-                                    <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
-                                </div>
-                                <div className="input-div" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Login</button>
+                                <div className="inline">
+                                    <div className="input-div" >
+                                        <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
+                                    </div>
+                                    <div className="input-div" >
+                                        <button id="submit" type="submit" className="btn btn-orange">Login</button>
+                                    </div>
                                 </div>
                             </form>
                         )}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Header, NotFound, Footer } from './components';
+import { Header, NotFound, Admin, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
   UpdateKitchen, ContactForm, LoadUserInfo, RegisterExtra, UpdateAccount
@@ -36,21 +36,31 @@ class App extends Component {
               <Route exact path="/browse" component={Browse} />
               <Route exact path="/updatekitchen" component={UpdateKitchen} />
               <Route exact path="/updateaccount" component={UpdateAccount} />
+              <Route exact path="/admin" component={Admin} />
               <Route exact path="/listings/kitchens/:id" component={Kitchen} />
               <Route component={NotFound} />
             </Switch>
           </main>
-          <Footer />
-          <div className="contact-overlay" id="contact">
-            <div className="contact-form" >
-              <a className="close" href="#home">&times;</a>
-              <div className="input-div">
-                <br />
-                <p><b>Des questions sur notre fonctionnement ? </b></p>
-              </div>
-              <ContactForm />
+          <Footer />{/* 
+          <div id="contact" className="popup">
+            <a className="close" href="#home">&times;</a>
+            <div className="input-div">
+              <br />
+              <p><b>Des questions sur notre fonctionnement ? </b></p>
             </div>
+            <ContactForm />
           </div>
+          <a href="#home" class="close-popup">&nbsp;</a> */}
+          <div id="contact" className="contact-form" >
+            <a className="close" href="#home">&times;</a>
+            <div className="input-div">
+              <br />
+              <br />
+              <p><b>Des questions sur notre fonctionnement ? </b></p>
+            </div>
+            <ContactForm />
+          </div>
+          <a href="#home" className="contact-overlay">&nbsp;</a>
         </div>
       </Router>
     );

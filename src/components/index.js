@@ -5,6 +5,7 @@ import Popup from './Popup';
 import Carousel from './Carousel';
 import Footer from './Footer';
 import NotFound from './NotFound';
+import Admin from './Admin';
 import Map from './Map';
 
-export { Header, Tabs, Popup, Carousel, Map, NotFound, Footer }
+export { Header, Tabs, Popup, Carousel, Map, NotFound, Admin, Footer }
