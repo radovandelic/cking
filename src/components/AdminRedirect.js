@@ -3,8 +3,9 @@ import '../styles/footer.css';
 
 class AdminRedirect extends Component {
     componentWillMount = () => {
-        if (!!window.chrome && !!window.chrome.webstore) {
-            // clear cache before reloading content to get to admin page on chrome
+        if (!!window.chrome && !!window.chrome.webstore) { // check if browser is chrome
+
+            // clear cache before reloading content in order to get to admin page on chrome
             let id = `sw-precache-v3-sw-precache-webpack-plugin-https://${window.location.hostname}/`;
             caches.open(id)
                 .then(cache => cache.keys()

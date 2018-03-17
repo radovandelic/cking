@@ -15,7 +15,6 @@ class StyledForm extends Component {
         e.preventDefault();
         const { kitchen, user } = this.props;
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
-        console.log(url);
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -41,7 +40,6 @@ class StyledForm extends Component {
 
         const reader = new FileReader();
         const file = e.target.files[0];
-        console.log("File: ", file);
         reader.onload = (upload) => {
             this.setState({
                 image: upload.target.result
