@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, NotFound, AdminRedirect, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
-  UpdateKitchen, ContactForm, LoadUserInfo, RegisterExtra, UpdateAccount
+  UpdateKitchen, ContactForm, Terms, UpdateAccount, LoadUserInfo
 } from './containers';
 import './styles/App.css';
 
@@ -29,14 +29,15 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/registerkitchen" component={RegisterKitchen} />
-              <Route exact path="/registerextra" component={RegisterExtra} />
+              {/* <Route exact path="/registerextra" component={RegisterExtra} /> */}
               <Route exact path="/uploadimage" component={ImageUpload} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/browse" component={Browse} />
               <Route exact path="/updatekitchen" component={UpdateKitchen} />
               <Route exact path="/updateaccount" component={UpdateAccount} />
-              <Route exact path="/admin" component={AdminRedirect} />
+              <Route exact path="/terms" component={Terms} />
               <Route exact path="/listings/kitchens/:id" component={Kitchen} />
+              <Route exact path="/admin" component={AdminRedirect} />
               <Route component={NotFound} />
             </Switch>
           </main>

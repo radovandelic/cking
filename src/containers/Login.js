@@ -90,7 +90,7 @@ class StyledForm extends Component {
                         onSubmit={this.submit}
                         defaultValues={{ rememberMe: true }}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container login-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container login-container">
                                 <div className="input-div form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
                                     <i className="fa fa-user form-control-feedback"></i>
@@ -100,10 +100,10 @@ class StyledForm extends Component {
                                     <i className="fa fa-lock form-control-feedback"></i>
                                 </div>
                                 <div className="inline">
-                                    <div className="input-div" >
+                                    <div className="form-group" >
                                         <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
                                     </div>
-                                    <div className="input-div" >
+                                    <div className="form-group" >
                                         <button id="submit" type="submit" className="btn btn-orange">Login</button>
                                     </div>
                                 </div>

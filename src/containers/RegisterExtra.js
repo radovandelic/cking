@@ -78,7 +78,7 @@ class StyledForm extends Component {
                         validateError={this.errorValidator}
                         onSubmit={this.submit} onSubmitFailure={e => { console.log(e) }}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
 
                                 <h4>Trouvez un job en Extra ou comme Chef </h4>
                                 <p style={{ textAlign: "justify" }}>

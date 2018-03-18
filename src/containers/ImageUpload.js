@@ -65,8 +65,8 @@ class StyledForm extends Component {
         }
         return (
             <div>
-                <form onSubmit={this.submit} id="form2" className="form-container">
-                    <div className="input-div" >
+                <form onSubmit={this.submit} id="form" className="form-container">
+                    <div className="form-group" >
                         <label htmlFor="image">Upload an image</label>
                         <input type="file" accept="image/*" field="image" id="image" onChange={this.handleFile} />
                     </div>
@@ -75,9 +75,7 @@ class StyledForm extends Component {
                         :
                         null
                     }
-                    <div className="input-div" >
-                        <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
-                    </div>
+                    <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
                     <h4 className="uploaded-message">{this.state.message}</h4>
                 </form>
                 {images ?

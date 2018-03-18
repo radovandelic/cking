@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText } from 'react-form';
+import { Form, StyledText, StyledCheckbox } from 'react-form';
 import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
@@ -46,12 +46,16 @@ class StyledForm extends Component {
             if (!confirmPassword || !confirmPassword.trim()) return 'Password is required.';
             return password && confirmPassword !== password ? 'Passwords do not match' : null;
         };
+        const validateAgree = (agree) => {
+            return !agree ? 'Please read and accept the Terms of Service' : null;
+        };
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
             email: validateEmail(values.email),
             password: validatePassword(values.password),
-            confirmPassword: validateConfirmPassword(values.password, values.confirmPassword)
+            confirmPassword: validateConfirmPassword(values.password, values.confirmPassword),
+            agree: validateAgree(values.agree)
         };
     }
 
@@ -81,7 +85,7 @@ class StyledForm extends Component {
 
             })
             .then(data => {
-                if (typeof (Storage) !== undefined) {
+                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
                 }
@@ -92,6 +96,17 @@ class StyledForm extends Component {
             .catch(err => this.setState({ overlay: "overlay on" }));
 
     }
+
+    onSubmitFailure = (errors) => {
+        for (let e in errors) {
+            if (errors[e]) {
+                document.getElementById(e).focus();
+                window.scrollBy(0, -120);
+                break;
+            }
+        }
+    }
+
     render = () => {
         return (
             this.state.redirect ?
@@ -100,37 +115,49 @@ class StyledForm extends Component {
                 <div>
                     <Form
                         validateError={this.errorValidator}
-                        onSubmit={this.submit} onSubmitFailure={e => { console.log(e) }}>
+                        onSubmitFailure={this.onSubmitFailure}
+                        defaultValues={{ rememberMe: true }}
+                        onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <div className="inline">
-                                    <div className="input-div">
-                                        <label htmlFor="firstName">First name</label>
-                                        <StyledText field="firstName" id="firstName" />
+                                    <div className="form-group has-feedback">
+                                        <StyledText className="form-control" placeholder="First name" field="firstName" id="firstName" />
                                     </div>
-                                    <div className="input-div">
-                                        <label htmlFor="lastName">Last name</label>
-                                        <StyledText field="lastName" id="lastName" />
+                                    <div className="form-group has-feedback">
+                                        <StyledText className="form-control" placeholder="Last name" field="lastName" id="lastName" />
                                     </div>
                                 </div>
-                                <div className="input-div" >
-                                    <label htmlFor="username">Username</label>
-                                    <StyledText field="name" id="name" />
+                                <div className="form-group has-feedback" >
+                                    <StyledText className="form-control" placeholder="Username" field="name" id="name" />
                                 </div>
-                                <div className="input-div" >
-                                    <label htmlFor="email">Email</label>
-                                    <StyledText type="email" field="email" id="email" />
+                                <div className="form-group has-feedback" >
+                                    <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
+                                    <i className="fa fa-user form-control-feedback"></i>
                                 </div>
-                                <div className="input-div" >
-                                    <label htmlFor="password">Password</label>
-                                    <StyledText type="password" field="password" id="password" />
+                                <div className="form-group has-feedback" >
+                                    <StyledText className="form-control" placeholder="Password" type="password" field="password" id="password" />
+                                    <i className="fa fa-lock form-control-feedback"></i>
                                 </div>
-                                <div className="input-div" >
-                                    <label htmlFor="confirm-password">Confirm Password</label>
-                                    <StyledText type="password" field="confirmPassword" id="confirm-password" />
+                                <div className="form-group has-feedback" >
+                                    <StyledText className="form-control" placeholder="Confirm password" type="password" field="confirmPassword" id="confirm-password" />
                                 </div>
-                                <div className="input-div" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Register</button>
+                                <div className="form-group" id="terms" >
+                                    <StyledCheckbox field="agree" id="agree"
+                                        label={
+                                            <span>I agree with the&nbsp;
+                                                <a href="/terms" target="_blank" rel="noopener noreferrer">
+                                                    Terms of Service
+                                                </a>
+                                            </span>} />
+                                </div>
+                                <div className="inline">
+                                    <div className="form-group" >
+                                        <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
+                                    </div>
+                                    <div className="form-group" >
+                                        <button id="submit" type="submit" className="btn btn-orange">Register</button>
+                                    </div>
                                 </div>
                             </form>
                         )}

@@ -1,13 +1,25 @@
 import React from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withGoogleMap, GoogleMap, Circle } from "react-google-maps"
 
-export default withScriptjs(withGoogleMap((props) =>
-    <div className="map-container">
+const circleOptions = {
+    fillColor: "#ff6114",
+    fillOpacity: 0.5,
+    strokeColor: "#ff6114",
+    radius: 500,
+    center: {
+        lat: 50.850,
+        lng: 4.351
+    }
+}
+
+export default withGoogleMap((props) => {
+    circleOptions.center = props.marker;
+    return < div className="map-container" >
         <GoogleMap
-            defaultZoom={8}
-            defaultCenter={{ lat: -34.397, lng: 150.644 }}
+            defaultZoom={14}
+            defaultCenter={props.marker || { lat: 50.850, lng: 4.351 }}
         >
-            {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+            <Circle options={circleOptions} />
         </GoogleMap>
     </div >
-))
+})

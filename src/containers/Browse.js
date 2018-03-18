@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Popup, Map } from '../components';
+import { Popup } from '../components';
 import '../styles/browse.css';
+import { postalcodes } from '../data';
+import { GMAPS_KEY } from '../config';
 
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
@@ -36,7 +38,7 @@ class Browse extends Component {
                 this.setState({ overlay: "overlay on" })
             });
 
-        //load carousel scripts here so we don't slow down the rest of the app
+        //load map and carousel scripts here so we don't slow down the rest of the app
         if (!document.getElementById("jssor")) { //check if scripts are already loaded
             let script = document.createElement("script");
             script.id = "jssor";
@@ -51,6 +53,13 @@ class Browse extends Component {
             script.src = "/static/js/carousel.js";
             script.async = true;
             document.body.appendChild(script);
+
+            script = document.createElement("script");
+            script.id = "gmaps";
+            script.type = "text/javascript";
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
+            script.async = true;
+            document.body.appendChild(script);
         }
     }
 
@@ -58,6 +67,7 @@ class Browse extends Component {
         let { kitchens } = this.state;
         let Listings = [];
         for (const kitchen of kitchens) {
+            let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
                     <div className="circle-container">
@@ -77,7 +87,9 @@ class Browse extends Component {
                                 <h4>{kitchen.size} m<sup>2</sup> </h4>
                                 <h3 className="price-m">€{kitchen.price} / h</h3>
                             </Link>
-                            <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>{kitchen.address}</Link>
+                            <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>
+                                {city + " " + kitchen.postalCode + ", " + kitchen.region}
+                            </Link>
                         </div>
                         <div className="listing-info price">
                             <h3>€{kitchen.price} / h</h3>
@@ -89,16 +101,7 @@ class Browse extends Component {
         return (<div className="browse-container">
             <div className="listings">
                 {Listings}
-            </div>{/* 
-            <div className="map-container">
-                <Map
-                    isMarkerShown
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                />
-            </div> */}
+            </div>
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>

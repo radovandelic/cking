@@ -102,13 +102,14 @@ class StyledForm extends Component {
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2">
-                                <div className="input-div" >
+                                <div className="form-group has-feedback" >
                                     <StyledText placeholder="Email" type="email" field="email" id="email" />
+                                    <i className="fa fa-user form-control-feedback"></i>
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group has-feedback" >
                                     <StyledTextArea placeholder="Message" style={{ width: '100%' }} rows="4" field="message" id="message" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group has-feedback" >
                                     <button id="submit" type="submit" className="btn btn-orange">Envoyer</button>
                                 </div>
                             </form>

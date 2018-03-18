@@ -44,24 +44,6 @@ class StyledForm extends Component {
         };
     }
 
-    warningValidator = (values) => {
-        const validateFirstName = (firstName) => {
-            return firstName && firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
-        };
-        const validateLastName = (lastName) => {
-            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
-        };
-        const validateEmail = (email) => {
-            return email && !regex.test(email) ? 'Please enter a valid email.' : null;
-        };
-
-        return {
-            firstName: validateFirstName(values.firstName),
-            lastName: validateLastName(values.lastName),
-            email: validateEmail(values.email)
-        };
-    }
-
     submit = (submittedValues) => {
         const { updateUser, user } = this.props;
         submittedValues.access_token = user.access_token;
@@ -88,7 +70,6 @@ class StyledForm extends Component {
 
             })
             .then(user => {
-                console.log(user)
                 if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
                     window.localStorage.setItem("user", base64.encode(JSON.stringify(user)));
                 }
@@ -98,6 +79,17 @@ class StyledForm extends Component {
             .catch(err => this.setState({ overlay: "overlay on" }));
 
     }
+
+    onSubmitFailure = (errors) => {
+        for (let e in errors) {
+            if (errors[e]) {
+                document.getElementById(e).focus();
+                window.scrollBy(0, -120);
+                break;
+            }
+        }
+    }
+
     render = () => {
         const { user } = this.props;
         return (
@@ -107,28 +99,29 @@ class StyledForm extends Component {
                 <div>
                     <Form
                         validateError={this.errorValidator} defaultValues={user}
-                        onSubmit={this.submit} onSubmitFailure={e => { console.log(e) }}>
+                        onSubmitFailure={this.onSubmitFailure}
+                        onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <div className="inline">
-                                    <div className="input-div">
+                                    <div className="form-group">
                                         <label htmlFor="firstName">First name</label>
-                                        <StyledText field="firstName" id="firstName" />
+                                        <StyledText className="form-control" field="firstName" id="firstName" />
                                     </div>
-                                    <div className="input-div">
+                                    <div className="form-group">
                                         <label htmlFor="lastName">Last name</label>
-                                        <StyledText field="lastName" id="lastName" />
+                                        <StyledText className="form-control" field="lastName" id="lastName" />
                                     </div>
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="username">Username</label>
-                                    <StyledText field="name" id="name" />
+                                    <StyledText className="form-control" field="name" id="name" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="email">Email</label>
-                                    <StyledText value={user.email} type="email" field="email" id="email" />
+                                    <StyledText value={user.email} type="email" className="form-control" field="email" id="email" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <button id="submit" type="submit" className="btn btn-orange">Update Information</button>
                                 </div>
                             </form>

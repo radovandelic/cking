@@ -34,9 +34,9 @@ let Dashboard = (props) => {
                 :
                 null
             }
-            <Link to="/registerextra">
+            {/* <Link to="/registerextra">
                 <button className="mb-4 btn btn-orange dashboard-btn">Register as chef or extra</button>
-            </Link>
+            </Link> */}
             {/* <button className="mb-4 btn btn-orange">Register as consultant</button> */}
             <Link to="/updateaccount">
                 <button className="mb-4 btn btn-orange dashboard-btn">Account Information</button>

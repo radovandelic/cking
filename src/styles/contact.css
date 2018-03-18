@@ -23,7 +23,7 @@
     padding: 20px;
     background: #fff;
     width: 90%;
-    max-width: 410px;
+    max-width: 500px;
     /* "delay" the visibility transition */
     -webkit-transition: opacity .2s, visibility 0s linear .2s;
     transition: opacity .2s, visibility 0s linear .2s;

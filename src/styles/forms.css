@@ -4,7 +4,7 @@
 }
 
 .form-container.login-container {
-    max-width: 400px;
+    max-width: 600px;
 }
 
 .images-container>div {
@@ -70,19 +70,29 @@ label {
 
 input.react-form-input {
     width: 100%;
-    height: 35px;
+    height: 50px;
+    font-size: 20px;
 }
 
-.input-div {
+textarea.react-form-input {
     width: 100%;
-    padding: 10px;
+    font-size: 20px;
 }
 
-.input-div-checkbox,
-.input-div-hours {
+.form-group {
+    width: 100%;
+    padding: 15px;
+}
+
+.form-group-checkbox,
+.form-group-hours {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.form-group>div>label {
+    margin-top: 5px;
 }
 
 #submit {
@@ -91,6 +101,7 @@ input.react-form-input {
 }
 
 .react-form-message {
+    margin-top: 5px;
     margin-bottom: 1rem;
     display: block;
 }
@@ -100,7 +111,7 @@ input.react-form-input {
 }
 
 .react-form-message-warning {
-    color: #c32128;
+    color: #ff6114;
 }
 
 .react-form-message-success {
@@ -112,8 +123,14 @@ input.react-form-input {
     margin: 0 6px 0;
 }
 
+#rememberme,
+#agree {
+    position: relative;
+    top: 4px;
+}
+
 .uploaded-message {
-    color: #788d25;
+    color: #ff6114;
     font-weight: 600;
 }
 
@@ -128,31 +145,25 @@ input.react-form-input {
     justify-content: space-between;
 }
 
-.input-div>p {
+.form-group>p {
     font-size: 12px;
     font-weight: normal;
     text-align: justify;
 }
 
-.inputicon {
-    float: right;
-    margin-right: 6px;
-    margin-top: -32px;
-    position: relative;
+.form-group>.fa {
+    margin: 22px;
     font-size: 24px;
     z-index: 1;
     color: #ff6114;
 }
 
-.input-div>.fa {
-    margin: 10px;
-    font-size: 20px;
-    z-index: 1;
-    color: #ff6114;
+.form-group .form-control:focus {
+    border-color: #ff6114;
 }
 
-.input-div .form-control:focus {
-    border-color: #ff6114;
+#terms {
+    text-align: left;
 }
 
 @media screen and (max-width: 768px) {

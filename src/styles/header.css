@@ -5,6 +5,7 @@ nav {
 .navbar.navbar-fixed-top {
     background-color: #fff;
     border-color: #fff;
+    z-index: 2;
 }
 
 .logo {

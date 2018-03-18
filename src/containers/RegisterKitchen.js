@@ -28,6 +28,34 @@ const regionOptions = [
     {
         label: "Bruxelles",
         value: "Bruxelles"
+    },
+    {
+        label: "East Flanders",
+        value: "East Flanders"
+    },
+    {
+        label: "Hainaut",
+        value: "Hainaut"
+    },
+    {
+        label: "Liege",
+        value: "Liege"
+    },
+    {
+        label: "Limburg",
+        value: "Limburg"
+    },
+    {
+        label: "Luxembourg",
+        value: "Luxembourg"
+    },
+    {
+        label: "Namur",
+        value: "Namur"
+    },
+    {
+        label: "West Flanders",
+        value: "West Flanders"
     }
 ]
 
@@ -66,31 +94,46 @@ class StyledForm extends Component {
     errorValidator = (values) => {
 
         const validateName = (name) => {
-            return !name ? 'Nom du bien est requis' : null;
+            if (!name || !name.trim()) return 'Nom du bien est requis';
+            return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
         };
         const validateType = (type) => {
-            return !type ? 'Type de bien est requis' : null;
+            if (!type || !type.trim()) return 'Type du bien est requis';
+
         };
         const validatePhone = (phone) => {
-            return !phone ? 'Numéro de téléphone est requis' : null;
+            if (!phone || !phone.trim()) return 'Numéro de téléphonen est requis';
+
         };
         const validateAddress = (address) => {
-            return !address ? 'Adresse du bien est requis' : null;
+            if (!address || !address.trim()) return 'Adresse du bien est requis';
+
         };
         const validatePostalCode = (postalCode) => {
-            return !postalCode ? 'Code Postal est requis' : null;
+            if (!postalCode || !String(postalCode).trim()) return 'Code Postal du bien est requis';
+            return postalCode && (String(postalCode).length !== 4) ? 'Code Postal non valide' : null;
+
         };
         const validateRegion = (region) => {
-            return !region ? 'Region est requis' : null;
+            if (!region || !region.trim()) return 'Region est requis';
+
         };
         const validateVAT = (VAT) => {
-            return !VAT ? "Numéro de TVA est requis" : null;
+            if (!VAT || !VAT.trim()) return 'Numéro de TVA est requis';
+
         };
         const validateSize = (size) => {
-            return !size ? "Superficie du bien est requis" : null;
+            if (!size || !String(size).trim()) return 'Superficie du bien est requis';
+            return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
+
         };
         const validatePrice = (price) => {
-            return !price ? "Prix est requis" : null;
+            if (!price || !String(price).trim()) return 'Prix est requis';
+            return price && (price < 15 || price > 200) ? 'Prix non valide' : null;
+
+        };
+        const validateAgree = (agree) => {
+            if (!agree) return 'Please read and accept the Terms of Service';
         };
         return {
             name: validateName(values.name),
@@ -101,33 +144,17 @@ class StyledForm extends Component {
             region: validateRegion(values.region),
             VAT: validateVAT(values.VAT),
             size: validateSize(values.size),
-            price: validatePrice(values.price)
+            price: validatePrice(values.price),
+            agree: validateAgree(values.agree)
         };
     }
 
     warningValidator = (values) => {
-
-        const validateName = (name) => {
-            return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
-        };
-        const validatePostalCode = (postalCode) => {
-            return postalCode && (postalCode.length !== 4) ? 'Code Postal non valide' : null;
-        };
-        const validateSize = (size) => {
-            return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
-        };
-        const validatePrice = (price) => {
-            return price && (price < 15 || price > 200) ? 'Prix non valide' : null;
-        };
         const validateRent = (rent) => {
             return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? 'Prix non valide' : null;
         };
 
         return {
-            name: validateName(values.name),
-            postalCode: validatePostalCode(values.postalCode),
-            size: validateSize(values.size),
-            price: validatePrice(values.price),
             rent: validateRent(values.rent)
         };
     }
@@ -142,7 +169,7 @@ class StyledForm extends Component {
         };
     }
 
-    shapeData = (submittedValues) => {
+    formatData = (submittedValues) => {
         submittedValues.events = Boolean(submittedValues.events) || undefined;
         submittedValues.size = Number(submittedValues.size);
         submittedValues.price = Number(submittedValues.price);
@@ -177,7 +204,7 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         const { updateKitchen, user } = this.props;
-        submittedValues = this.shapeData(submittedValues);
+        submittedValues = this.formatData(submittedValues);
         submittedValues.access_token = user.access_token;
         let url = 'http://0.0.0.0:9000/api/kitchens';
         let query = {
@@ -216,6 +243,19 @@ class StyledForm extends Component {
                 })
             });
     }
+
+    onSubmitFailure = (errors) => {
+        for (let err in errors) {
+            if (errors[err]) {
+                var e = document.getElementById(err);
+                if (err === "type" || err === "agree") e.scrollIntoView(true);
+                else e.focus();
+                window.scrollBy(0, -120);
+                break;
+            }
+        }
+    }
+
     render = () => {
         return (
             this.state.redirect
@@ -226,9 +266,10 @@ class StyledForm extends Component {
                         validateError={this.errorValidator}
                         validateWarning={this.warningValidator}
                         validateSuccess={this.successValidator}
+                        onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <h4>Formulaire location de cuisine</h4>
                                 <p style={{ textAlign: "justify" }}> Vous cherchez à diminuer vos frais fixes et augmenter votre rentabilité ?
                                 <br />
@@ -240,21 +281,21 @@ class StyledForm extends Component {
                                     Si vous avez une question, contactez nous au 02.223/10.37<br />
                                     Ou bien sur <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
                                 </p>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="name">Nom du bien</label>
-                                    <StyledText type="text" field="name" id="name" />
+                                    <StyledText className="form-control" type="text" field="name" id="name" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="phone">Votre numéro de téléphone</label>
-                                    <StyledText type="text" field="phone" id="phone" />
+                                    <StyledText className="form-control" type="text" field="phone" id="phone" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="description">Descriptif du bien </label>
-                                    <StyledTextArea style={{ width: '100%' }} rows="4" field="description" id="description" />
+                                    <StyledTextArea className="form-control" style={{ width: '100%' }} rows="4" field="description" id="description" />
                                 </div>
-                                <div className="input-div" style={{ height: '150px' }}>
+                                <div className="form-group" id="type" style={{ height: '150px' }}>
                                     <label>Type de bien:</label>
-                                    <StyledRadioGroup field="type">
+                                    <StyledRadioGroup field="type" id="type">
                                         {group => (
                                             <ul className="radio-grid" >
                                                 <li> <StyledRadio group={group} value="kitchen" id="kitchen" label="Cuisine laboratoire" className="d-inline-block" /> </li>
@@ -265,51 +306,51 @@ class StyledForm extends Component {
                                         )}
                                     </StyledRadioGroup>
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="address">Adresse du bien</label>
-                                    <StyledText type="text" field="address" id="address" />
+                                    <StyledText className="form-control" type="text" field="address" id="address" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="postalcode">Code postal</label>
-                                    <StyledText type="number" field="postalCode" id="postalcode" min="1000" max="9999" />
+                                    <StyledText className="form-control" type="number" field="postalCode" id="postalcode" min="1000" max="9999" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="region">Ville/Region</label>
                                     <StyledSelect type="text" field="region" id="region"
                                         options={regionOptions} defaultValue="Bruxelles" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="size">Superficie du bien (en m2)</label>
-                                    <StyledText type="number" field="size" id="size" min="1" max="2000" />
+                                    <StyledText className="form-control" type="number" field="size" id="size" min="1" max="2000" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="AFSCA">Numéro d'unité d'établissement (AFSCA)</label>
-                                    <StyledText type="text" field="AFSCA" id="AFSCA" />
+                                    <StyledText className="form-control" type="text" field="AFSCA" id="AFSCA" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="VAT">Numéro de TVA</label>
-                                    <StyledText type="text" field="VAT" id="VAT" />
+                                    <StyledText className="form-control" type="text" field="VAT" id="VAT" />
                                 </div>
                                 <label htmlFor="hours">Heures de disponibilité</label>
-                                <div className="input-div-hours" >
+                                <div className="form-group-hours" >
                                     <StyledSelect field="hoursFrom" id="hoursFrom" options={hourOptions} />
                                     &nbsp;&nbsp;-&nbsp;&nbsp;
                             <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="capacity">Nombre de personnes pouvant travailler en cuisine</label>
                                     <StyledSelect field="capacity" id="capacity" options={capacityOptions} />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="price">Prix à l'heure (HTVA)</label>
-                                    <StyledText type="number" field="price" id="price" min="5" max="200" />
+                                    <StyledText className="form-control" type="number" field="price" id="price" min="5" max="200" />
                                 </div>
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <label htmlFor="rent">Prix au mois pour un entrepreneur (une équipe de 2 personnes max) (HTVA)</label>
-                                    <StyledText type="number" field="rent" id="rent" min="100" max="20000" />
+                                    <StyledText className="form-control" type="number" field="rent" id="rent" min="100" max="20000" />
                                 </div>
                                 <label htmlFor="equipment">Equipements disponibles:</label>
-                                <div className="input-div-checkbox" >
+                                <div className="form-group-checkbox" >
                                     <ul className="checkbox-grid">
                                         <li>  <StyledCheckbox field="parking" id="parking" label="Parking" className="d-inline-block" /></li>
                                         <li>  <StyledCheckbox field="toilets" id="toilets" label="Toilettes" className="d-inline-block" /> </li>
@@ -357,7 +398,7 @@ class StyledForm extends Component {
                                     </ul>
                                 </div>
                                 <label htmlFor="staff">Services disponibles (en option payante pour le locataire):</label>
-                                <div className="input-div" style={{ height: '80px' }}>
+                                <div className="form-group" style={{ height: '80px' }}>
                                     <ul className="checkbox-grid">
                                         <li> <StyledCheckbox field="cookstaff" id="cookstaff" label="Personnel de cuisine" className="d-inline-block" /></li>
                                         <li> <StyledCheckbox field="roomstaff" id="roomstaff" label="Personnel de salle" className="d-inline-block" /> </li>
@@ -368,7 +409,7 @@ class StyledForm extends Component {
                                         <li> <StyledCheckbox field="reception" id="reception" label="Réception de marchandises" className="d-inline-block" /> </li>
                                     </ul>
                                 </div>
-                                <div htmlFor="cancellation" className="input-div" style={{ height: '140px' }}>
+                                <div htmlFor="cancellation" className="form-group" style={{ height: '140px' }}>
                                     <label>Vos conditions d'annulation:</label>
                                     <StyledRadioGroup field="cancellation" >
                                         {group => (
@@ -380,7 +421,7 @@ class StyledForm extends Component {
                                         )}
                                     </StyledRadioGroup>
                                 </div>
-                                <div htmlFor="events" className="input-div">
+                                <div htmlFor="events" className="form-group">
                                     <label>Espace disponible pour évènement?</label>
                                     <StyledRadioGroup onChange={(e) => { this.setState({ events: Boolean(e) }) }} field="events">
                                         {group => (
@@ -392,14 +433,14 @@ class StyledForm extends Component {
                                     </StyledRadioGroup>
                                 </div>
                                 {this.state.events === true ? (
-                                    <div className="input-div" >
+                                    <div className="form-group" >
                                         <label htmlFor="event-capacity1">Capacité debout pour évènement:</label>
-                                        <StyledText type="number" field="standingCapacity" id="standing-capacity1" />
+                                        <StyledText className="form-control" type="number" field="standingCapacity" id="standing-capacity1" />
                                         <label htmlFor="event-capacity2">Capacité assis pour évènement:</label>
-                                        <StyledText type="number" field="sittingCapacity" id="sitting-capacity" />
+                                        <StyledText className="form-control" type="number" field="sittingCapacity" id="sitting-capacity" />
                                     </div>
                                 ) : null}
-                                <div className="input-div" >
+                                <div className="form-group" >
                                     <button id="submit" type="submit" className="btn btn-orange">Register Kitchen</button>
                                 </div>
                                 <div id="header_spacing"></div>

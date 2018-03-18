@@ -17,6 +17,7 @@
 #logout:focus,
 #delete,
 #delete:focus {
+    border-color: #484848;
     background-color: #484848;
     width: 40%;
     font-weight: bold;
