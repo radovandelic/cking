@@ -29,18 +29,21 @@ class Kitchen extends Component {
     }
 
     loadMapScript = () => {
-        var interval = setInterval(() => {
-            if (!document.getElementById("gmaps")) {
-                let script = document.createElement("script");
-                script.id = "gmaps";
-                script.type = "text/javascript";
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
-                document.body.appendChild(script);
-            } else {
-                clearInterval(interval);
-                this.setState({ isMapLoaded: true })
-            }
-        }, 50)
+        if (!document.getElementById("gmaps")) {
+            let script = document.createElement("script");
+            script.id = "gmaps";
+            script.type = "text/javascript";
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
+            document.body.appendChild(script);
+            var interval = setInterval(() => {
+                if (document.getElementById("gmaps")) {
+                    clearInterval(interval);
+                    this.setState({ isMapLoaded: true })
+                }
+            }, 50)
+        } else {
+            this.setState({ isMapLoaded: true })
+        }
     }
 
     loadCarouselScripts = () => {
