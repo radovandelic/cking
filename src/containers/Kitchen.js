@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import geocoder from 'geocoder'
+import googleGeocoder from 'google-geocoder'
 import { Popup, Map } from '../components';
+import { postalcodes } from '../data';
+import { GMAPS_KEY } from '../config';
 import '../styles/kitchen.css';
 import '../styles/carousel.css';
 import spin from '../spin.svg';
-import { GMAPS_KEY } from '../config';
-import { postalcodes } from '../data';
-
+const geocoder = googleGeocoder({ key: GMAPS_KEY })
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
 
@@ -94,12 +94,11 @@ class Kitchen extends Component {
                 }
 
                 //get kitchen coordinates
-                geocoder.geocode(`${data.address}, ${data.postalCode}, ${data.region}`, (err, response) => {
-                    if (!err && response.results && response.results[0]) {
+                geocoder.find(`${data.address}, ${data.postalCode}, ${data.region}`, (err, response) => {
+                    if (!err && response[0]) {
 
                         //set kitchen coordinates
-                        this.setState({ location: response.results[0].geometry.location })
-                        console.log(response)
+                        this.setState({ location: response[0].location })
                     } else {
                         console.log(err || response, data)
                     }
