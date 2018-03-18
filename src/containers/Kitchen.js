@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import googleGeocoder from 'google-geocoder'
 import { Popup, Map } from '../components';
 import { postalcodes } from '../data';
-import { GMAPS_KEY } from '../config';
+import { GMAPS_KEY, GEOCODE_KEY } from '../config';
 import '../styles/kitchen.css';
 import '../styles/carousel.css';
 import spin from '../spin.svg';
-const geocoder = googleGeocoder({ key: GMAPS_KEY })
+
+const geocoder = googleGeocoder({ key: GEOCODE_KEY })
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
 
