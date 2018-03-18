@@ -92,14 +92,12 @@ class StyledForm extends Component {
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2" className="form-container login-container">
                                 <div className="input-div form-group has-feedback" >
-                                    {/*  <label htmlFor="email">Email</label> */}
                                     <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
-                                    <span class="fa fa-user form-control-feedback"></span>
+                                    <i className="fa fa-user form-control-feedback"></i>
                                 </div>
                                 <div className="input-div form-group has-feedback" >
-                                    {/*  <label htmlFor="password">Password</label> */}
                                     <StyledText className="form-control" placeholder="Password" type="password" field="password" id="password" />
-                                    <span class="fa fa-lock form-control-feedback"></span>
+                                    <i className="fa fa-lock form-control-feedback"></i>
                                 </div>
                                 <div className="inline">
                                     <div className="input-div" >
