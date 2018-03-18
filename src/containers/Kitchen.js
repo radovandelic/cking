@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Popup } from '../components'
 import '../styles/kitchen.css';
 import '../styles/carousel.css';
+import spin from '../spin.svg'
 
 var errorTitle = "Error"
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
@@ -89,7 +90,7 @@ class Kitchen extends Component {
                     <div id="jssor_1" style={{ position: "relative", margin: "0 auto", top: "0px", left: "0px", width: "980px", height: "480px", overflow: "hidden", visibility: "hidden" }}>
                         {/* <!-- Loading Screen --> */}
                         <div data-u="loading" className="jssorl-009-spin" style={{ position: "absolute", top: "0px", left: "0px", width: "100%", height: "100%", textAlign: "center", backgroundColor: "rgba(0,0,0,0.7)" }}>
-                            <img alt="kitchen" style={{ marginTop: "-19px", position: "relative", top: "50%", width: "38px", height: "38px" }} src="/static/img/spin.svg" />
+                            <img alt="loading" style={{ marginTop: "-19px", position: "relative", top: "50%", width: "38px", height: "38px" }} src={spin} />
                         </div>
                         <div data-u="slides" style={{ cursor: "default", position: "relative", top: "0px", left: "0px", width: "980px", height: "380px", overflow: "hidden" }}>
                             {this.state.gallery}
