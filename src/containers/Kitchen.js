@@ -35,15 +35,8 @@ class Kitchen extends Component {
             script.type = "text/javascript";
             script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
             document.body.appendChild(script);
-            var interval = setInterval(() => {
-                if (document.getElementById("gmaps")) {
-                    clearInterval(interval);
-                    this.setState({ isMapLoaded: true })
-                }
-            }, 50)
-        } else {
-            this.setState({ isMapLoaded: true })
         }
+        this.setState({ isMapLoaded: true })
     }
 
     loadCarouselScripts = () => {
@@ -106,8 +99,9 @@ class Kitchen extends Component {
 
                         //set kitchen coordinates
                         this.setState({ location: response.results[0].geometry.location })
+                        console.log(response)
                     } else {
-                        //console.log(err || response, data)
+                        console.log(err || response, data)
                     }
                 });
 
