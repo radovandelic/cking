@@ -144,6 +144,17 @@ input.react-form-input {
     color: #ff6114;
 }
 
+.input-div>.fa {
+    margin: 10px;
+    font-size: 20px;
+    z-index: 1;
+    color: #ff6114;
+}
+
+.input-div .form-control:focus {
+    border-color: #ff6114;
+}
+
 @media screen and (max-width: 768px) {
     .d-inline-block {
         font-size: 55%;

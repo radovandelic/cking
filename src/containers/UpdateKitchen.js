@@ -236,10 +236,9 @@ class StyledForm extends Component {
     }
 
     onSubmitFailure = (errors) => {
-        console.log(errors)
         for (let e in errors) {
             if (errors[e]) {
-                window.location.href = "#" + e;
+                document.getElementById(e).scrollIntoView(true);
                 window.scrollBy(0, -100);
                 break;
             }

@@ -91,15 +91,15 @@ class StyledForm extends Component {
                         defaultValues={{ rememberMe: true }}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form2" className="form-container login-container">
-                                <div className="input-div" >
+                                <div className="input-div form-group has-feedback" >
                                     {/*  <label htmlFor="email">Email</label> */}
-                                    <StyledText placeholder="Email" type="email" field="email" id="email" />
-                                    <span class="fa fa-keyboard-o inputicon"></span>
+                                    <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
+                                    <span class="fa fa-user form-control-feedback"></span>
                                 </div>
-                                <div className="input-div" >
+                                <div className="input-div form-group has-feedback" >
                                     {/*  <label htmlFor="password">Password</label> */}
-                                    <StyledText placeholder="Password" type="password" field="password" id="password" />
-                                    <span class="fa fa-lock inputicon"></span>
+                                    <StyledText className="form-control" placeholder="Password" type="password" field="password" id="password" />
+                                    <span class="fa fa-lock form-control-feedback"></span>
                                 </div>
                                 <div className="inline">
                                     <div className="input-div" >
