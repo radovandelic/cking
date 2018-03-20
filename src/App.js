@@ -32,7 +32,7 @@ class App extends Component {
               {/* <Route exact path="/registerextra" component={RegisterExtra} /> */}
               <Route exact path="/uploadimage" component={ImageUpload} />
               <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/browse" component={Browse} />
+              <Route exact path="/browse/:region/:type" component={Browse} />
               <Route exact path="/updatekitchen" component={UpdateKitchen} />
               <Route exact path="/updateaccount" component={UpdateAccount} />
               <Route exact path="/terms" component={Terms} />

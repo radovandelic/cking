@@ -31,7 +31,7 @@ const regionOptions = [
     },
     {
         label: "East Flanders",
-        value: "East Flanders"
+        value: "EastFlanders"
     },
     {
         label: "Hainaut",
@@ -55,7 +55,7 @@ const regionOptions = [
     },
     {
         label: "West Flanders",
-        value: "West Flanders"
+        value: "WestFlanders"
     }
 ]
 

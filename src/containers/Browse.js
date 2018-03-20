@@ -14,14 +14,19 @@ class Browse extends Component {
         super(props);
         this.state = {
             kitchens: [],
+            count: -1,
             overlay: "overlay off",
             popup: {
                 message: errorMessageConnect
             }
         };
     }
-    componentDidMount = () => {
-        let url = 'http://0.0.0.0:9000/api/kitchens';
+    componentWillMount = () => {
+        let { region, type } = this.props.match.params;
+        region = region !== "all" ? "region=" + region : ""
+        type = type !== "all" ? "type=" + type : ""
+        const url = `http://0.0.0.0:9000/api/kitchens?${region}&${type}`;
+
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -32,7 +37,7 @@ class Browse extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                this.setState({ kitchens: data.rows });
+                this.setState({ kitchens: data.rows, count: data.count });
             })
             .catch(err => {
                 this.setState({ overlay: "overlay on" })
@@ -64,7 +69,7 @@ class Browse extends Component {
     }
 
     render = () => {
-        let { kitchens } = this.state;
+        let { kitchens, count } = this.state;
         let Listings = [];
         for (const kitchen of kitchens) {
             let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
@@ -100,7 +105,14 @@ class Browse extends Component {
         }
         return (<div className="browse-container">
             <div className="listings">
-                {Listings}
+                {count === 0
+                    ?
+                    <div className="dashoard-container">
+                        <h4>No results found.</h4>
+                    </div>
+                    :
+                    Listings
+                }
             </div>
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
