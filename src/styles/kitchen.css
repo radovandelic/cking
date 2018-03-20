@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 .listing-container {
     max-width: 1200px;
     width: 100%;
@@ -16,6 +15,37 @@
     justify-content: space-between;
 }
 
+.single-listing-information {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.single-listing-information h4 {
+    margin: 20px;
+}
+
+.single-listing-information h5 {
+    margin: 5px;
+}
+
+.map-container {
+    position: relative;
+    height: 500px;
+    padding: 0;
+}
+
+.fa.fa-check {
+    color: #ff6114;
+}
+
+#events {
+    margin-left: 0;
+}
+
 @media screen and (max-width: 600px) {
     .listing-container {
         width: 100vw;
@@ -26,14 +56,12 @@
         display: flex;
         flex-direction: column;
     }
-    .slides {
-        width: 305px;
-        height: 210px;
+    .single-listing-information li {
+        width: 100%;
     }
-    .nav label {
-        width: 100px;
-        height: 100%;
-        font-size: 73pt;
-        line-height: 190px;
+    .map-container {
+        position: relative;
+        height: 300px;
+        padding: 10px;
     }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Popup } from '../components';
 import '../styles/browse.css';
-import { postalcodes } from '../data';
+import { postalcodes, translations } from '../data';
 import { GMAPS_KEY } from '../config';
 
 var errorTitle = "Error"
@@ -72,22 +72,7 @@ class Browse extends Component {
         let { kitchens, count } = this.state;
         let Listings = [];
         for (const kitchen of kitchens) {
-            switch (kitchen.type) {
-                case "kitchen":
-                    kitchen.type = "Cuisine laboratoire";
-                    break;
-                case "sharedkitchen":
-                    kitchen.type = "Cuisine laboratoire partagée";
-                    break;
-                case "restaurant":
-                    kitchen.type = "Cuisine de restaurant";
-                    break;
-                case "collectiverestaurant":
-                    kitchen.type = "Cuisine de restaurant collective";
-                    break;
-                default:
-                    break;
-            }
+            kitchen.type = translations.fr.type[kitchen.type]
             let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">

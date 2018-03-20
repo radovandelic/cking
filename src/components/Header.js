@@ -48,6 +48,13 @@ class Header extends Component {
                                         </Link>
                                     </li>
                                     <li>
+                                        <a href="#FAQ" onClick={toggleMenu}>
+                                            <button className="btn navbar-btn nav-link nav-link-grey">
+                                                FAQ
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="#contact" onClick={toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
                                                 Contact
@@ -70,6 +77,13 @@ class Header extends Component {
                                                 Dashboard
                                             </button>
                                         </Link>
+                                    </li>
+                                    <li>
+                                        <a href="#FAQ" onClick={toggleMenu}>
+                                            <button className="btn navbar-btn nav-link nav-link-grey">
+                                                FAQ
+                                            </button>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#contact" onClick={toggleMenu}>

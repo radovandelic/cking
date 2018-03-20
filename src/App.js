@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Header, NotFound, AdminRedirect, Footer } from './components';
+import { Header, FAQ, AdminRedirect, NotFound, Footer } from './components';
 import {
   Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
   UpdateKitchen, ContactForm, Terms, UpdateAccount, LoadUserInfo
@@ -41,16 +41,18 @@ class App extends Component {
               <Route component={NotFound} />
             </Switch>
           </main>
-          <Footer />{/* 
-          <div id="contact" className="popup">
+          <Footer />
+
+          <div id="FAQ" className="faq-container" >
             <a className="close" href="#home">&times;</a>
             <div className="input-div">
-              <br />
-              <p><b>Des questions sur notre fonctionnement ? </b></p>
+              <h3><b>FAQ</b></h3>
+              <h4>Des questions? Vos premières réponses </h4>
             </div>
-            <ContactForm />
+            <FAQ />
           </div>
-          <a href="#home" class="close-popup">&nbsp;</a> */}
+          <a href="#home" className="faq-overlay">&nbsp;</a>
+
           <div id="contact" className="contact-form" >
             <a className="close" href="#home">&times;</a>
             <div className="input-div">

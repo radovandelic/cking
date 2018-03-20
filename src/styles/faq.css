@@ -1,4 +1,39 @@
-.contact-overlay {
+.FAQ {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.accordion {
+    background-color: #ff6114;
+    color: #fff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: .4s;
+}
+
+.accordion:hover {
+    color: #ff6114;
+    background-color: #fff;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.panel.active {
+    display: block;
+}
+
+.faq-overlay {
     cursor: default;
     position: fixed;
     top: 0;
@@ -9,12 +44,12 @@
     visibility: hidden;
     z-index: 2;
     /* "delay" the visibility transition */
-    -webkit-transition: .5s;
+    -webkit-transition: 0s;
     transition: .5s;
     opacity: 0;
 }
 
-.contact-form {
+.faq-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -22,15 +57,19 @@
     visibility: hidden;
     padding: 20px;
     background: #fff;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 700px;
     /* "delay" the visibility transition */
     -webkit-transition: 0s;
     transition: 0s;
     z-index: 3;
 }
 
-.contact-form .close {
+.faq-container .accordion {
+    transition: 0s;
+}
+
+.faq-container .close {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -41,11 +80,7 @@
     color: #333;
 }
 
-.contact-form .btn {
-    transition: 0s;
-}
-
-.contact-form:target {
+.faq-container:target {
     visibility: visible;
     opacity: 1;
     /* cancel visibility transition delay */
@@ -53,7 +88,7 @@
     transition-delay: 0s;
 }
 
-.contact-form:target+.contact-overlay {
+.faq-container:target+.faq-overlay {
     opacity: 1;
     visibility: visible;
     /* cancel visibility transition delay */
@@ -61,7 +96,7 @@
     transition-delay: 0s;
 }
 
-.contact-form h3 {
+.faq-container h3 {
     margin: 5px auto;
     color: #ff6114;
 }

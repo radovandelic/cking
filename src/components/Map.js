@@ -14,12 +14,11 @@ const circleOptions = {
 
 export default withGoogleMap((props) => {
     circleOptions.center = props.marker;
-    return < div className="map-container" >
+    return (
         <GoogleMap
             defaultZoom={14}
-            defaultCenter={props.marker || { lat: 50.850, lng: 4.351 }}
-        >
+            defaultCenter={props.marker || { lat: 50.850, lng: 4.351 }} >
             <Circle options={circleOptions} />
         </GoogleMap>
-    </div >
+    )
 })

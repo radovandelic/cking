@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ContactForm } from '.'
-
+import { FAQ } from '../components'
 import '../styles/home.css';
 
 
@@ -98,6 +98,11 @@ export default class extends Component {
                         <p>Vous réalisez votre production dans des conditions optimales</p>
                     </div>
                 </div>
+            </div>
+            <div className="home-block-4" id="FAQ">
+                <div className="home-title"> <h1>FAQ</h1></div>
+                <h4>Des questions? Vos premières réponses </h4>
+                <FAQ />
             </div>
             <div className="home-block-4" id="contact">
                 <div className="home-contact">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import googleGeocoder from 'google-geocoder'
 import { Popup, Map } from '../components';
-import { postalcodes } from '../data';
+import { postalcodes, translations } from '../data';
 import { GMAPS_KEY, GEOCODE_KEY } from '../config';
 import '../styles/kitchen.css';
 import '../styles/carousel.css';
@@ -119,8 +119,20 @@ class Kitchen extends Component {
     render = () => {
         let { kitchen, isMapLoaded, location } = this.state;
         let city = kitchen.postalCode ? postalcodes[kitchen.postalCode].city : "";
+        const Equipment = []
+        const Staff = []
+        for (let e in translations.fr.equipment) {
+            if (kitchen.equipment && kitchen.equipment[e]) {
+                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {translations.fr.equipment[e]}</li>)
+            }
+        }
+
+        for (let s in kitchen.staff) {
+            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {translations.fr.staff[s]}</li>)
+        }
+
         return (
-            <div className="listing-container">
+            <div className="listing-container" >
                 <div className="flex-listing-container">
                     <div className="carousel" >
                         <div id="jssor_1" style={{ position: "relative", margin: "0 auto", top: "0px", left: "0px", width: "980px", height: "480px", overflow: "hidden", visibility: "hidden" }}>
@@ -162,28 +174,53 @@ class Kitchen extends Component {
                         </div >
                     </div>
                     <div>
-                        <h2>
-                            {kitchen.name}
-                        </h2>
+                        <h2>{kitchen.name}</h2>
                         <h4>{city + " " + kitchen.postalCode + ", " + kitchen.region}</h4> <br />
+                        <h4>{translations.fr.type[kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
                         <p>{kitchen.description}</p>
-                        <button className="btn btn-orange" >Contact</button>
+                        <button className="btn btn-orange">Contact</button>
                     </div>
                 </div>
-                {isMapLoaded && location ?
-                    <Map
-                        isMarkerShown={true}
-                        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                        loadingElement={<div style={{ height: `100%` }} />}
-                        containerElement={<div style={{ height: `500px`, padding: `20px` }} />}
-                        mapElement={<div style={{ height: `100%` }} />}
-                        marker={location}
-                    />
+                <div className="single-listing-information">
+                    {/* <h5> {kitchen.hours && kitchen.hours.hoursFrom && kitchen.hours.hoursTo
+                        ? `Heures de disponibilité: ${kitchen.hours.hoursFrom} - ${kitchen.hours.hoursTo}` : ""}
+                    </h5>
+                    <h5>Nombre de personnes pouvant travailler en cuisine: {kitchen.capacity}</h5> */}
+                    <h4>Equipements disponibles:</h4>
+                    <ul className="checkbox-grid">
+                        {Equipment}
+                    </ul>
+                    <h4>Services disponibles (en option payante pour le locataire):</h4>
+                    <ul className="checkbox-grid">
+                        {Staff}
+                    </ul>
+
+                </div>
+                {kitchen.events ?
+                    <div className="single-listing-information">
+                        <h4 id="events"><i className="fa fa-check"></i> Espace disponible pour évènement</h4>
+                        {kitchen.standingCapacity ? <h5>Capacité debout pour évènement: {kitchen.standingCapacity}</h5> : null}
+                        {kitchen.sittingCapacity ? <h5>Capacité assis pour évènement: {kitchen.sittingCapacity}</h5> : null}
+                    </div>
                     : null
+                }
+                {
+                    isMapLoaded && location ?
+                        <div className="map-container" >
+                            <Map
+                                isMarkerShown={true}
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                                loadingElement={<div style={{ height: `100%` }} />}
+                                containerElement={<div style={{ height: `100%`, padding: `20px` }} />}
+                                mapElement={<div style={{ height: `100%` }} />}
+                                marker={location}
+                            />
+                        </div>
+                        : null
                 }
                 <Popup overlay={this.state.overlay} title={errorTitle}
                     message={this.state.popup.message} btn="ok" close={this.closePopup} />
-            </div>
+            </div >
         )
     }
 
