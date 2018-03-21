@@ -1,14 +1,14 @@
 .FAQ {
     width: 100%;
     max-width: 800px;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 
 .accordion {
     background-color: #ff6114;
     color: #fff;
     cursor: pointer;
-    padding: 18px;
+    padding: 12px;
     width: 100%;
     border: none;
     text-align: left;
@@ -23,6 +23,7 @@
 }
 
 .panel {
+    margin-bottom: 5px;
     padding: 0 18px;
     display: none;
     background-color: #fff;
@@ -51,9 +52,9 @@
 
 .faq-container {
     position: fixed;
-    top: 50%;
+    top: 50px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     visibility: hidden;
     padding: 20px;
     background: #fff;
@@ -99,4 +100,10 @@
 .faq-container h3 {
     margin: 5px auto;
     color: #ff6114;
+}
+
+@media screen and (max-width: 600px) {
+    #faq-navbar-link {
+        display: none;
+    }
 }
