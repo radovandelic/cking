@@ -11,9 +11,10 @@ import ImageUpload from './ImageUpload';
 import ContactForm from './ContactForm';
 import LoadUserInfo from './LoadUserInfo';
 import UpdateAccount from './UpdateAccount';
+import VerifyAccount from './VerifyAccount';
 import Terms from './Terms'
 
 export {
     Home, Login, Register, UpdateAccount, RegisterKitchen, UpdateKitchen, RegisterExtra, Dashboard,
-    ImageUpload, Browse, Kitchen, ContactForm, LoadUserInfo, Terms
+    ImageUpload, Browse, Kitchen, ContactForm, LoadUserInfo, VerifyAccount, Terms
 }

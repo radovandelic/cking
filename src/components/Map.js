@@ -5,6 +5,7 @@ const circleOptions = {
     fillColor: "#ff6114",
     fillOpacity: 0.5,
     strokeColor: "#ff6114",
+    strokeOpacity: 0.5,
     radius: 500,
     center: {
         lat: 50.850,
