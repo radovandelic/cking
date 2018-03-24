@@ -11,3 +11,10 @@ export const updateUser = (user) => {
         user
     }
 }
+
+export const updateLang = (lang) => {
+    return {
+        type: 'UPDATE_LANGUAGE',
+        lang
+    }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText, StyledCheckbox } from 'react-form';
+import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from 'react-form';
 import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
@@ -34,6 +34,9 @@ class StyledForm extends Component {
             if (!lastName || !lastName.trim()) return 'Last name is required.';
             return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
         };
+        const validateUserType = (kitchenOwner) => {
+            return !kitchenOwner ? 'User type is required.' : null;
+        };
         const validateEmail = (email) => {
             if (!email || !email.trim()) return 'Email is required.';
             return email && !regex.test(email) ? 'Please enter a valid email.' : null;
@@ -52,6 +55,7 @@ class StyledForm extends Component {
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
+            kitchenOwner: validateUserType(values.kitchenOwner),
             email: validateEmail(values.email),
             password: validatePassword(values.password),
             confirmPassword: validateConfirmPassword(values.password, values.confirmPassword),
@@ -60,7 +64,9 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        const { updateUser } = this.props;
+        const { updateUser, lang } = this.props;
+        submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true" ? true : undefined;
+        submittedValues.lang = lang
         let url = 'http://0.0.0.0:9000/api/users/register';
         let query = {
             headers: {
@@ -91,7 +97,7 @@ class StyledForm extends Component {
                 }
                 data.user.access_token = data.token;
                 updateUser(data.user);
-                this.setState({ redirect: '/dashboard' });
+                this.setState({ redirect: data.kitchenOwner ? '/dashboard' : '/' });
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
 
@@ -127,6 +133,16 @@ class StyledForm extends Component {
                                     <div className="form-group has-feedback">
                                         <StyledText className="form-control" placeholder="Last name" field="lastName" id="lastName" />
                                     </div>
+                                </div>
+                                <div className="form-group" id="kitchenOwner">
+                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
+                                        {group => (
+                                            <ul className="radio-grid" >
+                                                <li> <StyledRadio group={group} value="false" id="false" label="I am registering as a kitchen user" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="true" id="true" label="I am registering as a kitchen owner" className="d-inline-block" /> </li>
+                                            </ul>
+                                        )}
+                                    </StyledRadioGroup>
                                 </div>
                                 <div className="form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Username" field="name" id="name" />
@@ -173,6 +189,12 @@ class StyledForm extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        lang: state.user.lang || navigator.language.substring(0, 2)
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         updateUser: (user) => {
@@ -182,7 +204,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 StyledForm = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(StyledForm)
 

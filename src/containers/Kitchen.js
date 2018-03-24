@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import googleGeocoder from 'google-geocoder'
 import { Popup, Map } from '../components';
-import { postalcodes, translations } from '../data';
+import { equipment, staff, type } from '../data/translations';
 import { GMAPS_KEY, GEOCODE_KEY } from '../config';
 import '../styles/kitchen.css';
 import '../styles/carousel.css';
@@ -118,17 +119,16 @@ class Kitchen extends Component {
 
     render = () => {
         let { kitchen, isMapLoaded, location } = this.state;
-        let city = kitchen.postalCode ? postalcodes[kitchen.postalCode].city : "";
         const Equipment = []
         const Staff = []
-        for (let e in translations.fr.equipment) {
+        for (let e in equipment['fr']) {
             if (kitchen.equipment && kitchen.equipment[e]) {
-                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {translations.fr.equipment[e]}</li>)
+                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment['fr'][e]}</li>)
             }
         }
 
         for (let s in kitchen.staff) {
-            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {translations.fr.staff[s]}</li>)
+            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff['fr'][s]}</li>)
         }
 
         return (
@@ -175,10 +175,12 @@ class Kitchen extends Component {
                     </div>
                     <div>
                         <h2>{kitchen.name}</h2>
-                        <h4>{city + " " + kitchen.postalCode + ", " + kitchen.region}</h4> <br />
-                        <h4>{translations.fr.type[kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
+                        <h4>{kitchen.region}</h4> <br />
+                        <h4>{type['fr'][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
                         <p>{kitchen.description}</p>
-                        <button className="btn btn-orange">Contact</button>
+                        <Link to={`/listings/kitchens/${kitchen.id}/rent`}>
+                            <button className="btn btn-orange">Contact</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="single-listing-information">

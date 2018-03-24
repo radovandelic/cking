@@ -59,11 +59,19 @@ nav {
     color: #ff6114;
 }
 
+.select.lang {
+    width: 70px;
+    padding: 5px 3px;
+    margin: 0;
+}
+
+.select.lang>select {
+    height: 36px;
+    padding: 5px 3px;
+}
+
 @media screen and (max-width: 600px) {
     .nav-link {
-        margin: 0;
-        box-shadow: 0;
-        border-radius: 0;
         width: 100%;
         text-align: left;
         background-color: #ff6114;
@@ -75,6 +83,5 @@ nav {
     }
     .navbar-right>li>a {
         padding: 0;
-        box-shadow: 0;
     }
 }

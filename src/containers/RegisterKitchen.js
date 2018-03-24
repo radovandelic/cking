@@ -71,9 +71,9 @@ const staff = [
     "cookstaff", "roomstaff", "dishwashers", "cleaning", "storage", "refrigeratorVehicle", "reception"
 ]
 const successMessage = (<p>
-    Your kitchen has been saved. <br />
-    Please wait 2-5 days for the cookwork team to verify your application. <br /><br />
-    Would you like to add some images?"
+    Nous avons enregistré votre atelier. <br />
+    Merci de patienter pour que notre eauipe vérifie et valide votre annonce. <br /><br />
+    Voulez-vous ajouter des images? Cela rendra votre annonce plus attractive"
     </p>)
 
 class StyledForm extends Component {
@@ -317,7 +317,7 @@ class StyledForm extends Component {
                                 <div className="form-group" >
                                     <label htmlFor="region">Ville/Region</label>
                                     <StyledSelect type="text" field="region" id="region"
-                                        options={regionOptions} defaultValue="Bruxelles" />
+                                        options={regionOptions} />
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="size">Superficie du bien (en m2)</label>

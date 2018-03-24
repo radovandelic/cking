@@ -1,7 +1,6 @@
 import Login from './Login';
 import Register from './Register';
 import RegisterKitchen from './RegisterKitchen';
-import RegisterExtra from './RegisterExtra';
 import UpdateKitchen from './UpdateKitchen';
 import Home from './Home';
 import Dashboard from './Dashboard';
@@ -12,9 +11,10 @@ import ContactForm from './ContactForm';
 import LoadUserInfo from './LoadUserInfo';
 import UpdateAccount from './UpdateAccount';
 import VerifyAccount from './VerifyAccount';
-import Terms from './Terms'
+import RentKitchen from './RentKitchen';
+import Terms from './Terms';
 
 export {
-    Home, Login, Register, UpdateAccount, RegisterKitchen, UpdateKitchen, RegisterExtra, Dashboard,
-    ImageUpload, Browse, Kitchen, ContactForm, LoadUserInfo, VerifyAccount, Terms
+    Home, Login, Register, UpdateAccount, RegisterKitchen, UpdateKitchen, Dashboard,
+    ImageUpload, Browse, Kitchen, ContactForm, LoadUserInfo, VerifyAccount, RentKitchen, Terms
 }

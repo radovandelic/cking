@@ -11,6 +11,27 @@ class StyledForm extends Component {
         };
     }
 
+    componentWillMount = () => {
+        const { kitchen } = this.props;
+        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}`;
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(kitchen => {
+                this.setState({ images: kitchen.images })
+                document.getElementById("image").value = "";
+            })
+            .catch(err => {
+                this.setState({ message: "Error connecting to server. Try again later." })
+            })
+
+    }
+
     submit = (e) => {
         e.preventDefault();
         const { kitchen, user } = this.props;
@@ -52,13 +73,45 @@ class StyledForm extends Component {
         reader.readAsDataURL(file);
     }
 
+    delete = (e) => {
+        e.preventDefault()
+        const { kitchen, user } = this.props;
+        const images = []
+        for (const image of this.state.images) {
+            if (this.refs[image._id].checked) {
+                images.push(image);
+            }
+        }
+
+        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/delete`;
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                access_token: user.access_token,
+                images
+            })
+        })
+            .then(res => res.json())
+            .then(kitchen => {
+                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image deleted" })
+                document.getElementById("image").value = "";
+            })
+            .catch(err => {
+                this.setState({ message: "Error uploading. Try again later." })
+            })
+    }
+
     render = () => {
         if (this.state.images) {
-            var images = [];
+            var Images = [];
             for (let image of this.state.images) {
-                images.push(<div>
+                Images.push(<div key={image._id} className="image-grid">
                     <img src={image.thumbnail} alt={this.state.kitchenName} />
-                    <input type="checkbox" />
+                    <input type="checkbox" value={image._id} ref={image._id} />
                 </div>
                 );
             }
@@ -78,16 +131,16 @@ class StyledForm extends Component {
                     <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
                     <h4 className="uploaded-message">{this.state.message}</h4>
                 </form>
-                {images ?
-                    <div className="images-container">
-                        <div>
-                            {images}
+                {Images ?
+                    <form className="images-container" onSubmit={this.delete} >
+                        <div >
+                            {Images}
                         </div>
-
+                        <br />
                         <button id="delete" type="submit" className="mb-4 btn btn-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Remove
+                            <i className="fa fa-trash" aria-hidden="true"></i>&nbsp; Remove
                         </button>
-                    </div>
+                    </form>
 
                     : null
                 }

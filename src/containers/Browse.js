@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Popup } from '../components';
 import '../styles/browse.css';
-import { postalcodes, translations } from '../data';
+import { type } from '../data/translations';
 import { GMAPS_KEY } from '../config';
 
 var errorTitle = "Error"
@@ -21,6 +21,7 @@ class Browse extends Component {
             }
         };
     }
+
     componentWillMount = () => {
         let { region, type } = this.props.match.params;
         region = region !== "all" ? "region=" + region : ""
@@ -72,8 +73,8 @@ class Browse extends Component {
         let { kitchens, count } = this.state;
         let Listings = [];
         for (const kitchen of kitchens) {
-            kitchen.type = translations.fr.type[kitchen.type]
-            let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
+            kitchen.type = type['fr'][kitchen.type]
+            //let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
                     <div className="circle-container">
@@ -94,7 +95,7 @@ class Browse extends Component {
                                 <h3 className="price-m">€{kitchen.price} / h</h3>
                             </Link>
                             <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>
-                                {city + " " + kitchen.postalCode + ", " + kitchen.region}
+                                {kitchen.region}
                             </Link>
                         </div>
                         <div className="listing-info price">
