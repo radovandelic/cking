@@ -30,7 +30,7 @@ class Home extends Component {
                 <div className="home-title">
                     <h1>{home[lang].title1}</h1>
                 </div>
-                {home['fr'].description1}
+                {home[lang].description1}
                 <div className="select">
                     <select defaultValue="all" onChange={this.selectOnChange} id="region">
                         <option value="all" disabled>{home[lang].selectRegionDefault}</option>

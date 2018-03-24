@@ -23,7 +23,7 @@ nav {
 }
 
 .nav-link {
-    line-height: 34px;
+    height: 36px;
     padding: 0 12px;
     margin: 0;
     border: solid 1px #484848;
