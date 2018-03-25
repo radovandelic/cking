@@ -1,11 +1,3 @@
-export const type = {
-    kitchen: "Cuisine laboratoire",
-    sharedkitchen: "Cuisine laboratoire partagée",
-    restaurant: "Cuisine de restaurant",
-    collectiverestaurant: "Cuisine de restaurant collective",
-}
-
-
 const equipment = {
     fr: {
         parking: "Parking",

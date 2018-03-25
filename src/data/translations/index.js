@@ -11,5 +11,5 @@ const translations = {
 export {
     equipment, staff, type, faq, home
 }
-
+console.log(JSON.stringify({ equipment, staff, type, faq }))
 export default translations;
