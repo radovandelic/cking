@@ -19,11 +19,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App text-center">
+          <Route component={ScrollToTop} />
           <LoadUserInfo />
           <Header />
           <main>
             <div id="header_spacing"></div>
-            <Route component={ScrollToTop} />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />

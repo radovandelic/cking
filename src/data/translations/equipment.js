@@ -41,7 +41,9 @@ const equipment = {
         furniture: "Mobilier de salle (tables, chaises...)",
         smallEquipment: "Petit matériel (cul de poule, ustensiles...)",
         ownEquipment: "Possibilité d’apporter son matériel (sous conditions)",
-    }
+    },
+    nl: {},
+    en: {}
 }
 
 export default equipment;

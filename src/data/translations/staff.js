@@ -8,7 +8,9 @@ export const staff = {
         storage: "Service de stockage",
         refrigeratorVehicle: "Véhicule réfrigéré",
         reception: "Réception de marchandises",
-    }
+    },
+    nl: {},
+    en: {}
 }
 
 export default staff

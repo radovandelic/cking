@@ -4,7 +4,9 @@ const type = {
         sharedkitchen: "Cuisine laboratoire partagée",
         restaurant: "Cuisine de restaurant",
         collectiverestaurant: "Cuisine de restaurant collective",
-    }
+    },
+    nl: {},
+    en: {}
 }
 
 export default type;
