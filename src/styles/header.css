@@ -84,4 +84,7 @@ nav {
     .navbar-right>li>a {
         padding: 0;
     }
+    #lang {
+        display: none;
+    }
 }

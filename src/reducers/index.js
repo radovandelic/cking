@@ -9,7 +9,7 @@ const kitchenReducer = (state = {}, action) => {
     }
 }
 
-const userReducer = (state = { lang: "fr" }, action) => {
+const userReducer = (state = { lang: "en" }, action) => {
     switch (action.type) {
         case 'UPDATE_USER':
             return action.user

@@ -7,19 +7,19 @@ import {
 } from './containers';
 import './styles/App.css';
 
-const ScrollToTop = () => {
-  if (window.location.href.indexOf("#") === -1) {
-    window.scrollTo(0, 0);
-  }
-  return null;
-}
-
 class App extends Component {
+  ScrollToTop = () => {
+    if (window.location.href.indexOf("#") === -1) {
+      window.scrollTo(0, 0);
+    }
+    return null;
+  }
+
   render = () => {
     return (
       <Router>
         <div className="App text-center">
-          <Route component={ScrollToTop} />
+          <Route component={this.ScrollToTop} />
           <LoadUserInfo />
           <Header />
           <main>

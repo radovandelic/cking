@@ -16,8 +16,8 @@ export {
 }
 
 const translations = {
-    equipment, staff, type, header, dashboard, uploadImage, register, registerKitchen, popup, errors
+    equipment, staff, type, faq, home, header, dashboard, uploadImage, register, registerKitchen, popup, errors
 }
 
-console.log(JSON.stringify(translations));
+// console.log(JSON.stringify(translations));
 export default translations;

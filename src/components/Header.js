@@ -95,9 +95,9 @@ class Header extends Component {
                                             </button>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li id="lang">
                                         <div className="select lang">
-                                            <select defaultValue={lang} onChange={this.langChange} id="region">
+                                            <select defaultValue={lang} onChange={this.langChange}>
                                                 <option value="fr" >FR</option>
                                                 <option value="nl" >NL</option>
                                                 <option value="en" >EN</option>
@@ -137,9 +137,9 @@ class Header extends Component {
                                             </button>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li id="lang">
                                         <div className="select lang">
-                                            <select defaultValue={lang} onChange={this.langChange} id="region">
+                                            <select defaultValue={lang} onChange={this.langChange}>
                                                 <option value="fr" >FR</option>
                                                 <option value="nl" >NL</option>
                                                 <option value="en" >EN</option>

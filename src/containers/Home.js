@@ -95,7 +95,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.user.lang || 'fr'
+        lang: state.user.lang || 'en'
     }
 }
 Home = connect(

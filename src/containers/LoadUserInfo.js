@@ -54,7 +54,7 @@ class LoadUserInfo extends Component {
                 const { updateUser } = this.props;
                 user = JSON.parse(base64.decode(user))
                 user.access_token = localStorage.getItem("access_token");
-                user.lang = user.lang || navigator.language.substring(0, 2)
+                user.lang = user.lang || 'en' //navigator.language.substring(0, 2)
                 updateUser(user);
                 this.fetchUser(user);
 
@@ -70,7 +70,7 @@ class LoadUserInfo extends Component {
                 }
             } else {
                 const { updateLang } = this.props;
-                const lang = navigator.language.substring(0, 2)
+                const lang = 'en' //navigator.language.substring(0, 2)
                 updateLang(lang);
             }
         }
