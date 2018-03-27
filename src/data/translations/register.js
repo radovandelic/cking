@@ -1,9 +1,12 @@
 const register = {
     fr: {
-
+        title: "Pour utiliser la plateforme Cookwork, il faut d'abord vous enregistrer. Merci."
     },
-    nl: {},
+    nl: {
+        title: "Om Cookwork te gebruiken, moet je eerst inschrijven: Bedankt"
+    },
     en: {
+        title: "Please register to use the cookwork platform",
         firstName: "First name",
         lastName: "Last name",
         username: "Username",

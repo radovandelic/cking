@@ -5,6 +5,7 @@ import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from 
 import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
+import { register } from '../data/translations'
 import "../styles/forms.css";
 
 var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -114,6 +115,7 @@ class StyledForm extends Component {
     }
 
     render = () => {
+        const { lang } = this.props;
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
@@ -126,14 +128,7 @@ class StyledForm extends Component {
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
-                                <div className="inline">
-                                    <div className="form-group has-feedback">
-                                        <StyledText className="form-control" placeholder="First name" field="firstName" id="firstName" />
-                                    </div>
-                                    <div className="form-group has-feedback">
-                                        <StyledText className="form-control" placeholder="Last name" field="lastName" id="lastName" />
-                                    </div>
-                                </div>
+                                <h3>{register[lang].title}</h3>
                                 <div className="form-group" id="kitchenOwner">
                                     <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
                                         {group => (
@@ -143,6 +138,14 @@ class StyledForm extends Component {
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
+                                </div>
+                                <div className="inline">
+                                    <div className="form-group has-feedback">
+                                        <StyledText className="form-control" placeholder="First name" field="firstName" id="firstName" />
+                                    </div>
+                                    <div className="form-group has-feedback">
+                                        <StyledText className="form-control" placeholder="Last name" field="lastName" id="lastName" />
+                                    </div>
                                 </div>
                                 <div className="form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Username" field="name" id="name" />
@@ -191,7 +194,7 @@ class StyledForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.user.lang || navigator.language.substring(0, 2)
+        lang: state.user.lang || 'fr'//navigator.language.substring(0, 2)
     }
 }
 

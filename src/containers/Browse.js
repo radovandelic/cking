@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Popup } from '../components';
 import '../styles/browse.css';
 import { type } from '../data/translations';
@@ -71,10 +72,10 @@ class Browse extends Component {
 
     render = () => {
         let { kitchens, count } = this.state;
+        let { user } = this.props
         let Listings = [];
         for (const kitchen of kitchens) {
             kitchen.type = type['fr'][kitchen.type]
-            //let city = postalcodes[kitchen.postalCode] ? postalcodes[kitchen.postalCode].city : "";
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
                     <div className="circle-container">
@@ -82,24 +83,26 @@ class Browse extends Component {
                     </div>
                     <div className="flex-thumb-container">
                         <div className="listing-info">
-                            <Link to={`/listings/kitchens/${kitchen.id}`}>
+                            <Link to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 <img src={kitchen.images.length !== 0 ? kitchen.images[0].thumbnail : "/static/media/no-image.jpg"}
                                     alt={kitchen.name} className="img-thumbnail" />
                             </Link>
                         </div>
                         <div className="listing-info">
-                            <Link to={`/listings/kitchens/${kitchen.id}`}>
+                            <Link to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 <h4>{kitchen.name}</h4>
                                 <h6>{kitchen.type}</h6>
                                 <h4>{kitchen.size} m<sup>2</sup> </h4>
                                 <h3 className="price-m">€{kitchen.price} / h</h3>
                             </Link>
-                            <Link className="address" to={`/listings/kitchens/${kitchen.id}`}>
+                            <Link className="address" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 {kitchen.region}
                             </Link>
                         </div>
                         <div className="listing-info price">
-                            <h3>€{kitchen.price} / h</h3>
+                            <Link className="price" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
+                                {user.id ? <h3>€{kitchen.price} / h</h3> : <button className="btn btn-orange">More Info</button>}
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -126,5 +129,16 @@ class Browse extends Component {
         this.setState({ overlay: "overlay off" });
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+Browse = connect(
+    mapStateToProps,
+    null
+)(Browse)
 
 export default Browse;
