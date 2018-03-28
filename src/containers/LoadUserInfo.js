@@ -54,8 +54,10 @@ class LoadUserInfo extends Component {
                 const { updateUser } = this.props;
                 user = JSON.parse(base64.decode(user))
                 user.access_token = localStorage.getItem("access_token");
-                user.lang = user.lang || 'en' //navigator.language.substring(0, 2)
-                updateUser(user);
+                let lang = navigator.language.substring(0, 2)
+                user.lang = user.lang || ['fr', 'nl', 'en'].indexOf(lang) !== -1 ? lang : 'en'
+
+                updateUser(user); // redundant, but makes the initial load faster.
                 this.fetchUser(user);
 
                 if (!this.props.kitchen.id) {
@@ -64,13 +66,15 @@ class LoadUserInfo extends Component {
                         const { updateKitchen } = this.props;
                         let access_token = localStorage.getItem("access_token");
                         mykitchen = JSON.parse(base64.decode(mykitchen));
-                        updateKitchen(mykitchen)
+
+                        updateKitchen(mykitchen) // redundant, but makes the initial load faster.
                         this.fetchKitchen(mykitchen.id, access_token)
                     }
                 }
             } else {
                 const { updateLang } = this.props;
-                const lang = 'en' //navigator.language.substring(0, 2)
+                let lang = navigator.language.substring(0, 2)
+                lang = ['fr', 'nl', 'en'].indexOf(lang) !== -1 ? lang : 'en'
                 updateLang(lang);
             }
         }

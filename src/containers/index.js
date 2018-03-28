@@ -1,20 +1,21 @@
+import Home from './Home';
+import LoadUserInfo from './LoadUserInfo';
 import Login from './Login';
 import Register from './Register';
+import Dashboard from './Dashboard';
 import RegisterKitchen from './RegisterKitchen';
 import UpdateKitchen from './UpdateKitchen';
-import Home from './Home';
-import Dashboard from './Dashboard';
+import ImageUpload from './ImageUpload';
+import UpdateAccount from './UpdateAccount';
 import Browse from './Browse';
 import Kitchen from './Kitchen';
-import ImageUpload from './ImageUpload';
-import ContactForm from './ContactForm';
-import LoadUserInfo from './LoadUserInfo';
-import UpdateAccount from './UpdateAccount';
-import VerifyAccount from './VerifyAccount';
 import RentKitchen from './RentKitchen';
+import ContactForm from './ContactForm';
+import VerifyAccount from './VerifyAccount';
+import RegisterUserInfo from './RegisterUserInfo';
 import Terms from './Terms';
 
 export {
-    Home, Login, Register, UpdateAccount, RegisterKitchen, UpdateKitchen, Dashboard,
-    ImageUpload, Browse, Kitchen, ContactForm, LoadUserInfo, VerifyAccount, RentKitchen, Terms
+    Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
+    ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 }

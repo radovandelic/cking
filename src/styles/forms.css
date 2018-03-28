@@ -3,6 +3,12 @@
     padding: 10px;
 }
 
+.form-container {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
 .form-container.login-container {
     max-width: 600px;
 }
@@ -172,10 +178,21 @@ textarea.react-form-input {
     text-align: left;
 }
 
-#kitchenOwner {
+.form-group.radio-group {
     font-size: 20px;
-    margin-top: 0;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group.radio-group small {
+    margin-left: 30px;
+    font-size: 60%;
+}
+
+.react-form-select {
+    display: flex;
+    justify-content: flex-start;
 }
 
 @media screen and (max-width: 768px) {

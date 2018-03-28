@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Popup } from '../components';
 import '../styles/browse.css';
@@ -112,9 +112,10 @@ class Browse extends Component {
             <div className="listings">
                 {count === 0
                     ?
-                    <div className="dashoard-container">
-                        <h4>No results found.</h4>
-                    </div>
+                    user.id ?
+                        <Redirect to="/userinfo" />
+                        :
+                        <Redirect to="/register" />
                     :
                     Listings
                 }

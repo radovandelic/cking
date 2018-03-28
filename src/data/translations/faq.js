@@ -25,35 +25,35 @@ const faq = {
     },
     {
         Q: `Kan de host zelf beslissen er mee op te houden?`,
-        A: `een samenwerking kan niet verbroken worden als er geen dringende redenen zijn.`
+        A: `Een samenwerking kan niet verbroken worden als er geen dringende redenen zijn.`
     },
     {
         Q: `Wie regelt de praktische organisatie in de keuken/het restaurant?`,
-        A: `lke keuken is verschillend, en daarom wordt de praktische organisatie in overleg met de hosgeregeld`
+        A: `Elke keuken is verschillend, en daarom wordt de praktische organisatie in overleg met de hosgeregeld`
     },
     {
         Q: `Wat met voedselveiligheid? FAVV`,
-        A: `lke starter moet beschikken over een FAVV-certificaat. Dit document dien je voor de start van je project online aan te vragen viawww.afsca.b`
+        A: `Elke starter moet beschikken over een FAVV-certificaat. Dit document dien je voor de start van je project online aan te vragen viawww.afsca.b`
     },
     {
         Q: `Mag ik gebruik maken van het materiaal in de bestaande keuken?`,
-        A: `r kan enkel gebruik gemaakt worden van het materiaal als dit nadrukkelijk vermeld staat. Dvermelding vind je bij de geselecteerde keukens op de CookWork website en op het contract`
+        A: `Er kan enkel gebruik gemaakt worden van het materiaal als dit nadrukkelijk vermeld staat. Dvermelding vind je bij de geselecteerde keukens op de CookWork website en op het contract`
     },
     {
         Q: `Mag ik de voedingsmiddelen gebruiken uit de keuken die ik afhuur?`,
-        A: `e huurder is verplicht alle voedingsmiddelen zelf mee te brengen die hij of zij nodig heeftEr kan dus geen gebruik gemaakt worden van voedingswaren, kruiden oliën, etc... die er op damoment al aanwezig zijn`
+        A: `De huurder is verplicht alle voedingsmiddelen zelf mee te brengen die hij of zij nodig heeftEr kan dus geen gebruik gemaakt worden van voedingswaren, kruiden oliën, etc... die er op damoment al aanwezig zijn`
     },
     {
         Q: `Sta ik zelf in voor de opkuis of betaal ik hiervoor?`,
-        A: `ok dit is in samenspraak met de Host. CookWork raad wel iedere host aan om voohygiënische redenen samen te werken met een professionele kuisploeg`
+        A: `Ook dit is in samenspraak met de Host. CookWork raad wel iedere host aan om voohygiënische redenen samen te werken met een professionele kuisploeg`
     },
     {
         Q: `Kan ik mijn producten bewaren in een koelruimte?`,
-        A: `lke host is verplicht koelruimte te voorzien voor de huurder, dit kan in een aparte koelkast zijof in een koelcel`
+        A: `Elke host is verplicht koelruimte te voorzien voor de huurder, dit kan in een aparte koelkast zijof in een koelcel`
     },
     {
         Q: `Wie kan er een keuken huren?`,
-        A: `edere professioneel kan bij CookWork een ruimte huren, voor productie, om te experimentereof enkel als hobby`
+        A: `Ledere professioneel kan bij CookWork een ruimte huren, voor productie, om te experimentereof enkel als hobby`
     }
     ],
     en: [{
@@ -86,27 +86,27 @@ const faq = {
     },
     {
         Q: `Who arranges the practical organization of the kitchen / restaurant?`,
-        A: `very kitchen is different, and that is why the practical organization is arranged in consultatiowith the host`
+        A: `Every kitchen is different, and that is why the practical organization is arranged in consultatiowith the host`
     },
     {
         Q: `What about food safety? FASFC`,
-        A: `very starter must have a FASFC certificate. You must apply for this document online awww.afsca.be before the start of your projec`
+        A: `Every starter must have a FASFC certificate. You must apply for this document online awww.afsca.be before the start of your projec`
     },
     {
         Q: `Can I use the material in the existing kitchen?`,
-        A: `ou can only make use of the material if this is expressly stated. You will find more informatiounder your selected kitchens on the CookWork website and on the contract`
+        A: `You can only make use of the material if this is expressly stated. You will find more informatiounder your selected kitchens on the CookWork website and on the contract`
     },
     {
         Q: `Can I use the food from the kitchen that I rent?`,
-        A: `he tenant is obliged to bring all food products he or she needsSo no use can be made of food, herbal oils, etc ... that are already present at the kitchen`
+        A: `The tenant is obliged to bring all food products he or she needsSo no use can be made of food, herbal oils, etc ... that are already present at the kitchen`
     },
     {
         Q: `Am I responsible for the cleaning or is there a cleaning fee?`,
-        A: `his to is in consultation with the Host. CookWork recommends every host to work together wita professional cleaning team for hygienic reasons`
+        A: `This too is in consultation with the Host. CookWork recommends every host to work together wita professional cleaning team for hygienic reasons`
     },
     {
         Q: `Can I store my products in a cold room?`,
-        A: `ach host is obliged to provide cooling space for the tenant, this can be in a separate fridge oin a cold room`
+        A: `Each host is obliged to provide cooling space for the tenant, this can be in a separate fridge oin a cold room`
     },
     {
         Q: `Who can rent a kitchen?`,

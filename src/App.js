@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, FAQ, AdminRedirect, NotFound, Footer } from './components';
 import {
-  Register, Login, Home, Dashboard, RegisterKitchen, ImageUpload, Browse, Kitchen,
-  UpdateKitchen, ContactForm, Terms, UpdateAccount, VerifyAccount, RentKitchen, LoadUserInfo
+  Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
+  ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 } from './containers';
 import './styles/App.css';
 
@@ -16,6 +17,7 @@ class App extends Component {
   }
 
   render = () => {
+    const { id } = this.props
     return (
       <Router>
         <div className="App text-center">
@@ -24,23 +26,37 @@ class App extends Component {
           <Header />
           <main>
             <div id="header_spacing"></div>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/registerkitchen" component={RegisterKitchen} />
-              <Route exact path="/uploadimage" component={ImageUpload} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/browse/:region/:type" component={Browse} />
-              <Route exact path="/updatekitchen" component={UpdateKitchen} />
-              <Route exact path="/updateaccount" component={UpdateAccount} />
-              <Route exact path="/terms" component={Terms} />
-              <Route exact path="/listings/kitchens/:id" component={Kitchen} />
-              <Route exact path="/listings/kitchens/:id/rent" component={RentKitchen} />
-              <Route exact path="/verifyaccount/:id/:token" component={VerifyAccount} />
-              <Route exact path="/admin" component={AdminRedirect} />
-              <Route component={NotFound} />
-            </Switch>
+            {id ?
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/registerkitchen" component={RegisterKitchen} />
+                <Route exact path="/updatekitchen" component={UpdateKitchen} />
+                <Route exact path="/uploadimage" component={ImageUpload} />
+                <Route exact path="/updateaccount" component={UpdateAccount} />
+                <Route exact path="/browse/:region/:type" component={Browse} />
+                <Route exact path="/listings/kitchens/:id" component={Kitchen} />
+                <Route exact path="/listings/kitchens/:id/rent" component={RentKitchen} />
+                <Route exact path="/userinfo" component={RegisterUserInfo} />
+                <Route exact path="/verifyaccount/:id/:token" component={VerifyAccount} />
+                <Route exact path="/terms" component={Terms} />
+                <Route exact path="/admin" component={AdminRedirect} />
+                <Route component={NotFound} />
+              </Switch>
+              :
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/browse/:region/:type" component={Browse} />
+                <Route exact path="/verifyaccount/:id/:token" component={VerifyAccount} />
+                <Route exact path="/terms" component={Terms} />
+                <Route exact path="/admin" component={AdminRedirect} />
+                <Route component={NotFound} />
+              </Switch>
+            }
           </main>
           <Footer />
 
@@ -67,5 +83,15 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    id: state.user.id
+  }
+}
+App = connect(
+  mapStateToProps,
+  null
+)(App)
 
 export default App;

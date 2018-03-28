@@ -129,7 +129,7 @@ class StyledForm extends Component {
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <h3>{register[lang].title}</h3>
-                                <div className="form-group" id="kitchenOwner">
+                                <div className="form-group radio-group" >
                                     <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
                                         {group => (
                                             <ul className="radio-grid" >
@@ -194,7 +194,7 @@ class StyledForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.user.lang || 'fr'//navigator.language.substring(0, 2)
+        lang: state.user.lang
     }
 }
 
