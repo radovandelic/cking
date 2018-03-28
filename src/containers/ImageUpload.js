@@ -118,7 +118,7 @@ class StyledForm extends Component {
         }
         return (
             <div>
-                <form onSubmit={this.submit} id="form" className="form-container">
+                <form onSubmit={this.submit} id="form" className="form-container image-upload">
                     <div className="form-group" >
                         <label htmlFor="image">Upload an image</label>
                         <input type="file" accept="image/*" field="image" id="image" onChange={this.handleFile} />

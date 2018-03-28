@@ -172,7 +172,7 @@ class StyledForm extends Component {
                                         )}
                                     </StyledRadioGroup>
                                 </div>
-                                <div className="form-group" style={{ marginLeft: '0' }} >
+                                <div id="userinfo-select" className="form-group" style={{ marginLeft: '0' }} >
                                     <StyledSelect field="region" id="region" style={{ marginLeft: '0' }}
                                         options={regionOptions} />
                                 </div>

@@ -4,9 +4,12 @@
 }
 
 .form-container {
-    max-width: 600px;
     display: flex;
     flex-direction: column;
+}
+
+.form-container.image-upload {
+    display: block;
 }
 
 .form-container.login-container {
@@ -190,7 +193,7 @@ textarea.react-form-input {
     font-size: 60%;
 }
 
-.react-form-select {
+#userinfo-select {
     display: flex;
     justify-content: flex-start;
 }
