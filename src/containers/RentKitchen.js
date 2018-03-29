@@ -190,16 +190,21 @@ class StyledForm extends Component {
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <h3>Utilisation unique: date et heures</h3>
                                 <div className="form-group radio-group">
-                                    <StyledRadioGroup field="type" id="type" onChange={this.onTypeChange} >
+                                    <StyledRadioGroup field="type" id="type" onChange={this.onTypeChange} key={rent} >
                                         {group => (
-                                            <ul className="radio-grid" >
-                                                <label htmlFor="type">Interval type: </label>
-                                                <li> <StyledRadio group={group} value="once" id="once" label="One time" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label="Recurring" className="d-inline-block" /> </li>
-                                                {rent !== -1 ?
+                                            rent !== -1 ?
+                                                <ul className="radio-grid" >
+                                                    <label htmlFor="type">Interval type: </label>
+                                                    <li> <StyledRadio group={group} value="once" id="once" label="One time" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="recurring" id="recurring" label="Recurring" className="d-inline-block" /> </li>
                                                     <li> <StyledRadio group={group} value="long" id="long" label="Long term (minimum 1 month)" className="d-inline-block" /> </li>
-                                                    : null}
-                                            </ul>
+                                                </ul>
+                                                :
+                                                <ul className="radio-grid" >
+                                                    <label htmlFor="type">Interval type: </label>
+                                                    <li> <StyledRadio group={group} value="once" id="once" label="One time" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="recurring" id="recurring" label="Recurring" className="d-inline-block" /> </li>
+                                                </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
