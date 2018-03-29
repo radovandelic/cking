@@ -146,7 +146,7 @@ class StyledForm extends Component {
                                     <StyledRadioGroup field="activityType" id="activityType">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <label for="activityType">Votre activité:</label>
+                                                <label htmlFor="activityType">Votre activité:</label>
                                                 <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
@@ -162,7 +162,7 @@ class StyledForm extends Component {
                                     <StyledRadioGroup field="purpose" id="purpose">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <label for="kitchenOwner">J'utiliserai cette cuisine pour ...</label>
+                                                <label htmlFor="kitchenOwner">J'utiliserai cette cuisine pour ...</label>
                                                 <li> <StyledRadio group={group} value="catering" id="catering" label="Assurer mon service de traiteur" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="entreprise" id="entreprise" label="Lancer mon entreprise / mon produit / ma gamme" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="workshop" id="workshop" label="Organiser un atelier culinaire" className="d-inline-block" /> </li>

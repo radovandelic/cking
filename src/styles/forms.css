@@ -198,6 +198,11 @@ textarea.react-form-input {
     justify-content: flex-start;
 }
 
+.hiddn small {
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+
 @media screen and (max-width: 768px) {
     .d-inline-block {
         font-size: 55%;

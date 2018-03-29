@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { updateUser } from '../actions';
 import '../styles/dashboard.css';
 
 class VerifyAccount extends Component {
@@ -15,6 +16,7 @@ class VerifyAccount extends Component {
 
     componentDidMount = () => {
         const { id, token } = this.props.match.params;
+        const { user, updateUser } = this.props;
         let url = 'http://0.0.0.0:9000/api/users/verify/' + id + "/" + token;
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -28,6 +30,8 @@ class VerifyAccount extends Component {
                 switch (response.status) {
                     case 200:
                         this.setState({ message: "Account verified", status: 200 })
+                        user.verified = true;
+                        updateUser(user);
                         break;
                     case 404:
                         this.setState({ message: "User or verification token not found.", status: 404 })
@@ -74,9 +78,17 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        updateUser: (user) => {
+            dispatch(updateUser(user));
+        }
+    }
+}
+
 VerifyAccount = connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(VerifyAccount)
 
 export default VerifyAccount;

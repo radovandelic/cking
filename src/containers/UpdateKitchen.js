@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import base64 from 'base-64';
 import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
 import { Popup } from '../components';
 import { updateKitchen } from '../actions';
+import { weekDays, register, registerKitchen, staff, type, errors } from '../data/translations';
 import "../styles/forms.css";
 
 const capacityOptions = [];
@@ -13,7 +13,7 @@ for (let index = 1; index < 21; index++) {
     capacityOptions.push({ label: String(index), value: String(index) });
 }
 for (let index = 0; index < 25; index++) {
-    hourOptions.push({ label: String(index), value: String(index) });
+    hourOptions.push({ label: String(index) + ":00", value: String(index) });
 }
 
 const regionOptions = [
@@ -67,9 +67,6 @@ const equipment = [
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
 ]
 
-const staff = [
-    "cookstaff", "roomstaff", "dishwashers", "cleaning", "storage", "refrigeratorVehicle", "reception"
-]
 const successMessage = "Your kitchen has been updated."
 
 class StyledForm extends Component {
@@ -89,40 +86,49 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
-
+        const { lang } = this.props;
         const validateName = (name) => {
-            if (!name || !name.trim()) return 'Nom du bien est requis';
+            if (!name || !name.trim()) return registerKitchen[lang].name + errors[lang].required;
             return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
         };
         const validateType = (type) => {
-            if (!type || !type.trim()) return 'Type du bien est requis';
+            if (!type || !type.trim()) return registerKitchen[lang].type + errors[lang].required;
         };
         const validatePhone = (phone) => {
-            if (!phone || !phone.trim()) return 'Numéro de téléphonen est requis';
+            if (!phone || !phone.trim()) return registerKitchen[lang].phone + errors[lang].required;
         };
         const validateAddress = (address) => {
-            if (!address || !address.trim()) return 'Adresse du bien est requis';
+            if (!address || !address.trim()) return registerKitchen[lang].address + errors[lang].required;
         };
         const validatePostalCode = (postalCode) => {
-            if (!postalCode || !String(postalCode).trim()) return 'Code Postal du bien est requis';
-            return postalCode && (String(postalCode).length !== 4) ? 'Code Postal non valide' : null;
+            if (!postalCode || !String(postalCode).trim()) return registerKitchen[lang].postalCode + errors[lang].required;
+            return postalCode && (String(postalCode).length !== 4) ? registerKitchen[lang].postalCode + errors[lang].invalid : null;
         };
         const validateRegion = (region) => {
-            if (!region || !region.trim()) return 'Region est requis';
+            if (!region || !region.trim()) return registerKitchen[lang].region + errors[lang].required;
         };
         const validateVAT = (VAT) => {
-            if (!VAT || !VAT.trim()) return 'Numéro de TVA est requis';
+            if (!VAT || !VAT.trim()) return registerKitchen[lang].VAT + errors[lang].required;
         };
         const validateSize = (size) => {
-            if (!size || !String(size).trim()) return 'Superficie du bien est requis';
-            return size && (size < 1 || size > 1000) ? 'Superficie non valide' : null;
+            if (!size || !String(size).trim()) return registerKitchen[lang].size + errors[lang].required;
+            return size && (size < 1 || size > 1000) ? registerKitchen[lang].size + errors[lang].invalid : null;
         };
         const validatePrice = (price) => {
-            if (!price || !String(price).trim()) return 'Prix est requis';
-            return price && (price < 15 || price > 200) ? 'Prix non valide' : null;
+            if (!price || !String(price).trim()) return registerKitchen[lang].price + errors[lang].required;
+            return price && (price < 15 || price > 200) ? registerKitchen[lang].price + errors[lang].invalid : null;
+        };
+        const validateDays = (daysFrom, daysTo) => {
+            if (!daysFrom || !daysTo) return registerKitchen[lang].days + errors[lang].required;
+            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== '0') || (daysFrom === '0' && daysTo !== '0'))
+                ? registerKitchen[lang].days + errors[lang].invalid : null;
+        };
+        const validateHours = (hoursFrom, hoursTo) => {
+            if (!hoursFrom || !hoursTo) return registerKitchen[lang].hours + errors[lang].required;
+            return hoursFrom && hoursTo && hoursFrom >= hoursTo ? registerKitchen[lang].hours + errors[lang].invalid : null;
         };
         const validateAgree = (agree) => {
-            if (!agree) return 'Please read and accept the Terms of Service';
+            if (!agree) return errors[lang].agree;
         };
         return {
             name: validateName(values.name),
@@ -134,6 +140,8 @@ class StyledForm extends Component {
             VAT: validateVAT(values.VAT),
             size: validateSize(values.size),
             price: validatePrice(values.price),
+            daysmsg: validateDays(values.daysFrom, values.daysTo),
+            hoursmsg: validateHours(values.hoursFrom, values.hoursTo),
             agree: validateAgree(values.agree)
         };
     }
@@ -168,10 +176,14 @@ class StyledForm extends Component {
             hoursFrom: Number(submittedValues.hoursFrom) || undefined,
             hoursTo: Number(submittedValues.hoursTo) || undefined
         }
+        submittedValues.days = {
+            daysFrom: Number(submittedValues.daysFrom) || undefined,
+            daysTo: Number(submittedValues.daysTo) || undefined
+        }
         submittedValues.equipment = {}
         submittedValues.staff = {}
 
-        //place equipment booleans inside equipment object
+        // place equipment booleans inside equipment object
         for (let e of equipment) {
             if (submittedValues[e]) {
                 submittedValues.equipment[e] = submittedValues[e];
@@ -179,8 +191,8 @@ class StyledForm extends Component {
             }
         }
 
-        //place staff booleans inside staff object
-        for (let s of staff) {
+        // place staff booleans inside staff object
+        for (let s in staff) {
             if (submittedValues[s]) {
                 submittedValues.staff[s] = submittedValues[s];
                 submittedValues[s] = undefined;
@@ -206,9 +218,6 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                if (typeof (Storage) !== undefined && window.localStorage.getItem("mykitchen")) {
-                    window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(data)));
-                }
                 updateKitchen(data);
                 this.setState({
                     overlay: "overlay on",
@@ -249,6 +258,10 @@ class StyledForm extends Component {
             kitchen.hoursTo = String(kitchen.hours.hoursTo);
             kitchen.hoursFrom = String(kitchen.hours.hoursFrom);
         }
+        if (kitchen.days) {
+            kitchen.daysTo = String(kitchen.days.daysTo);
+            kitchen.daysFrom = String(kitchen.days.daysFrom);
+        }
         kitchen.capacity = String(kitchen.capacity);
         return kitchen;
     }
@@ -266,10 +279,26 @@ class StyledForm extends Component {
     }
 
     render = () => {
-
+        const { lang } = this.props;
         let { kitchen } = this.props;
         kitchen = this.formatDefaultValues(kitchen);
         kitchen.agree = true;
+        const dayOptions = []
+        const StaffOptions = []
+        let i = 1;
+        for (let day in weekDays[lang]) {
+            dayOptions.push({
+                label: weekDays[lang][day],
+                value: i < 7 ? String(i) : String(0)
+            })
+            i++;
+        }
+        for (const s in staff[lang]) {
+            StaffOptions.push(
+                <li key={staff[lang][s]} > <StyledCheckbox field={s} id={s} label={staff[lang][s]} className="d-inline-block" /></li>
+            )
+        }
+
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
@@ -283,86 +312,92 @@ class StyledForm extends Component {
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
-                                <h4>Formulaire location de cuisine</h4>
-                                <p style={{ textAlign: "justify" }}> Vous cherchez à diminuer vos frais fixes et augmenter votre rentabilité ?
-                                <br />
-                                    Louez votre cuisine les moments durant laquelle vous ne l'utilisez pas !<br />
-                                    Merci de remplir ce formulaire pour nous aider à publier votre annonce.<br />
-                                    Ce petit formulaire ne vous engage en rien, il nous permet tout simplement d'obtenir des informations complémentaires sur votre bien.
-                                <br /><br />
-
-                                    Si vous avez une question, contactez nous au 02.223/10.37<br />
-                                    Ou bien sur <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
+                                <h4>{registerKitchen[lang].title}</h4>
+                                <p style={{ textAlign: "justify" }}>
+                                    {registerKitchen[lang].paragraph5}<br />
+                                    {registerKitchen[lang].paragraph6} <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
                                 </p>
                                 <div className="form-group" >
-                                    <label htmlFor="name">Nom du bien</label>
+                                    <label htmlFor="name">{registerKitchen[lang].name}</label>
                                     <StyledText className="form-control" type="text" field="name" id="name" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="phone">Votre numéro de téléphone</label>
+                                    <label htmlFor="phone">{registerKitchen[lang].phone}</label>
                                     <StyledText className="form-control" type="text" field="phone" id="phone" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="description">Descriptif du bien </label>
+                                    <label htmlFor="description">{registerKitchen[lang].description}</label>
                                     <StyledTextArea className="form-control" style={{ width: '100%' }} rows="4" field="description" id="description" />
                                 </div>
                                 <div className="form-group" id="type" style={{ height: '150px' }}>
-                                    <label>Type de bien:</label>
+                                    <label>{registerKitchen[lang].type}</label>
                                     <StyledRadioGroup field="type">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="kitchen" id="kitchen" label="Cuisine laboratoire" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="sharedkitchen" id="sharedkitchen" label="Cuisine laboratoire partagée" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="restaurant" id="restaurant" label="Cuisine de restaurant" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="collectiverestaurant" id="collectiverestaurant" label="Cuisine de restaurant collective" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="kitchen" id="kitchen" label={type[lang].kitchen} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="sharedkitchen" id="sharedkitchen" label={type[lang].sharedkitchen} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="restaurant" id="restaurant" label={type[lang].restaurant} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="collectiverestaurant" id="collectiverestaurant" label={type[lang].collectiverestaurant} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="address">Adresse du bien</label>
+                                    <label htmlFor="address">{registerKitchen[lang].address}</label>
                                     <StyledText className="form-control" type="text" field="address" id="address" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="postalCode">Code postal</label>
+                                    <label htmlFor="postalCode">{registerKitchen[lang].postalCode}</label>
                                     <StyledText className="form-control" type="number" field="postalCode" id="postalCode" min="1000" max="9999" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="region">Ville/Region</label>
+                                    <label htmlFor="region">{registerKitchen[lang].region}</label>
                                     <StyledSelect type="text" field="region" id="region"
                                         options={regionOptions} />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="size">Superficie du bien (en m2)</label>
+                                    <label htmlFor="size">{registerKitchen[lang].size}</label>
                                     <StyledText className="form-control" type="number" field="size" id="size" min="1" max="2000" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="AFSCA">Numéro d'unité d'établissement (AFSCA)</label>
+                                    <label htmlFor="AFSCA">{registerKitchen[lang].AFSCA}</label>
                                     <StyledText className="form-control" type="text" field="AFSCA" id="AFSCA" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="VAT">Numéro de TVA</label>
+                                    <label htmlFor="VAT">{registerKitchen[lang].VAT}</label>
                                     <StyledText className="form-control" type="text" field="VAT" id="VAT" />
                                 </div>
-                                <label htmlFor="hours">Heures de disponibilité</label>
-                                <div className="form-group-hours" >
+                                <label htmlFor="days">{registerKitchen[lang].days}</label>
+                                <div className="form-group form-group-hours" >
+                                    <StyledSelect field="daysFrom" id="daysFrom" options={dayOptions} />
+                                    &nbsp;&nbsp;-&nbsp;&nbsp;
+                                    <StyledSelect field="daysTo" id="daysTo" options={dayOptions} />
+                                </div>
+                                <div className="hiddn">
+                                    <StyledText type="hidden" field="daysmsg" id="daysmsg" />
+                                </div>
+                                <label htmlFor="hours">{registerKitchen[lang].hours}</label>
+                                <div className="form-group form-group-hours" >
                                     <StyledSelect field="hoursFrom" id="hoursFrom" options={hourOptions} />
                                     &nbsp;&nbsp;-&nbsp;&nbsp;
-                            <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
+                                    <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
+                                </div>
+                                <div className="hiddn">
+                                    <StyledText type="hidden" field="hoursmsg" id="hoursmsg" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="capacity">Nombre de personnes pouvant travailler en cuisine</label>
+                                    <label htmlFor="capacity">{registerKitchen[lang].capacity}</label>
                                     <StyledSelect field="capacity" id="capacity" options={capacityOptions} />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="price">Prix à l'heure (HTVA)</label>
+                                    <label htmlFor="price">{registerKitchen[lang].price}</label>
                                     <StyledText className="form-control" type="number" field="price" id="price" min="15" max="200" />
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="rent">Prix au mois pour un entrepreneur (une équipe de 2 personnes max) (HTVA)</label>
+                                    <label htmlFor="rent">{registerKitchen[lang].rent}</label>
                                     <StyledText className="form-control" type="number" field="rent" id="rent" min="100" max="20000" />
                                 </div>
-                                <label htmlFor="equipment">Equipements disponibles:</label>
+                                <label htmlFor="equipment">{registerKitchen[lang].equipment}</label>
                                 <div className="form-group-checkbox" >
                                     <ul className="checkbox-grid">
                                         <li>  <StyledCheckbox field="parking" id="parking" label="Parking" className="d-inline-block" /></li>
@@ -410,64 +445,57 @@ class StyledForm extends Component {
                                         <li>  <StyledCheckbox field="ownEquipment" id="own-equipment" label="Possibilité d’apporter son matériel (sous conditions)" className="d-inline-block" /> </li>
                                     </ul>
                                 </div>
-                                <label htmlFor="staff">Services disponibles (en option payante pour le locataire):</label>
+                                <label htmlFor="staff">{registerKitchen[lang].staff}</label>
                                 <div className="form-group" style={{ height: '80px' }}>
                                     <ul className="checkbox-grid">
-                                        <li> <StyledCheckbox field="cookstaff" id="cookstaff" label="Personnel de cuisine" className="d-inline-block" /></li>
-                                        <li> <StyledCheckbox field="roomstaff" id="roomstaff" label="Personnel de salle" className="d-inline-block" /> </li>
-                                        <li> <StyledCheckbox field="dishwashers" id="dishwashers" label="Commis/ plongeur" className="d-inline-block" /> </li>
-                                        <li> <StyledCheckbox field="cleaning" id="cleaning" label="Service de nettoyage" className="d-inline-block" /></li>
-                                        <li> <StyledCheckbox field="storage" id="storage" label="Service de stockage" className="d-inline-block" /> </li>
-                                        <li> <StyledCheckbox field="refrigeratorVehicle" id="refrigerator-vehicle" label="Véhicule réfrigéré" className="d-inline-block" /> </li>
-                                        <li> <StyledCheckbox field="reception" id="reception" label="Réception de marchandises" className="d-inline-block" /> </li>
+                                        {StaffOptions}
                                     </ul>
                                 </div>
                                 <div htmlFor="cancellation" className="form-group" style={{ height: '140px' }}>
-                                    <label>Vos conditions d'annulation:</label>
-                                    <StyledRadioGroup field="cancellation" >
+                                    <label>{registerKitchen[lang].cancellation}</label>
+                                    <StyledRadioGroup field="cancellation" key={lang} >
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="flexible" id="fexible" label="Flexible: remboursement à hauteur de 50% jusqu'à 48h avant la réservation" className="d-inline-block cancellation-item" /> </li>
-                                                <li> <StyledRadio group={group} value="moderate" id="moderate" label="Modérée: Remboursement à hauteur de 50% jusqu'à 7 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
-                                                <li> <StyledRadio group={group} value="strict" id="strict" label="Stricte: Remboursement à hauteur de 50% jusqu'à 30 jours avant la réservation" className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="flexible" id="fexible" label={registerKitchen[lang].flexible} className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="moderate" id="moderate" label={registerKitchen[lang].moderate} className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="strict" id="strict" label={registerKitchen[lang].strict} className="d-inline-block cancellation-item" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
                                 <div htmlFor="events" className="form-group">
-                                    <label>Espace disponible pour évènement?</label>
+                                    <label>{registerKitchen[lang].events}</label>
                                     <StyledRadioGroup onChange={(e) => { kitchen.events = e }} field="events">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="true" id="true" label="Oui" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="" id="false" label="Non" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="true" id="true" label={registerKitchen[lang].yes} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="" id="false" label={registerKitchen[lang].no} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
                                 {this.props.kitchen.events ? (
                                     <div className="form-group" >
-                                        <label htmlFor="event-capacity1">Capacité debout pour évènement:</label>
-                                        <StyledText className="form-control" type="number" field="standingCapacity" id="standing-capacity1" />
-                                        <label htmlFor="event-capacity2">Capacité assis pour évènement:</label>
+                                        <label htmlFor="standingCapacity">{registerKitchen[lang].capacityStanding}</label>
+                                        <StyledText className="form-control" type="number" field="standingCapacity" id="standing-capacity" />
+                                        <label htmlFor="standingCapacity">{registerKitchen[lang].capacitySitting}</label>
                                         <StyledText className="form-control" type="number" field="sittingCapacity" id="sitting-capacity" />
                                     </div>
                                 ) : null}
                                 <div className="form-group" id="terms" >
                                     <StyledCheckbox field="agree" id="agree"
                                         label={
-                                            <span>I agree with the&nbsp;
+                                            <span>{register[lang].agree0}
                                                 <a href="/terms" target="_blank" rel="noopener noreferrer">
-                                                    Terms of Service
+                                                    {register[lang].agree1}
                                                 </a>
                                             </span>} />
                                 </div>
                                 <div className="form-group" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Update Kitchen</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">{registerKitchen[lang].submitUpdate}</button>
                                 </div>
                                 <div id="header_spacing"></div>
                             </form>
-
                         )
                         }
                     </Form>
@@ -489,7 +517,8 @@ class StyledForm extends Component {
 const mapStateToProps = state => {
     return {
         kitchen: state.kitchen,
-        user: state.user
+        user: state.user,
+        lang: state.user.lang
     }
 }
 

@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   render = () => {
-    const { id } = this.props
+    const { id, lang } = this.props
     return (
       <Router>
         <div className="App text-center">
@@ -64,7 +64,7 @@ class App extends Component {
             <a className="close" href="#home">&times;</a>
             <div className="input-div">
               <h3><b>FAQ</b></h3>
-              <h4>Des questions? Vos premières réponses </h4>
+              {lang === 'fr' ? <h4>Des questions? Vos premières réponses </h4> : null}
             </div>
             <FAQ />
           </div>
@@ -86,7 +86,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    id: state.user.id
+    id: state.user.id,
+    lang: state.user.lang
   }
 }
 App = connect(

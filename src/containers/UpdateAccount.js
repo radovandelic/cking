@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, StyledText } from 'react-form';
-import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
 import "../styles/forms.css";
@@ -70,9 +69,6 @@ class StyledForm extends Component {
 
             })
             .then(user => {
-                if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
-                    window.localStorage.setItem("user", base64.encode(JSON.stringify(user)));
-                }
                 updateUser(user);
                 this.setState({ redirect: '/dashboard' });
             })

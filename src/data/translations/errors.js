@@ -1,10 +1,19 @@
 const errors = {
     fr: {
+        required: " est requis",
+        invalid: " non valide",
         size: "Superficie non valide",
-        postalCode: "Code Postal non valide"
+        postalCode: "Code Postal non valide",
+        agree: "Veuillez lire et accepter les conditions d'utilisation"
     },
-    nl: {},
+    nl: {
+        required: " is verplicht",
+        invalid: " is ongeldig",
+        agree: "Lees en accepteer de gebruiksvoorwaarden"
+    },
     en: {
+        required: " is required",
+        invalid: " is invalid",
         length: "{prop} must be longer than {len} characters.",
         email: "Please enter a valid email.",
         confirmPassword: "Passwords do not match",

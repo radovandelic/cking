@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { ContactForm } from '.'
 import { FAQ } from '../components'
-import { home } from '../data/translations'
+import { home, type } from '../data/translations'
 import '../styles/home.css';
 
 
@@ -52,11 +52,11 @@ class Home extends Component {
                 <div className="select right">
                     <select defaultValue="all" onChange={this.selectOnChange} id="type" >
                         <option value="all" disabled>{home[lang].selectTypeDefault}</option>
-                        <option value="all">Tout</option>
-                        <option value="kitchen">Cuisine laboratoire</option>
-                        <option value="sharedkitchen">Cuisine laboratoire partagée</option>
-                        <option value="restaurant">Cuisine de restaurant</option>
-                        <option value="collectiverestaurant">Cuisine de restaurant collective</option>
+                        <option value="all">{type[lang].all}</option>
+                        <option value="kitchen">{type[lang].kitchen}</option>
+                        <option value="sharedkitchen">{type[lang].sharedkitchen}</option>
+                        <option value="restaurant">{type[lang].restaurant}</option>
+                        <option value="collectiverestaurant">{type[lang].collectiverestaurant}</option>
                     </select>
                     <div className="select_arrow">
                     </div>

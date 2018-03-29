@@ -7,10 +7,26 @@ export const staff = {
         cleaning: "Service de nettoyage",
         storage: "Service de stockage",
         refrigeratorVehicle: "Véhicule réfrigéré",
-        reception: "Réception de marchandises",
+        reception: "Réception de marchandises"
     },
-    nl: {},
-    en: {}
+    nl: {
+        cookstaff: "Koken personeel",
+        roomstaff: "Kamer personeel",
+        dishwashers: "Bediende / duiker",
+        cleaning: "Reinigingsservice",
+        storage: "Opslag service",
+        refrigeratorVehicle: "Koelwagen",
+        reception: "Ontvangst van goederen"
+    },
+    en: {
+        cookstaff: "Cooking staff",
+        roomstaff: "Room staff",
+        dishwashers: "Clerk / diver",
+        cleaning: "Cleaning service",
+        storage: "Storage service",
+        refrigeratorVehicle: "Refrigerated vehicle",
+        reception: "Receipt of goods"
+    }
 }
 
 export default staff

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import base64 from 'base-64';
 import { updateLang } from '../actions';
+import { header } from '../data/translations';
 import '../styles/header.css';
 import logo from '../logo.jpg';
 
@@ -70,14 +71,14 @@ class Header extends Component {
                                     <li>
                                         <Link to="/login" onClick={this.toggleMenu} >
                                             <button className="btn navbar-btn nav-link nav-link-white">
-                                                Login
+                                                {header[lang].login}
                                             </button>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="/register" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-white">
-                                                Register
+                                                {header[lang].register}
                                             </button>
                                         </Link>
                                     </li>
@@ -91,7 +92,7 @@ class Header extends Component {
                                     <li>
                                         <a href="#contact" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
-                                                Contact
+                                                {header[lang].contact}
                                             </button>
                                         </a>
                                     </li>
@@ -109,7 +110,7 @@ class Header extends Component {
                                     <li>
                                         <Link to="/register" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
-                                                Je loue ma cuisine
+                                                {header[lang].createListing}
                                             </button>
                                         </Link>
                                     </li>
@@ -119,7 +120,7 @@ class Header extends Component {
                                     <li>
                                         <Link to="/dashboard" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
-                                                Dashboard
+                                                {header[lang].dashboard}
                                             </button>
                                         </Link>
                                     </li>
@@ -133,7 +134,7 @@ class Header extends Component {
                                     <li>
                                         <a href="#contact" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
-                                                Contact
+                                                {header[lang].contact}
                                             </button>
                                         </a>
                                     </li>
@@ -148,13 +149,22 @@ class Header extends Component {
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li>{user.kitchenOwner
+                                        ?
                                         <Link to={kitchen.id ? `/updatekitchen` : "/registerkitchen"}
                                             onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {kitchen.id ? "J’édite mon annonce" : "Je loue ma cuisine"}
+                                                {kitchen.id ? header[lang].editListing : header[lang].createListing}
                                             </button>
                                         </Link>
+                                        :
+                                        <Link to="/"
+                                            onClick={this.toggleMenu}>
+                                            <button className="btn navbar-btn nav-link nav-link-orange">
+                                                {header[lang].browseKitchens}
+                                            </button>
+                                        </Link>
+                                    }
                                     </li>
                                 </ul>
                             }
