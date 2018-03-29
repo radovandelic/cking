@@ -251,7 +251,7 @@ class StyledForm extends Component {
                                         {message}
                                     </h4>
                                 </div>
-                                <h4 >This Kitchen's working hours are from {dayOptions[0].label} to {dayOptions[dayOptions.length - 1].label},
+                                <h4 >This Kitchen's availability is from {dayOptions[0].label} to {dayOptions[dayOptions.length - 1].label},&nbsp;
                                  {hours.hoursFrom}:00 to {hours.hoursTo}:00. </h4>
                                 <div className="form-group" >
                                     <button id="submit" type="submit" className="btn btn-orange">Place order</button>
