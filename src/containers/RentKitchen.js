@@ -161,7 +161,7 @@ class StyledForm extends Component {
     }
 
     render = () => {
-        const { type, hourOptions, days, rent, message } = this.state;
+        const { type, hourOptions, days, hours, rent, message } = this.state;
         const { lang } = this.props;
 
         let i = 1;
@@ -175,7 +175,6 @@ class StyledForm extends Component {
                 })
             i++;
         }
-
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
@@ -252,6 +251,8 @@ class StyledForm extends Component {
                                         {message}
                                     </h4>
                                 </div>
+                                <h4 >This Kitchen's working hours are from {dayOptions[0].label} to {dayOptions[dayOptions.length - 1].label},
+                                 {hours.hoursFrom}:00 to {hours.hoursTo}:00. </h4>
                                 <div className="form-group" >
                                     <button id="submit" type="submit" className="btn btn-orange">Place order</button>
                                 </div>
