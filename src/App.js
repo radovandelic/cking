@@ -6,7 +6,7 @@ import {
   Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
   ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 } from './containers';
-import { home } from '../data/translations'
+import { home } from './data/translations'
 import './styles/App.css';
 
 class App extends Component {
