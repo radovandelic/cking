@@ -25,9 +25,9 @@ class Browse extends Component {
 
     componentWillMount = () => {
         let { region, type } = this.props.match.params;
-        region = region !== "all" ? "region=" + region : ""
-        type = type !== "all" ? "type=" + type : ""
-        const url = `http://0.0.0.0:9000/api/kitchens?${region}&${type}`;
+        region = region !== "all" ? "&region=" + region : ""
+        type = type !== "all" ? "&type=" + type : ""
+        const url = `http://0.0.0.0:9000/api/kitchens?verified=false${region}${type}`;
 
 
         let headers = new Headers();
@@ -93,7 +93,7 @@ class Browse extends Component {
                                 <h4>{kitchen.name}</h4>
                                 <h6>{kitchen.type}</h6>
                                 <h4>{kitchen.size} m<sup>2</sup> </h4>
-                                <h3 className="price-m">€{kitchen.price} / h</h3>
+                                {user.id ? <h3 className="price-m">€{kitchen.price} / h</h3> : null}
                             </Link>
                             <Link className="address" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 {kitchen.region}

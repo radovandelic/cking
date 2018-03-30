@@ -20,7 +20,6 @@ class LoadUserInfo extends Component {
             .then(response => response.json())
             .then(data => {
                 updateUser({ ...data, access_token: user.access_token })
-                window.localStorage.setItem("user", base64.encode(JSON.stringify(data)));
             })
             .catch(err => {
                 console.log(err)
@@ -40,7 +39,6 @@ class LoadUserInfo extends Component {
             .then(response => response.json())
             .then(data => {
                 updateKitchen(data)
-                window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(data)));
             })
             .catch(err => {
                 console.log(err)

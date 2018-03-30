@@ -173,7 +173,7 @@ class Kitchen extends Component {
                             </div>
                         </div >
                     </div>
-                    <div>
+                    <div className="description" >
                         <h2>{kitchen.name}</h2>
                         <h4>{kitchen.region}</h4> <br />
                         <h4>{type['fr'][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>

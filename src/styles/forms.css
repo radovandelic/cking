@@ -228,4 +228,7 @@ textarea.react-form-input {
     .cancellation-item {
         font-size: 40%;
     }
+    #terms label {
+        font-size: 12px;
+    }
 }

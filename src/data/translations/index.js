@@ -9,15 +9,16 @@ import equipment from './equipment'
 import staff from './staff'
 import type from './type'
 import weekDays from './weekDays'
+import regions from './regions'
 import faq from './faq'
 import errors from './errors'
 
 export {
-    equipment, staff, type, faq, home, header, dashboard, uploadImage, register, registerKitchen, weekDays, popup, errors
+    equipment, staff, type, regions, faq, home, header, dashboard, uploadImage, register, registerKitchen, weekDays, popup, errors
 }
 
 const translations = {
-    equipment, staff, type, faq, home, header, dashboard, uploadImage, register, registerKitchen, weekDays, popup, errors
+    equipment, staff, type, regions, faq, home, header, dashboard, uploadImage, register, registerKitchen, weekDays, popup, errors
 }
 
 // console.log(JSON.stringify(translations));

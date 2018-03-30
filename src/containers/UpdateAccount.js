@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, StyledText } from 'react-form';
+import { Form, StyledText, StyledRadioGroup, StyledRadio } from 'react-form';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
 import "../styles/forms.css";
@@ -46,6 +46,7 @@ class StyledForm extends Component {
     submit = (submittedValues) => {
         const { updateUser, user } = this.props;
         submittedValues.access_token = user.access_token;
+        submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true" ? true : false;
         let url = `http://0.0.0.0:9000/api/users/${user.id}`;
         let query = {
             headers: {
@@ -69,6 +70,7 @@ class StyledForm extends Component {
 
             })
             .then(user => {
+                user.access_token = this.props.user.access_token;
                 updateUser(user);
                 this.setState({ redirect: '/dashboard' });
             })
@@ -88,13 +90,15 @@ class StyledForm extends Component {
 
     render = () => {
         const { user } = this.props;
+        const defaultValues = Object.assign({}, user)
+        defaultValues.kitchenOwner = String(defaultValues.kitchenOwner)
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
-                        validateError={this.errorValidator} defaultValues={user}
+                        validateError={this.errorValidator} defaultValues={defaultValues}
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
@@ -108,6 +112,16 @@ class StyledForm extends Component {
                                         <label htmlFor="lastName">Last name</label>
                                         <StyledText className="form-control" field="lastName" id="lastName" />
                                     </div>
+                                </div>
+                                <div className="form-group radio-group" >
+                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
+                                        {group => (
+                                            <ul className="radio-grid" >
+                                                <li> <StyledRadio group={group} value="false" id="false" label="Kitchen user" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="true" id="true" label="Kitchen owner" className="d-inline-block" /> </li>
+                                            </ul>
+                                        )}
+                                    </StyledRadioGroup>
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="username">Username</label>

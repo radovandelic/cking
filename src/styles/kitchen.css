@@ -42,6 +42,14 @@
     color: #ff6114;
 }
 
+.description {
+    margin: 0 20px;
+}
+
+.description>p {
+    text-align: justify;
+}
+
 #events {
     margin-left: 0;
 }

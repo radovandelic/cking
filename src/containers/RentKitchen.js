@@ -77,6 +77,7 @@ class StyledForm extends Component {
             const dateTo = new Date(values.dateTo)
             const hoursFrom = Number(values.hoursFrom)
             const hoursTo = Number(values.hoursTo)
+            console.log((dateTo - dateFrom) / 86400000)
             /* let weekDay = dateFrom.getDay()
             weekDay = weekDay === 0 ? 7 : weekDay; */
             let totalHours = hoursTo - hoursFrom;
@@ -96,7 +97,7 @@ class StyledForm extends Component {
             totalHours *= totalDays;
             totalPrice = (totalHours * price)
             totalPrice += 0.15 * totalPrice
-            return !isNaN(totalHours) ?
+            return !isNaN(totalHours) && totalHours !== 0 ?
                 `The price for the selected time period (${totalHours} hours) is €${totalPrice} (€${price}/h + 15% service fee)`
                 : "";
         };
