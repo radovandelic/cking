@@ -36,7 +36,11 @@ class LoadUserInfo extends Component {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 404) updateKitchen({})
+                return response.json()
+
+            })
             .then(data => {
                 updateKitchen(data)
             })

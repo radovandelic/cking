@@ -4,7 +4,9 @@ import base64 from 'base-64';
 const kitchenReducer = (state = {}, action) => {
     switch (action.type) {
         case 'UPDATE_KITCHEN':
-            if (typeof (Storage) !== undefined && window.localStorage.getItem("mykitchen")) {
+            if (!action.kitchen.id) {
+                localStorage.removeItem('mykitchen');
+            } else if (typeof (Storage) !== undefined && window.localStorage.getItem("mykitchen")) {
                 window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(action.kitchen)));
             }
             return action.kitchen
