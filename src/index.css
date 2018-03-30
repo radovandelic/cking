@@ -3,13 +3,16 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-    background: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, .5)), url('https://cookwork.eu/static/media/background.501cc556.jpg') no-repeat center center fixed;
+    background: linear-gradient( rgba(0, 0, 0, .6), rgba(0, 0, 0, .5)), url('https://cookwork.eu/static/media/background.501cc556.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-color: #fff;
+    background-attachment: fixed;
 }

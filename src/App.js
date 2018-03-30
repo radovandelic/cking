@@ -7,6 +7,8 @@ import {
   ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 } from './containers';
 import { home } from './data/translations'
+import './styles/bootstrap.css';
+import './styles/font-awesome.min.css';
 import './styles/App.css';
 
 class App extends Component {

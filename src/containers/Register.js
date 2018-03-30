@@ -8,7 +8,6 @@ import { updateUser } from '../actions';
 import { register, popup } from '../data/translations'
 import "../styles/forms.css";
 
-var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 class StyledForm extends Component {
 
     constructor(props) {
@@ -23,6 +22,8 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
+        let regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
         const validateFirstName = (firstName) => {
             if (!firstName || !firstName.trim()) return 'First name is required.';
             return firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;

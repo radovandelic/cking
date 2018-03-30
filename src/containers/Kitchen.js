@@ -46,7 +46,7 @@ class Kitchen extends Component {
         if (!document.getElementById("jssor")) { //check if scripts are already loaded
             let script = document.createElement("script");
             script.id = "jssor";
-            script.src = "https://cdnjs.cloudflare.com/ajax/libs/jssor-slider/27.1.0/jssor.slider.min.js";
+            script.src = "/static/js/jssor.slider-27.1.0.min.js";
             //script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
             //script.crossorigin = "anonymous";
             document.body.appendChild(script);
@@ -80,7 +80,7 @@ class Kitchen extends Component {
                     gallery = [];
                     for (let image of data.images) {
                         gallery.push(
-                            <div key={image._id} data-p="170.00">
+                            <div className="carousel-thumb" key={image._id} data-p="170.00">
                                 <img alt={data.name} data-u="image" src={image.large} />
                                 <img alt={data.name} data-u="thumb" src={image.thumbnail} />
                             </div>

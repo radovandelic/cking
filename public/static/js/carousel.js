@@ -61,13 +61,14 @@ jssor_1_slider_init = function () {
             jssor_1_slider.$ScaleWidth(expectedWidth);
 
             //push thumb slider to the left
-            let thumbslider = document.getElementsByClassName("jssort101")[0].firstChild;
-            thumbslider.style += "left: auto;";
+            let thumbslider = document.getElementsByClassName("jssort101")[0].firstChild.firstChild;
+            thumbslider.style += "left: auto; top: 5px;";
+            //thumbslider.children[1].firstChild.style += "left: 0;";
 
             //center and maintain aspect ratio for slides
             let slides = document.getElementById("jssor_1").children[1].firstChild.lastChild.children;
-            for (let index = 1; index < slides.length; index++) {
-                slides[index].firstChild.style = "margin: 10px auto; height: 360px; overflow: hidden; display: block; z-index: 1; position: static;"
+            for (let index = 0; index < slides.length; index++) {
+                slides[index].firstChild.style = "left: 0; margin: 20px auto; height: 360px; overflow: hidden; display: block; z-index: 1; position: static;"
             }
         }
         else {

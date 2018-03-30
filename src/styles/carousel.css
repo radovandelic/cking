@@ -24,6 +24,9 @@
     position: static !important;
 }
 
+.carousel-thumb {
+    left: 0;
+}
 
 /*jssor slider loading skin spin css*/
 
@@ -42,7 +45,6 @@
         transform: rotate(360deg);
     }
 }
-
 
 /*jssor slider arrow skin 106 css*/
 
@@ -84,7 +86,6 @@
     opacity: .3;
     pointer-events: none;
 }
-
 
 /*jssor slider thumbnail skin 101 css*/
 

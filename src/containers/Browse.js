@@ -49,10 +49,8 @@ class Browse extends Component {
         if (!document.getElementById("jssor")) { //check if scripts are already loaded
             let script = document.createElement("script");
             script.id = "jssor";
-            script.src = "https://cdnjs.cloudflare.com/ajax/libs/jssor-slider/27.1.0/jssor.slider.min.js";
+            script.src = "/static/js/jssor.slider-27.1.0.min.js";
             script.async = true;
-            //script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
-            //script.crossorigin = "anonymous";
             document.body.appendChild(script);
 
             script = document.createElement("script");
@@ -60,8 +58,9 @@ class Browse extends Component {
             script.src = "/static/js/carousel.js";
             script.async = true;
             document.body.appendChild(script);
-
-            script = document.createElement("script");
+        }
+        if (!document.getElementById("gmaps")) {
+            let script = document.createElement("script");
             script.id = "gmaps";
             script.type = "text/javascript";
             script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;

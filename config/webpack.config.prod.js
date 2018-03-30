@@ -2,9 +2,11 @@
 
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+const glob = require('glob-all');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
@@ -334,6 +336,15 @@ module.exports = {
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
+    }),
+    new PurifyCSSPlugin({
+      minimize: true,
+      purifyOptions: { // Animations used by an external library
+        whitelist: ['*-leave*', '*-leave-active*', '*-enter*', '*-enter-active*']
+      },
+      paths: glob.sync([
+        path.join(__dirname, './../src/**/*.js')
+      ]),
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without

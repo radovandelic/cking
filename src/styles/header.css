@@ -18,11 +18,12 @@ nav {
 }
 
 .navbar-header,
-.navbar-right>li>a {
+.nav.navbar-right>li>a {
     padding: 5px 3px;
 }
 
-.nav-link {
+.navbar-btn.nav-link {
+    font-size: 16px;
     height: 36px;
     padding: 0 12px;
     margin: 0;
@@ -31,30 +32,30 @@ nav {
     background-color: #fff;
 }
 
-.nav-link:hover {
+.navbar-btn.nav-link:hover {
     color: #fff;
     background-color: #484848;
 }
 
-.nav-link-grey,
-.nav-link-grey:focus {
+.navbar-btn.nav-link-grey,
+.navbar-btn.nav-link-grey:focus {
     color: #fff;
     background-color: #484848;
 }
 
-.nav-link-grey:hover {
+.navbar-btn.nav-link-grey:hover {
     background-color: #fff;
     color: #484848;
 }
 
-.nav-link-orange,
-.nav-link-orange:focus {
+.navbar-btn.nav-link-orange,
+.navbar-btn.nav-link-orange:focus {
     background-color: #ff6114;
     color: #fff;
     border: solid 1px #ff6114;
 }
 
-.nav-link-orange:hover {
+.navbar-btn.nav-link-orange:hover {
     background-color: #fff;
     color: #ff6114;
 }
@@ -70,18 +71,23 @@ nav {
     padding: 5px 3px;
 }
 
+.btn.navbar-btn.nav-link {
+    margin: 0;
+}
+
 @media screen and (max-width: 600px) {
-    .nav-link {
+    .navbar-btn.nav-link,
+    .navbar-btn.nav-link:active {
         width: 100%;
         text-align: left;
         background-color: #ff6114;
         color: #fff;
     }
-    .nav-link:hover {
+    .navbar-btn.nav-link:hover {
         color: #ff6114;
         background-color: #fff;
     }
-    .navbar-right>li>a {
+    .nav.navbar-right>li>a {
         padding: 0;
     }
     #lang {

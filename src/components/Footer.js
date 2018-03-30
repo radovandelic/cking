@@ -3,7 +3,7 @@ import '../styles/footer.css';
 
 export default () => {
     return (
-        <footer >
+        <footer className="footer" >
             <ul className="list-inline">
                 <li>
                     <a target="_blank" rel="noopener noreferrer"
