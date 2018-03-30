@@ -98,7 +98,7 @@ class Header extends Component {
                                     </li>
                                     <li id="lang">
                                         <div className="select lang">
-                                            <select defaultValue={lang} onChange={this.langChange}>
+                                            <select key={lang} defaultValue={lang} onChange={this.langChange}>
                                                 <option value="fr" >FR</option>
                                                 <option value="nl" >NL</option>
                                                 <option value="en" >EN</option>
@@ -180,7 +180,7 @@ const mapStateToProps = state => {
     return {
         kitchen: state.kitchen,
         user: state.user,
-        lang: state.user.lang || navigator.language.substring(0, 2)
+        lang: state.user.lang
     }
 }
 

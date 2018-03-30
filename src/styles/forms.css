@@ -203,7 +203,14 @@ textarea.react-form-input {
     margin-bottom: 30px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
+    .form-container>h3 {
+        text-align: justify;
+        font-size: 16px;
+    }
+    .inline {
+        display: block;
+    }
     .d-inline-block {
         font-size: 55%;
     }
@@ -218,6 +225,10 @@ textarea.react-form-input {
     .react-form-control>input[type="checkbox"],
     .react-form-control>input[type="radio"] {
         margin: -2px 5px 0;
+    }
+    #terms label,
+    .radio-grid label {
+        white-space: normal;
     }
 }
 

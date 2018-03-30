@@ -11,7 +11,7 @@ const register = {
         agree0: "Je suis d'accord avec les ",
         agree1: "conditions d'utilisation",
         rememberMe: "Souviens-toi de moi",
-        register: "registre"
+        register: "Registre"
     },
     nl: {
         title: "Om Cookwork te gebruiken, moet je eerst inschrijven: Bedankt",

@@ -177,6 +177,9 @@ class Kitchen extends Component {
                         <h2>{kitchen.name}</h2>
                         <h4>{kitchen.region}</h4> <br />
                         <h4>{type['fr'][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
+                        <h4>Availability: {kitchen.days ? kitchen.days.daysFrom + " - " + kitchen.days.daysTo + ", " : ""}
+                            {kitchen.hours ? kitchen.hours.hoursFrom + ":00 - " + kitchen.hours.hoursTo + ":00" : "00 - 24"}
+                        </h4>
                         <p>{kitchen.description}</p>
                         <Link to={`/listings/kitchens/${kitchen.id}/rent`}>
                             <button className="btn btn-orange">Contact</button>

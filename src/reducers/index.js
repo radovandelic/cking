@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 import base64 from 'base-64';
 
+let lang = navigator.language.substring(0, 2)
+lang = ['fr', 'nl', 'en'].indexOf(lang) !== -1 ? lang : 'en'
+
 const kitchenReducer = (state = {}, action) => {
     switch (action.type) {
         case 'UPDATE_KITCHEN':
@@ -15,7 +18,7 @@ const kitchenReducer = (state = {}, action) => {
     }
 }
 
-const userReducer = (state = { lang: "en" }, action) => {
+const userReducer = (state = { lang: lang }, action) => {
     switch (action.type) {
         case 'UPDATE_USER':
             if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {

@@ -57,7 +57,7 @@ class LoadUserInfo extends Component {
                 user = JSON.parse(base64.decode(user))
                 user.access_token = localStorage.getItem("access_token");
                 let lang = navigator.language.substring(0, 2)
-                user.lang = user.lang || ['fr', 'nl', 'en'].indexOf(lang) !== -1 ? lang : 'en'
+                user.lang = user.lang || (['fr', 'nl', 'en'].indexOf(lang) !== -1 ? lang : 'en')
 
                 updateUser(user); // redundant, but makes the initial load faster.
                 this.fetchUser(user);

@@ -5,14 +5,10 @@ import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from 
 import base64 from 'base-64';
 import { Popup } from '../components';
 import { updateUser } from '../actions';
-import { register } from '../data/translations'
+import { register, popup } from '../data/translations'
 import "../styles/forms.css";
 
 var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-var errorTitle = "Error"
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
-var errorMessageAlreadyRegistered = "This email address is already registered.";
-
 class StyledForm extends Component {
 
     constructor(props) {
@@ -21,7 +17,7 @@ class StyledForm extends Component {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
+                message: ""
             }
         };
     }
@@ -81,13 +77,13 @@ class StyledForm extends Component {
             .then(res => {
                 switch (res.status) {
                     case 409:
-                        this.setState({ popup: { message: errorMessageAlreadyRegistered } });
-                        throw new Error(errorMessageAlreadyRegistered);
+                        this.setState({ popup: { message: popup[lang].errorMessageAlreadyRegistered } });
+                        throw new Error(popup[lang].errorMessageAlreadyRegistered);
                     case 201:
                         return res.json();
                     default:
-                        this.setState({ popup: { message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
+                        this.setState({ popup: { message: popup[lang].errorMessageConnect } });
+                        throw new Error(popup[lang].errorMessageConnect);
                 }
 
             })
@@ -130,43 +126,43 @@ class StyledForm extends Component {
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <h3>{register[lang].title}</h3>
                                 <div className="form-group radio-group" >
-                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
+                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner" key={lang}>
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="false" id="false" label="I am registering as a kitchen user" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="true" id="true" label="I am registering as a kitchen owner" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="false" id="false" label={register[lang].kitchenOwner0} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="true" id="true" label={register[lang].kitchenOwner1} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
                                 <div className="inline">
                                     <div className="form-group has-feedback">
-                                        <StyledText className="form-control" placeholder="First name" field="firstName" id="firstName" />
+                                        <StyledText className="form-control" placeholder={register[lang].firstName} field="firstName" id="firstName" />
                                     </div>
                                     <div className="form-group has-feedback">
-                                        <StyledText className="form-control" placeholder="Last name" field="lastName" id="lastName" />
+                                        <StyledText className="form-control" placeholder={register[lang].lastName} field="lastName" id="lastName" />
                                     </div>
                                 </div>
                                 <div className="form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Username" field="name" id="name" />
+                                    <StyledText className="form-control" placeholder={register[lang].username} field="name" id="name" />
                                 </div>
                                 <div className="form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
                                     <i className="fa fa-user form-control-feedback"></i>
                                 </div>
                                 <div className="form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Password" type="password" field="password" id="password" />
+                                    <StyledText className="form-control" placeholder={register[lang].password} type="password" field="password" id="password" />
                                     <i className="fa fa-lock form-control-feedback"></i>
                                 </div>
                                 <div className="form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Confirm password" type="password" field="confirmPassword" id="confirm-password" />
+                                    <StyledText className="form-control" placeholder={register[lang].confirmPassword} type="password" field="confirmPassword" id="confirm-password" />
                                 </div>
                                 <div className="form-group" id="terms" >
                                     <StyledCheckbox field="agree" id="agree"
                                         label={
-                                            <span>I agree with the&nbsp;
+                                            <span>{register[lang].agree0}
                                                 <a href="/terms" target="_blank" rel="noopener noreferrer">
-                                                    Terms of Service
+                                                    {register[lang].agree1}
                                                 </a>
                                             </span>} />
                                 </div>
@@ -175,13 +171,13 @@ class StyledForm extends Component {
                                         <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
                                     </div>
                                     <div className="form-group" >
-                                        <button id="submit" type="submit" className="btn btn-orange">Register</button>
+                                        <button id="submit" type="submit" className="btn btn-orange">{register[lang].register}</button>
                                     </div>
                                 </div>
                             </form>
                         )}
                     </Form>
-                    <Popup overlay={this.state.overlay} title={errorTitle}
+                    <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
