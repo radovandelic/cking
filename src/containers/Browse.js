@@ -27,7 +27,7 @@ class Browse extends Component {
         let { region, type } = this.props.match.params;
         region = region !== "all" ? "&region=" + region : ""
         type = type !== "all" ? "&type=" + type : ""
-        const url = `http://0.0.0.0:9000/api/kitchens?verified=false${region}${type}`;
+        const url = `http://0.0.0.0:9000/api/kitchens?verified=true${region}${type}`;
 
 
         let headers = new Headers();
