@@ -6,6 +6,7 @@ import {
   Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
   ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 } from './containers';
+import { home } from '../data/translations'
 import './styles/App.css';
 
 class App extends Component {
@@ -73,7 +74,7 @@ class App extends Component {
           <div id="contact" className="contact-form" >
             <a className="close" href="#home">&times;</a>
             <div className="input-div">
-              <h3><b>Des questions ? </b></h3>
+              <h3><b>{home[lang].contactTitle}</b></h3>
             </div>
             <ContactForm />
           </div>
