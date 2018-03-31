@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledRadioGroup, StyledRadio, StyledTextArea } from 'react-form';
-import { Popup } from '../components';
-import { updateUser } from '../actions';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledRadioGroup, StyledRadio, StyledTextArea } from "react-form";
+import { Popup } from "../components";
+import { updateUser } from "../actions";
 import "../styles/forms.css";
 
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
@@ -23,8 +23,8 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const validateFirstName = (firstName) => {
-            if (!firstName || !firstName.trim()) return 'First name is required.';
-            return firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
+            if (!firstName || !firstName.trim()) return "First name is required.";
+            return firstName.length < 2 ? "First name must be longer than 2 characters." : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
@@ -76,7 +76,7 @@ class StyledForm extends Component {
                 <div>
                     <Form
                         validateError={this.errorValidator}
-                        onSubmit={this.submit} onSubmitFailure={e => { console.log(e) }}>
+                        onSubmit={this.submit} onSubmitFailure={e => { console.log(e); }}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
 
@@ -86,7 +86,7 @@ class StyledForm extends Component {
                                     Ajoutez une photo pour finaliser votre inscription et avoir plus de chance d'être retenu.<br />
                                     Dès que votre profil est validé, il se trouvera sur Cookwok avec plein d'autres extras. Bon travail!<br />
                                 </p>
-                                <div className="input-div" style={{ height: '150px' }}>
+                                <div className="input-div" style={{ height: "150px" }}>
                                     <label>Quel type d'activité recherchez-vous?</label>
                                     <StyledRadioGroup field="type">
                                         {group => (
@@ -103,9 +103,9 @@ class StyledForm extends Component {
                                     <label htmlFor="experience">Votre expérience                </label>
                                     <p>EXEMPLE: Fonction: Chef de partie; Nom de la société: Etiquette; Pendant combien de temps: 3 ans;
                                         Ville, Pays: Bruxelles, Belgique; Site web de la société:
-                                        <a href="https://www.etiquette.be"> www.etiquette.be</a>;
+                                    <a href="https://www.etiquette.be"> www.etiquette.be</a>;
                                         Description du job: Commandes, mise en place, service, plan de nettoyage...</p>
-                                    <StyledTextArea style={{ width: '100%' }} rows="5" field="experience" id="experience" />
+                                    <StyledTextArea style={{ width: "100%" }} rows="5" field="experience" id="experience" />
                                 </div>
                                 <div className="input-div" >
                                     <label htmlFor="VAT">Votre numéro de TVA </label>
@@ -123,7 +123,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
-        )
+        );
     }
     closePopup = () => {
         this.setState({ overlay: "overlay off" });
@@ -135,12 +135,12 @@ const mapDispatchToProps = dispatch => {
         updateUser: (user) => {
             dispatch(updateUser(user));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     null,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

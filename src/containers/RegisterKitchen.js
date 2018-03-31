@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
-import base64 from 'base-64';
-import { Popup } from '../components';
-import { updateKitchen } from '../actions'
-import { registerKitchen, register, staff, type, weekDays, errors } from '../data/translations'
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from "react-form";
+import base64 from "base-64";
+import { Popup } from "../components";
+import { updateKitchen } from "../actions";
+import { registerKitchen, register, staff, type, weekDays, errors } from "../data/translations";
 import "../styles/forms.css";
 
 const capacityOptions = [];
@@ -58,7 +58,7 @@ const regionOptions = [
         label: "West Flanders",
         value: "WestFlanders"
     }
-]
+];
 
 const equipment = [
     "parking", "toilets", "fridge", "bainMarie", "mixer", "electronicCashier", "coolingCell", "nColdRoom",
@@ -66,13 +66,13 @@ const equipment = [
     "mixMachine", "sauceMachine", "vacuumMachine", "microwave", "piano", "workplan", "griddle", "ceramicHob", "induction",
     "dishwasher", "sink", "threePhase", "cleaningProducts", "baker", "sauteuse", "freezer", "tableware", "vmc",
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
-]
+];
 
 const successMessage = (<p>
     Nous avons enregistré votre atelier. <br />
     Merci de patienter pour que notre eauipe vérifie et valide votre annonce. <br /><br />
     Voulez-vous ajouter des images? Cela rendra votre annonce plus attractive"
-    </p>)
+</p>);
 
 class StyledForm extends Component {
 
@@ -91,10 +91,6 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const { lang } = this.props;
-        const validateName = (name) => {
-            if (!name || !name.trim()) return registerKitchen[lang].name + errors[lang].required;
-            return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
-        };
         const validateType = (type) => {
             if (!type || !type.trim()) return registerKitchen[lang].type + errors[lang].required;
         };
@@ -124,7 +120,7 @@ class StyledForm extends Component {
         };
         const validateDays = (daysFrom, daysTo) => {
             if (!daysFrom || !daysTo) return registerKitchen[lang].days + errors[lang].required;
-            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== '0') || (daysFrom === '0' && daysTo !== '0'))
+            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== "0") || (daysFrom === "0" && daysTo !== "0"))
                 ? registerKitchen[lang].days + errors[lang].invalid : null;
         };
         const validateHours = (hoursFrom, hoursTo) => {
@@ -135,7 +131,6 @@ class StyledForm extends Component {
             if (!agree) return errors[lang].agree;
         };
         return {
-            name: validateName(values.name),
             type: validateType(values.type),
             phone: validatePhone(values.phone),
             address: validateAddress(values.address),
@@ -152,7 +147,7 @@ class StyledForm extends Component {
 
     successValidator = (values, errors) => {
         const validatePrice = () => {
-            return !errors.price ? '* CookWork prend une commission de 10% sur les réservations effectuées sur sa plateforme.' : null;
+            return !errors.price ? "* CookWork prend une commission de 10% sur les réservations effectuées sur sa plateforme." : null;
         };
 
         return {
@@ -171,13 +166,13 @@ class StyledForm extends Component {
         submittedValues.hours = {
             hoursFrom: Number(submittedValues.hoursFrom) || undefined,
             hoursTo: Number(submittedValues.hoursTo) || undefined
-        }
+        };
         submittedValues.days = {
             daysFrom: Number(submittedValues.daysFrom) || undefined,
             daysTo: Number(submittedValues.daysTo) || undefined
-        }
-        submittedValues.equipment = {}
-        submittedValues.staff = {}
+        };
+        submittedValues.equipment = {};
+        submittedValues.staff = {};
 
         //place equipment booleans inside equipment object
         for (let e of equipment) {
@@ -201,15 +196,15 @@ class StyledForm extends Component {
         const { updateKitchen, user } = this.props;
         submittedValues = this.formatData(submittedValues);
         submittedValues.access_token = user.access_token;
-        let url = 'http://0.0.0.0:9000/api/kitchens';
+        let url = "http://0.0.0.0:9000/api/kitchens";
         let query = {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(submittedValues)
-        }
+        };
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
@@ -225,7 +220,7 @@ class StyledForm extends Component {
                         title: "Success",
                         btn: "yesno"
                     }
-                })
+                });
             })
             .catch(err => {
                 this.setState({
@@ -235,7 +230,7 @@ class StyledForm extends Component {
                         title: "Error",
                         btn: "ok"
                     }
-                })
+                });
             });
     }
 
@@ -253,20 +248,20 @@ class StyledForm extends Component {
 
     render = () => {
         const { lang } = this.props;
-        const dayOptions = []
-        const StaffOptions = []
+        const dayOptions = [];
+        const StaffOptions = [];
         let i = 1;
         for (let day in weekDays[lang]) {
             dayOptions.push({
                 label: weekDays[lang][day],
                 value: i < 7 ? String(i) : String(0)
-            })
+            });
             i++;
         }
         for (const s in staff[lang]) {
             StaffOptions.push(
                 <li key={staff[lang][s]} > <StyledCheckbox field={s} id={s} label={staff[lang][s]} className="d-inline-block" /></li>
-            )
+            );
         }
         return (
             this.state.redirect
@@ -292,18 +287,14 @@ class StyledForm extends Component {
                                     {registerKitchen[lang].paragraph6} <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
                                 </p>
                                 <div className="form-group" >
-                                    <label htmlFor="name">{registerKitchen[lang].name}</label>
-                                    <StyledText className="form-control" type="text" field="name" id="name" />
-                                </div>
-                                <div className="form-group" >
                                     <label htmlFor="phone">{registerKitchen[lang].phone}</label>
                                     <StyledText className="form-control" type="text" field="phone" id="phone" />
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="description">{registerKitchen[lang].description}</label>
-                                    <StyledTextArea className="form-control" style={{ width: '100%' }} rows="4" field="description" id="description" />
+                                    <StyledTextArea className="form-control" style={{ width: "100%" }} rows="4" field="description" id="description" />
                                 </div>
-                                <div className="form-group" id="type" style={{ height: '150px' }}>
+                                <div className="form-group" id="type" style={{ height: "150px" }}>
                                     <label>{registerKitchen[lang].type}</label>
                                     <StyledRadioGroup field="type" id="type">
                                         {group => (
@@ -421,7 +412,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div htmlFor="events" className="form-group">
                                     <label>{registerKitchen[lang].events}</label>
-                                    <StyledRadioGroup onChange={(e) => { this.setState({ events: Boolean(e) }) }} field="events">
+                                    <StyledRadioGroup onChange={(e) => { this.setState({ events: Boolean(e) }); }} field="events">
                                         {group => (
                                             <ul className="radio-grid" >
                                                 <li> <StyledRadio group={group} value="true" id="true" label={registerKitchen[lang].yes} className="d-inline-block" /> </li>
@@ -462,11 +453,11 @@ class StyledForm extends Component {
                         overlay={this.state.overlay}
                         close={this.closePopup} yes="/uploadimage" no="dashboard" />
                 </div>
-        )
+        );
     }
     closePopup = (e) => {
         let redirect = e.target.value || false;
-        this.setState({ overlay: 'overlay off', redirect: redirect })
+        this.setState({ overlay: "overlay off", redirect: redirect });
     }
 }
 
@@ -474,20 +465,20 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         lang: state.user.lang
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         updateKitchen: (kitchen) => {
             dispatch(updateKitchen(kitchen));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

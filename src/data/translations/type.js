@@ -20,6 +20,6 @@ const type = {
         restaurant: "Restaurant kitchen",
         collectiverestaurant: "Commercial kitchen"
     }
-}
+};
 
 export default type;

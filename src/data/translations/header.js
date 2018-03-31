@@ -26,6 +26,6 @@ const header = {
         register: "Register",
         contact: "Contact"
     }
-}
+};
 
 export default header;

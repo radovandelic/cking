@@ -17,6 +17,6 @@ const dashboard = {
         accountInfo: "Account Information",
         logout: "Logout"
     }
-}
+};
 
 export default dashboard;

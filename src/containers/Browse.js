@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Popup } from '../components';
-import '../styles/browse.css';
-import { type } from '../data/translations';
-import { GMAPS_KEY } from '../config';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Popup } from "../components";
+import "../styles/browse.css";
+import { type } from "../data/translations";
+import { GMAPS_KEY } from "../config";
 
-var errorTitle = "Error"
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
+var errorTitle = "Error";
+var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class Browse extends Component {
 
@@ -25,16 +25,16 @@ class Browse extends Component {
 
     componentWillMount = () => {
         let { region, type } = this.props.match.params;
-        region = region !== "all" ? "&region=" + region : ""
-        type = type !== "all" ? "&type=" + type : ""
+        region = region !== "all" ? "&region=" + region : "";
+        type = type !== "all" ? "&type=" + type : "";
         const url = `http://0.0.0.0:9000/api/kitchens?verified=true${region}${type}`;
 
 
         let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
+        headers.append("Accept", "application/json");
+        headers.append("Content-Type", "application/json");
         fetch(url, {
-            method: 'GET',
+            method: "GET",
             headers: headers
         })
             .then(response => response.json())
@@ -42,7 +42,7 @@ class Browse extends Component {
                 this.setState({ kitchens: data.rows, count: data.count });
             })
             .catch(err => {
-                this.setState({ overlay: "overlay on" })
+                this.setState({ overlay: "overlay on" });
             });
 
         //load map and carousel scripts here so we don't slow down the rest of the app
@@ -71,10 +71,10 @@ class Browse extends Component {
 
     render = () => {
         let { kitchens, count } = this.state;
-        let { user } = this.props
+        let { user } = this.props;
         let Listings = [];
         for (const kitchen of kitchens) {
-            kitchen.type = type['fr'][kitchen.type]
+            kitchen.type = type["fr"][kitchen.type];
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
                     <div className="circle-container">
@@ -105,7 +105,7 @@ class Browse extends Component {
                         </div>
                     </div>
                 </div>
-            )
+            );
         }
         return (<div className="browse-container">
             <div className="listings">
@@ -122,7 +122,7 @@ class Browse extends Component {
             <Popup overlay={this.state.overlay} title={errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>
-        )
+        );
     }
 
     closePopup = () => {
@@ -133,12 +133,12 @@ class Browse extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user
-    }
-}
+    };
+};
 
 Browse = connect(
     mapStateToProps,
     null
-)(Browse)
+)(Browse);
 
 export default Browse;

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from 'react-form';
-import { Popup } from '../components';
-import { updateKitchen } from '../actions';
-import { weekDays, register, registerKitchen, staff, type, errors } from '../data/translations';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from "react-form";
+import { Popup } from "../components";
+import { updateKitchen } from "../actions";
+import { weekDays, register, registerKitchen, staff, type, errors } from "../data/translations";
 import "../styles/forms.css";
 
 const capacityOptions = [];
@@ -57,7 +57,7 @@ const regionOptions = [
         label: "West Flanders",
         value: "WestFlanders"
     }
-]
+];
 
 const equipment = [
     "parking", "toilets", "fridge", "bainMarie", "mixer", "electronicCashier", "coolingCell", "nColdRoom",
@@ -65,9 +65,9 @@ const equipment = [
     "mixMachine", "sauceMachine", "vacuumMachine", "microwave", "piano", "workplan", "griddle", "ceramicHob", "induction",
     "dishwasher", "sink", "threePhase", "cleaningProducts", "baker", "sauteuse", "freezer", "tableware", "vmc",
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
-]
+];
 
-const successMessage = "Your kitchen has been updated."
+const successMessage = "Your kitchen has been updated.";
 
 class StyledForm extends Component {
 
@@ -89,7 +89,7 @@ class StyledForm extends Component {
         const { lang } = this.props;
         const validateName = (name) => {
             if (!name || !name.trim()) return registerKitchen[lang].name + errors[lang].required;
-            return name && name.length < 3 ? 'Le nom doit comporter plus de 3 caractères.' : null;
+            return name && name.length < 3 ? "Le nom doit comporter plus de 3 caractères." : null;
         };
         const validateType = (type) => {
             if (!type || !type.trim()) return registerKitchen[lang].type + errors[lang].required;
@@ -120,7 +120,7 @@ class StyledForm extends Component {
         };
         const validateDays = (daysFrom, daysTo) => {
             if (!daysFrom || !daysTo) return registerKitchen[lang].days + errors[lang].required;
-            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== '0') || (daysFrom === '0' && daysTo !== '0'))
+            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== "0") || (daysFrom === "0" && daysTo !== "0"))
                 ? registerKitchen[lang].days + errors[lang].invalid : null;
         };
         const validateHours = (hoursFrom, hoursTo) => {
@@ -148,7 +148,7 @@ class StyledForm extends Component {
 
     warningValidator = (values) => {
         const validateRent = (rent) => {
-            return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? 'Prix non valide' : null;
+            return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? "Prix non valide" : null;
         };
         return {
             rent: validateRent(values.rent)
@@ -157,7 +157,7 @@ class StyledForm extends Component {
 
     successValidator = (values, errors) => {
         const validatePrice = () => {
-            return !errors.price ? '* CookWork prend une commission de 15% sur les réservations effectuées sur sa plateforme à intégrer qu prix total.' : null;
+            return !errors.price ? "* CookWork prend une commission de 15% sur les réservations effectuées sur sa plateforme à intégrer qu prix total." : null;
         };
         return {
             price: validatePrice(values.price)
@@ -175,13 +175,13 @@ class StyledForm extends Component {
         submittedValues.hours = {
             hoursFrom: Number(submittedValues.hoursFrom) || undefined,
             hoursTo: Number(submittedValues.hoursTo) || undefined
-        }
+        };
         submittedValues.days = {
             daysFrom: Number(submittedValues.daysFrom) || undefined,
             daysTo: Number(submittedValues.daysTo) || undefined
-        }
-        submittedValues.equipment = {}
-        submittedValues.staff = {}
+        };
+        submittedValues.equipment = {};
+        submittedValues.staff = {};
 
         // place equipment booleans inside equipment object
         for (let e of equipment) {
@@ -209,12 +209,12 @@ class StyledForm extends Component {
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/`;
         let query = {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'PUT',
+            method: "PUT",
             body: JSON.stringify(submittedValues)
-        }
+        };
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
@@ -226,7 +226,7 @@ class StyledForm extends Component {
                         title: "Success",
                         btn: "ok"
                     }
-                })
+                });
             })
             .catch(err => {
                 this.setState({
@@ -236,13 +236,13 @@ class StyledForm extends Component {
                         title: "Error",
                         btn: "ok"
                     }
-                })
+                });
             });
     }
 
     formatDefaultValues = (kitchen) => {
         if (!kitchen.id) {
-            return this.setState({ redirect: '/registerkitchen' })
+            return this.setState({ redirect: "/registerkitchen" });
         }
         if (kitchen.events) {
             kitchen.events = "true";
@@ -283,20 +283,20 @@ class StyledForm extends Component {
         let { kitchen } = this.props;
         kitchen = this.formatDefaultValues(kitchen);
         kitchen.agree = true;
-        const dayOptions = []
-        const StaffOptions = []
+        const dayOptions = [];
+        const StaffOptions = [];
         let i = 1;
         for (let day in weekDays[lang]) {
             dayOptions.push({
                 label: weekDays[lang][day],
                 value: i < 7 ? String(i) : String(0)
-            })
+            });
             i++;
         }
         for (const s in staff[lang]) {
             StaffOptions.push(
                 <li key={staff[lang][s]} > <StyledCheckbox field={s} id={s} label={staff[lang][s]} className="d-inline-block" /></li>
-            )
+            );
         }
 
         return (
@@ -327,9 +327,9 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="description">{registerKitchen[lang].description}</label>
-                                    <StyledTextArea className="form-control" style={{ width: '100%' }} rows="4" field="description" id="description" />
+                                    <StyledTextArea className="form-control" style={{ width: "100%" }} rows="4" field="description" id="description" />
                                 </div>
-                                <div className="form-group" id="type" style={{ height: '150px' }}>
+                                <div className="form-group" id="type" style={{ height: "150px" }}>
                                     <label>{registerKitchen[lang].type}</label>
                                     <StyledRadioGroup field="type">
                                         {group => (
@@ -446,12 +446,12 @@ class StyledForm extends Component {
                                     </ul>
                                 </div>
                                 <label htmlFor="staff">{registerKitchen[lang].staff}</label>
-                                <div className="form-group" style={{ height: '80px' }}>
+                                <div className="form-group" style={{ height: "80px" }}>
                                     <ul className="checkbox-grid">
                                         {StaffOptions}
                                     </ul>
                                 </div>
-                                <div htmlFor="cancellation" className="form-group" style={{ height: '140px' }}>
+                                <div htmlFor="cancellation" className="form-group" style={{ height: "140px" }}>
                                     <label>{registerKitchen[lang].cancellation}</label>
                                     <StyledRadioGroup field="cancellation" key={lang} >
                                         {group => (
@@ -465,7 +465,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div htmlFor="events" className="form-group">
                                     <label>{registerKitchen[lang].events}</label>
-                                    <StyledRadioGroup onChange={(e) => { kitchen.events = e }} field="events">
+                                    <StyledRadioGroup onChange={(e) => { kitchen.events = e; }} field="events">
                                         {group => (
                                             <ul className="radio-grid" >
                                                 <li> <StyledRadio group={group} value="true" id="true" label={registerKitchen[lang].yes} className="d-inline-block" /> </li>
@@ -506,11 +506,11 @@ class StyledForm extends Component {
                         overlay={this.state.overlay}
                         close={this.closePopup} />
                 </div>
-        )
+        );
     }
     closePopup = (e) => {
         let redirect = this.state.popup.title === "Success" ? "/dashboard" : false;
-        this.setState({ overlay: 'overlay off', redirect: redirect })
+        this.setState({ overlay: "overlay off", redirect: redirect });
     }
 }
 
@@ -519,20 +519,20 @@ const mapStateToProps = state => {
         kitchen: state.kitchen,
         user: state.user,
         lang: state.user.lang
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         updateKitchen: (kitchen) => {
             dispatch(updateKitchen(kitchen));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

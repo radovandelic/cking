@@ -44,6 +44,6 @@ const equipment = {
     },
     nl: {},
     en: {}
-}
+};
 
 export default equipment;

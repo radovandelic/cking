@@ -11,6 +11,6 @@ const uploadImage = {
         uploadedMsg: "Image uploaded.",
         errorMsg: "Error uploading. Try again later."
     }
-}
+};
 
 export default uploadImage;

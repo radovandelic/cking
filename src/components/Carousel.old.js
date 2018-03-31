@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default () => {
     return (
@@ -55,5 +55,5 @@ export default () => {
                 <label for="img-4" className="nav-dot" id="img-dot-4"></label>
             </li>
         </ul>
-    )
-}
+    );
+};

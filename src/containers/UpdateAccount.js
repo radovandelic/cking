@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledRadioGroup, StyledRadio } from 'react-form';
-import { Popup } from '../components';
-import { updateUser } from '../actions';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledRadioGroup, StyledRadio } from "react-form";
+import { Popup } from "../components";
+import { updateUser } from "../actions";
 import "../styles/forms.css";
 
 var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-var errorTitle = "Error"
+var errorTitle = "Error";
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class StyledForm extends Component {
@@ -25,16 +25,16 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const validateFirstName = (firstName) => {
-            if (!firstName || !firstName.trim()) return 'First name is required.';
-            return firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
+            if (!firstName || !firstName.trim()) return "First name is required.";
+            return firstName.length < 2 ? "First name must be longer than 2 characters." : null;
         };
         const validateLastName = (lastName) => {
-            if (!lastName || !lastName.trim()) return 'Last name is required.';
-            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
+            if (!lastName || !lastName.trim()) return "Last name is required.";
+            return lastName && lastName.length < 2 ? "Last name must be longer than 2 characters." : null;
         };
         const validateEmail = (email) => {
-            if (!email || !email.trim()) return 'Email is required.';
-            return email && !regex.test(email) ? 'Please enter a valid email.' : null;
+            if (!email || !email.trim()) return "Email is required.";
+            return email && !regex.test(email) ? "Please enter a valid email." : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
@@ -50,12 +50,12 @@ class StyledForm extends Component {
         let url = `http://0.0.0.0:9000/api/users/${user.id}`;
         let query = {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'PUT',
+            method: "PUT",
             body: JSON.stringify(submittedValues)
-        }
+        };
         fetch(url, query)
             .then(res => {
                 switch (res.status) {
@@ -72,7 +72,7 @@ class StyledForm extends Component {
             .then(user => {
                 user.access_token = this.props.user.access_token;
                 updateUser(user);
-                this.setState({ redirect: '/dashboard' });
+                this.setState({ redirect: "/dashboard" });
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
 
@@ -90,8 +90,8 @@ class StyledForm extends Component {
 
     render = () => {
         const { user } = this.props;
-        const defaultValues = Object.assign({}, user)
-        defaultValues.kitchenOwner = String(defaultValues.kitchenOwner)
+        const defaultValues = Object.assign({}, user);
+        defaultValues.kitchenOwner = String(defaultValues.kitchenOwner);
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
@@ -141,7 +141,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
-        )
+        );
     }
     closePopup = () => {
         this.setState({ overlay: "overlay off" });
@@ -151,20 +151,20 @@ class StyledForm extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         updateUser: (user) => {
             dispatch(updateUser(user));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

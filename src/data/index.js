@@ -1,2 +1,2 @@
-import translations from './translations'
+import translations from "./translations";
 export { translations };

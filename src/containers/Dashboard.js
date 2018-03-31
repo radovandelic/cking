@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { updateKitchen, updateUser, updateLang } from '../actions';
-import { dashboard, header } from '../data/translations';
-import '../styles/dashboard.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { updateKitchen, updateUser, updateLang } from "../actions";
+import { dashboard, header } from "../data/translations";
+import "../styles/dashboard.css";
 
 let Dashboard = (props) => {
 
     const logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('mykitchen');
-        localStorage.removeItem('mykitchen_id');
+        localStorage.removeItem("user");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("mykitchen");
+        localStorage.removeItem("mykitchen_id");
         const lang = props.lang;
         props.updateKitchen({});
         props.updateUser({});
         props.updateLang(lang);
         window.location.href = "/";
-    }
+    };
 
     const { user, kitchen, lang } = props;
     return (
@@ -44,16 +44,16 @@ let Dashboard = (props) => {
             </Link>
             <button id="logout" type="submit" onClick={logout} className="mb-4 btn btn-danger dashboard-btn">{dashboard[lang].logout}</button>
         </div>
-    )
-}
+    );
+};
 
 const mapStateToProps = state => {
     return {
         kitchen: state.kitchen,
         user: state.user,
         lang: state.user.lang
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -66,12 +66,12 @@ const mapDispatchToProps = dispatch => {
         updateLang: (lang) => {
             dispatch(updateLang(lang));
         }
-    }
-}
+    };
+};
 
 Dashboard = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Dashboard)
+)(Dashboard);
 
 export default Dashboard;

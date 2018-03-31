@@ -26,6 +26,6 @@ const weekDays = {
         saturday: "Saturday",
         sunday: "Sunday"
     }
-}
+};
 
 export default weekDays;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const home = {
     fr: {
@@ -145,6 +145,6 @@ const home = {
         faqFooter: "Other questions? Don't hesitate to contact us",
         contactTitle: "Questions?"
     }
-}
+};
 
 export default home;

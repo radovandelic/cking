@@ -27,6 +27,6 @@ export const staff = {
         refrigeratorVehicle: "Refrigerated vehicle",
         reception: "Receipt of goods"
     }
-}
+};
 
-export default staff
+export default staff;

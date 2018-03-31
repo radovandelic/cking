@@ -41,6 +41,6 @@ const register = {
         rememberMe: "Remember me",
         register: "Register"
     }
-}
+};
 
 export default register;

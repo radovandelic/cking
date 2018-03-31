@@ -38,6 +38,6 @@ const regions = {
         Namur: "Namur",
         WestFlanders: "West Flanders",
     }
-}
+};
 
 export default regions;

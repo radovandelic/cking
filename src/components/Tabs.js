@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default () => {
     return (
@@ -13,5 +13,5 @@ export default () => {
                 <a className="nav-link" data-toggle="tab" role="tab">Find a consultant</a>
             </li>
         </ul>
-    )
-}
+    );
+};

@@ -148,6 +148,6 @@ const faq = {
         Q: `En tant que chef/entrepreneur, dois-je payer quelque chose après l'utilisation?`,
         A: `La seule chose que vous devez faire après la période d'essai est de profiter de votre propre entreprise!`
     }]
-}
+};
 
 export default faq;

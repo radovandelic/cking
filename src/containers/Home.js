@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { ContactForm } from '.'
-import { FAQ } from '../components'
-import { home, regions, type } from '../data/translations'
-import '../styles/home.css';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { ContactForm } from ".";
+import { FAQ } from "../components";
+import { home, regions, type } from "../data/translations";
+import "../styles/home.css";
 
 
 class Home extends Component {
@@ -19,8 +19,8 @@ class Home extends Component {
 
     selectOnChange = (e) => {
         let selectedIndex = e.target.selectedIndex;
-        let value = e.target.children[selectedIndex].value
-        this.setState({ [e.target.id]: value })
+        let value = e.target.children[selectedIndex].value;
+        this.setState({ [e.target.id]: value });
     }
 
     render = () => {
@@ -96,11 +96,11 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.user.lang
-    }
-}
+    };
+};
 Home = connect(
     mapStateToProps,
     null
-)(Home)
+)(Home);
 
 export default Home;

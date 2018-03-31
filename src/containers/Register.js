@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from 'react-form';
-import base64 from 'base-64';
-import { Popup } from '../components';
-import { updateUser } from '../actions';
-import { register, popup } from '../data/translations'
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from "react-form";
+import base64 from "base-64";
+import { Popup } from "../components";
+import { updateUser } from "../actions";
+import { register, popup } from "../data/translations";
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -25,30 +25,30 @@ class StyledForm extends Component {
         let regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
         const validateFirstName = (firstName) => {
-            if (!firstName || !firstName.trim()) return 'First name is required.';
-            return firstName.length < 2 ? 'First name must be longer than 2 characters.' : null;
+            if (!firstName || !firstName.trim()) return "First name is required.";
+            return firstName.length < 2 ? "First name must be longer than 2 characters." : null;
         };
         const validateLastName = (lastName) => {
-            if (!lastName || !lastName.trim()) return 'Last name is required.';
-            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : null;
+            if (!lastName || !lastName.trim()) return "Last name is required.";
+            return lastName && lastName.length < 2 ? "Last name must be longer than 2 characters." : null;
         };
         const validateUserType = (kitchenOwner) => {
-            return !kitchenOwner ? 'User type is required.' : null;
+            return !kitchenOwner ? "User type is required." : null;
         };
         const validateEmail = (email) => {
-            if (!email || !email.trim()) return 'Email is required.';
-            return email && !regex.test(email) ? 'Please enter a valid email.' : null;
+            if (!email || !email.trim()) return "Email is required.";
+            return email && !regex.test(email) ? "Please enter a valid email." : null;
         };
         const validatePassword = (password) => {
-            if (!password || !password.trim()) return 'Password is required.';
-            return password && password.length < 8 ? 'Password must be longer than 8 characters.' : null;
+            if (!password || !password.trim()) return "Password is required.";
+            return password && password.length < 8 ? "Password must be longer than 8 characters." : null;
         };
         const validateConfirmPassword = (password, confirmPassword) => {
-            if (!confirmPassword || !confirmPassword.trim()) return 'Password is required.';
-            return password && confirmPassword !== password ? 'Passwords do not match' : null;
+            if (!confirmPassword || !confirmPassword.trim()) return "Password is required.";
+            return password && confirmPassword !== password ? "Passwords do not match" : null;
         };
         const validateAgree = (agree) => {
-            return !agree ? 'Please read and accept the Terms of Service' : null;
+            return !agree ? "Please read and accept the Terms of Service" : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
@@ -64,16 +64,16 @@ class StyledForm extends Component {
     submit = (submittedValues) => {
         const { updateUser, lang } = this.props;
         submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true" ? true : undefined;
-        submittedValues.lang = lang
-        let url = 'http://0.0.0.0:9000/api/users/register';
+        submittedValues.lang = lang;
+        let url = "http://0.0.0.0:9000/api/users/register";
         let query = {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(submittedValues)
-        }
+        };
         fetch(url, query)
             .then(res => {
                 switch (res.status) {
@@ -95,7 +95,7 @@ class StyledForm extends Component {
                 }
                 data.user.access_token = data.token;
                 updateUser(data.user);
-                this.setState({ redirect: data.kitchenOwner ? '/dashboard' : '/' });
+                this.setState({ redirect: data.kitchenOwner ? "/dashboard" : "/" });
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
 
@@ -182,7 +182,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
-        )
+        );
     }
     closePopup = () => {
         this.setState({ overlay: "overlay off" });
@@ -192,20 +192,20 @@ class StyledForm extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.user.lang
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         updateUser: (user) => {
             dispatch(updateUser(user));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

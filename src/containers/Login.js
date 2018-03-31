@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Form, StyledText, StyledCheckbox } from 'react-form';
-import { connect } from 'react-redux';
-import base64 from 'base-64';
-import { Popup } from '../components';
-import { updateKitchen, updateUser } from '../actions';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { Form, StyledText, StyledCheckbox } from "react-form";
+import { connect } from "react-redux";
+import base64 from "base-64";
+import { Popup } from "../components";
+import { updateKitchen, updateUser } from "../actions";
 import "../styles/forms.css";
 
-var errorTitle = "Error"
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
-var errorMessageNotFound = "E-mail or password not found."
-var errorMessageUnauthorized = "Unauthorized access."
+var errorTitle = "Error";
+var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
+var errorMessageNotFound = "E-mail or password not found.";
+var errorMessageUnauthorized = "Unauthorized access.";
 
 class StyledForm extends Component {
 
@@ -27,16 +27,16 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         let { updateKitchen, updateUser } = this.props;
-        let url = 'http://0.0.0.0:9000/api/auth';
+        let url = "http://0.0.0.0:9000/api/auth";
         let username = submittedValues.email;
         let password = submittedValues.password;
 
         let headers = new Headers();
-        headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
+        headers.append("Authorization", "Basic " + base64.encode(username + ":" + password));
+        headers.append("Accept", "application/json");
+        headers.append("Content-Type", "application/json");
         fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: headers,
             body: JSON.stringify({
                 role: "user"
@@ -65,7 +65,7 @@ class StyledForm extends Component {
                 data.user.access_token = data.token;
                 updateUser(data.user);
                 url = `http://0.0.0.0:9000/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
-                return fetch(url, { method: 'GET', headers: headers })
+                return fetch(url, { method: "GET", headers: headers });
             })
             .then(response => response.json())
             .then(kitchen => {
@@ -76,8 +76,8 @@ class StyledForm extends Component {
                 this.setState({ redirect: "/dashboard" });
             })
             .catch(err => {
-                if (!this.props.user.id) this.setState({ overlay: "overlay on" })
-                else this.setState({ redirect: "/dashboard" })
+                if (!this.props.user.id) this.setState({ overlay: "overlay on" });
+                else this.setState({ redirect: "/dashboard" });
             });
     }
     render = () => {
@@ -114,7 +114,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
-        )
+        );
     }
 
     closePopup = () => {
@@ -125,8 +125,8 @@ class StyledForm extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -136,12 +136,12 @@ const mapDispatchToProps = dispatch => {
         updateUser: (user) => {
             dispatch(updateUser(user));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

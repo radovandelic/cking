@@ -113,6 +113,6 @@ const registerKitchen = {
         capacityStanding: "Standing capacity for events:",
         capacitySitting: "Sitting capacity for events:"
     }
-}
+};
 
 export default registerKitchen;

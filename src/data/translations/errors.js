@@ -22,6 +22,6 @@ const errors = {
         dateFrom: "Start date is required",
         dateTo: "End date is required",
     }
-}
+};
 
 export default errors;

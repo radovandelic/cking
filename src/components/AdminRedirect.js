@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import '../styles/footer.css';
+import { Component } from "react";
+import "../styles/footer.css";
 
 class AdminRedirect extends Component {
     componentWillMount = () => {
@@ -11,9 +11,9 @@ class AdminRedirect extends Component {
                 .then(cache => cache.keys()
                     .then(keys => {
                         for (let key of keys) {
-                            if (key.url.indexOf('index.html') !== -1) {
+                            if (key.url.indexOf("index.html") !== -1) {
                                 cache.delete(key)
-                                    .then(window.location.reload(true))
+                                    .then(window.location.reload(true));
                             }
                         }
                     }));

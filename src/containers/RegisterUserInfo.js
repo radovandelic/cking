@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Form, StyledText, StyledTextArea, StyledRadioGroup, StyledRadio, StyledSelect } from 'react-form';
-import { Popup } from '../components';
-import { updateUser } from '../actions';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Form, StyledText, StyledTextArea, StyledRadioGroup, StyledRadio, StyledSelect } from "react-form";
+import { Popup } from "../components";
+import { updateUser } from "../actions";
 import "../styles/forms.css";
 
-var errorTitle = "Error"
+var errorTitle = "Error";
 var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 const regionOptions = [
     {
@@ -54,7 +54,7 @@ const regionOptions = [
         label: "West Flanders",
         value: "WestFlanders"
     }
-]
+];
 
 class StyledForm extends Component {
 
@@ -71,7 +71,7 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const validateActivityType = (activityType) => {
-            return !activityType ? 'Activity type is required.' : null;
+            return !activityType ? "Activity type is required." : null;
         };
         return {
             activityType: validateActivityType(values.activityType),
@@ -172,12 +172,12 @@ class StyledForm extends Component {
                                         )}
                                     </StyledRadioGroup>
                                 </div>
-                                <div id="userinfo-select" className="form-group" style={{ marginLeft: '0' }} >
-                                    <StyledSelect field="region" id="region" style={{ marginLeft: '0' }}
+                                <div id="userinfo-select" className="form-group" style={{ marginLeft: "0" }} >
+                                    <StyledSelect field="region" id="region" style={{ marginLeft: "0" }}
                                         options={regionOptions} />
                                 </div>
                                 <div className="form-group" >
-                                    <StyledTextArea className="form-control" placeholder="Vos commentaires" style={{ width: '100%' }} rows="4" field="comments" id="comments" />
+                                    <StyledTextArea className="form-control" placeholder="Vos commentaires" style={{ width: "100%" }} rows="4" field="comments" id="comments" />
                                 </div>
                                 <div className="form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Numéro de téléphone " type="text" field="phone" id="phone" />
@@ -192,7 +192,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
-        )
+        );
     }
     closePopup = () => {
         this.setState({ overlay: "overlay off" });
@@ -202,20 +202,20 @@ class StyledForm extends Component {
 const mapStateToProps = state => {
     return {
         lang: state.user.lang
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         updateUser: (user) => {
             dispatch(updateUser(user));
         }
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     mapDispatchToProps
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

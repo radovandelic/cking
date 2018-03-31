@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import googleGeocoder from 'google-geocoder'
-import { Popup, Map } from '../components';
-import { equipment, staff, type } from '../data/translations';
-import { GMAPS_KEY, GEOCODE_KEY } from '../config';
-import '../styles/kitchen.css';
-import '../styles/carousel.css';
-import spin from '../spin.svg';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import googleGeocoder from "google-geocoder";
+import { Popup, Map } from "../components";
+import { equipment, staff, type } from "../data/translations";
+import { GMAPS_KEY, GEOCODE_KEY } from "../config";
+import "../styles/kitchen.css";
+import "../styles/carousel.css";
+import spin from "../spin.svg";
 
-const geocoder = googleGeocoder({ key: GEOCODE_KEY })
-var errorTitle = "Error"
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later."
+const geocoder = googleGeocoder({ key: GEOCODE_KEY });
+var errorTitle = "Error";
+var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class Kitchen extends Component {
 
@@ -38,7 +38,7 @@ class Kitchen extends Component {
             script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
             document.body.appendChild(script);
         }
-        this.setState({ isMapLoaded: true })
+        this.setState({ isMapLoaded: true });
     }
 
     loadCarouselScripts = () => {
@@ -62,15 +62,15 @@ class Kitchen extends Component {
 
     componentDidMount = () => {
         const { id } = this.props.match.params;
-        let url = 'http://0.0.0.0:9000/api/kitchens/' + id;
+        let url = "http://0.0.0.0:9000/api/kitchens/" + id;
         let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
+        headers.append("Accept", "application/json");
+        headers.append("Content-Type", "application/json");
 
         this.loadMapScript();
 
         fetch(url, {
-            method: 'GET',
+            method: "GET",
             headers: headers
         })
             .then(response => response.json())
@@ -84,7 +84,7 @@ class Kitchen extends Component {
                                 <img alt={data.name} data-u="image" src={image.large} />
                                 <img alt={data.name} data-u="thumb" src={image.thumbnail} />
                             </div>
-                        )
+                        );
                     }
                 } else {
                     gallery = (
@@ -92,7 +92,7 @@ class Kitchen extends Component {
                             <img alt={data.name} data-u="image" src="/static/media/no-image.jpg" />
                             <img alt={data.name} data-u="thumb" src="/static/media/no-image.jpg" />
                         </div>
-                    )
+                    );
                 }
 
                 //get kitchen coordinates
@@ -100,9 +100,9 @@ class Kitchen extends Component {
                     if (!err && response[0]) {
 
                         //set kitchen coordinates
-                        this.setState({ location: response[0].location })
+                        this.setState({ location: response[0].location });
                     } else {
-                        console.log(err || response, data)
+                        console.log(err || response, data);
                     }
                 });
 
@@ -113,22 +113,22 @@ class Kitchen extends Component {
                 });
             })
             .catch(err => {
-                this.setState({ overlay: "overlay on" })
+                this.setState({ overlay: "overlay on" });
             });
     }
 
     render = () => {
         let { kitchen, isMapLoaded, location } = this.state;
-        const Equipment = []
-        const Staff = []
-        for (let e in equipment['fr']) {
+        const Equipment = [];
+        const Staff = [];
+        for (let e in equipment["fr"]) {
             if (kitchen.equipment && kitchen.equipment[e]) {
-                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment['fr'][e]}</li>)
+                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment["fr"][e]}</li>);
             }
         }
 
         for (let s in kitchen.staff) {
-            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff['fr'][s]}</li>)
+            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff["fr"][s]}</li>);
         }
 
         return (
@@ -176,7 +176,7 @@ class Kitchen extends Component {
                     <div className="description" >
                         <h2>{kitchen.name}</h2>
                         <h4>{kitchen.region}</h4> <br />
-                        <h4>{type['fr'][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
+                        <h4>{type["fr"][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
                         <h4>Availability: {kitchen.days ? kitchen.days.daysFrom + " - " + kitchen.days.daysTo + ", " : ""}
                             {kitchen.hours ? kitchen.hours.hoursFrom + ":00 - " + kitchen.hours.hoursTo + ":00" : "00 - 24"}
                         </h4>
@@ -226,7 +226,7 @@ class Kitchen extends Component {
                 <Popup overlay={this.state.overlay} title={errorTitle}
                     message={this.state.popup.message} btn="ok" close={this.closePopup} />
             </div >
-        )
+        );
     }
 
     closePopup = () => {

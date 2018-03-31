@@ -1,5 +1,5 @@
-import React from 'react';
-import '../styles/terms.css';
+import React from "react";
+import "../styles/terms.css";
 
 export default () => {
     return (
@@ -389,5 +389,5 @@ export default () => {
                 22.9 Si vous avez des questions concernant les présentes Conditions, <a href="mailto:contact@co-oking.be">envoyez-nous un e-mail.</a>
             </p>
         </div>
-    )
-}
+    );
+};

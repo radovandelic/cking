@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -15,20 +15,20 @@ class StyledForm extends Component {
         const { kitchen } = this.props;
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}`;
         fetch(url, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             }
         })
             .then(res => res.json())
             .then(kitchen => {
-                this.setState({ images: kitchen.images })
+                this.setState({ images: kitchen.images });
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error connecting to server. Try again later." })
-            })
+                this.setState({ message: "Error connecting to server. Try again later." });
+            });
 
     }
 
@@ -37,10 +37,10 @@ class StyledForm extends Component {
         const { kitchen, user } = this.props;
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
         fetch(url, {
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 access_token: user.access_token,
@@ -49,12 +49,12 @@ class StyledForm extends Component {
         })
             .then(res => res.json())
             .then(kitchen => {
-                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image uploaded" })
+                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image uploaded" });
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error uploading. Try again later." })
-            })
+                this.setState({ message: "Error uploading. Try again later." });
+            });
     }
 
     handleFile = (e) => {
@@ -68,15 +68,15 @@ class StyledForm extends Component {
         };
         reader.onerror = (err) => {
             console.log(err);
-            this.setState({ message: "Error reading file." })
-        }
+            this.setState({ message: "Error reading file." });
+        };
         reader.readAsDataURL(file);
     }
 
     delete = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const { kitchen, user } = this.props;
-        const images = []
+        const images = [];
         for (const image of this.state.images) {
             if (this.refs[image._id].checked) {
                 images.push(image);
@@ -85,10 +85,10 @@ class StyledForm extends Component {
 
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/delete`;
         fetch(url, {
-            method: 'DELETE',
+            method: "DELETE",
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 access_token: user.access_token,
@@ -97,12 +97,12 @@ class StyledForm extends Component {
         })
             .then(res => res.json())
             .then(kitchen => {
-                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image deleted" })
+                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image deleted" });
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error uploading. Try again later." })
-            })
+                this.setState({ message: "Error uploading. Try again later." });
+            });
     }
 
     render = () => {
@@ -146,19 +146,19 @@ class StyledForm extends Component {
                 }
             </div>
 
-        )
+        );
     }
 }
 const mapStateToProps = state => {
     return {
         user: state.user,
         kitchen: state.kitchen
-    }
-}
+    };
+};
 
 StyledForm = connect(
     mapStateToProps,
     null
-)(StyledForm)
+)(StyledForm);
 
 export default StyledForm;

@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux'
-import { faq } from '../data/translations'
+import React from "react";
+import { connect } from "react-redux";
+import { faq } from "../data/translations";
 import "../styles/faq.css";
 
 const togglePanel = (e) => {
-    e.target.nextSibling.classList.toggle('active');
-}
+    e.target.nextSibling.classList.toggle("active");
+};
 
 let FAQ = (props) => {
     const { lang } = props;
-    const Accordion = []
+    const Accordion = [];
     for (const el of faq[lang]) {
         Accordion.push(
             <div key={el.Q}>
@@ -22,25 +22,25 @@ let FAQ = (props) => {
                     </div></h5>
                 </div>
             </div>
-        )
+        );
     }
     return (
         <div className="FAQ" key={lang}>
             {Accordion}
         </div>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = state => {
     return {
         lang: state.user.lang || navigator.language.substring(0, 2)
-    }
-}
+    };
+};
 
 FAQ = connect(
     mapStateToProps,
     null
-)(FAQ)
+)(FAQ);
 
 export default FAQ;

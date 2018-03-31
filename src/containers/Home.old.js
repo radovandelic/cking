@@ -1,5 +1,5 @@
-import React from 'react';
-import { Tabs } from '../components';
+import React from "react";
+import { Tabs } from "../components";
 
 export default () => {
     return (<div className="home-container">
@@ -11,4 +11,4 @@ export default () => {
         </div>
     </div>
     );
-}
+};

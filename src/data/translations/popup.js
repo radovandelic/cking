@@ -21,6 +21,6 @@ const popup = {
         errorMessageNotFound: "E-mail or password not found.",
         errorMessageUnauthorized: "Unauthorized access."
     }
-}
+};
 
 export default popup;
