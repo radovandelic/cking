@@ -1,7 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import { popup } from "../data/translations";
 import "../styles/popup.css";
 
-export default (props) => {
+let Popup = (props) => {
+    const { lang } = props;
     return (
 
         <div id="popup" className={props.overlay}>
@@ -13,11 +16,11 @@ export default (props) => {
                     {props.message}
                 </div>
                 {props.btn === "ok" ?
-                    <button className="btn btn-orange" onClick={props.close}>Ok</button>
+                    <button className="btn btn-orange" onClick={props.close}>{popup[lang].ok}</button>
                     : props.btn === "yesno" ?
                         <div className="inline" >
-                            <button value={props.yes} className="btn btn-orange inline" onClick={props.close}>Yes</button>
-                            <button value={props.no} className="btn btn-orange inline" onClick={props.close}>No</button>
+                            <button value={props.yes} className="btn btn-orange inline" onClick={props.close}>{popup[lang].yes}</button>
+                            <button value={props.no} className="btn btn-orange inline" onClick={props.close}>{popup[lang].no}</button>
                         </div>
                         : null
                 }
@@ -25,3 +28,15 @@ export default (props) => {
         </div>
     );
 };
+
+const mapStateToProps = (state) => ({
+    lang: state.user.lang
+});
+
+
+Popup = connect(
+    mapStateToProps,
+    null
+)(Popup);
+
+export default Popup;

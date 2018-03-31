@@ -5,7 +5,7 @@ import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, Styled
 import base64 from "base-64";
 import { Popup } from "../components";
 import { updateKitchen } from "../actions";
-import { registerKitchen, register, staff, type, weekDays, errors } from "../data/translations";
+import { registerKitchen, register, staff, type, weekDays, popup, errors } from "../data/translations";
 import "../styles/forms.css";
 
 const capacityOptions = [];
@@ -68,29 +68,30 @@ const equipment = [
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
 ];
 
-const successMessage = (<p>
-    Nous avons enregistré votre atelier. <br />
-    Merci de patienter pour que notre eauipe vérifie et valide votre annonce. <br /><br />
-    Voulez-vous ajouter des images? Cela rendra votre annonce plus attractive"
-</p>);
 
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             overlay: "overlay",
             redirect: false,
             popup: {
-                message: successMessage,
+                message: (<p>
+                    {popup[lang].successMessageRegister1} <br />
+                    {popup[lang].successMessageRegister2} <br /><br />
+                    {popup[lang].successMessageRegister3}
+                </p>),
                 btn: "yesno",
-                title: "Success"
+                title: popup[lang].successTitle
             }
         };
     }
 
     errorValidator = (values) => {
         const { lang } = this.props;
+
         const validateType = (type) => {
             if (!type || !type.trim()) return registerKitchen[lang].type + errors[lang].required;
         };
@@ -146,12 +147,17 @@ class StyledForm extends Component {
     }
 
     successValidator = (values, errors) => {
+        const { lang } = this.props;
         const validatePrice = () => {
-            return !errors.price ? "* CookWork prend une commission de 10% sur les réservations effectuées sur sa plateforme." : null;
+            return !errors.price ? registerKitchen[lang].commissionNotif : null;
+        };
+        const validateRent = (rent) => {
+            return rent && !errors.rent ? registerKitchen[lang].commissionNotif : null;
         };
 
         return {
-            price: validatePrice(values.price)
+            price: validatePrice(),
+            rent: validateRent(values.rent)
         };
     }
 
@@ -193,7 +199,7 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        const { updateKitchen, user } = this.props;
+        const { updateKitchen, user, lang } = this.props;
         submittedValues = this.formatData(submittedValues);
         submittedValues.access_token = user.access_token;
         let url = "http://0.0.0.0:9000/api/kitchens";
@@ -216,8 +222,12 @@ class StyledForm extends Component {
                 this.setState({
                     overlay: "overlay on",
                     popup: {
-                        message: successMessage,
-                        title: "Success",
+                        message: (<p>
+                            {popup[lang].successMessageRegister1} <br />
+                            {popup[lang].successMessageRegister2} <br /><br />
+                            {popup[lang].successMessageRegister3}
+                        </p>),
+                        title: popup[lang].successTitle,
                         btn: "yesno"
                     }
                 });
@@ -226,8 +236,8 @@ class StyledForm extends Component {
                 this.setState({
                     overlay: "overlay on",
                     popup: {
-                        message: "There has been an error connecting to the server. Please try again later.",
-                        title: "Error",
+                        message: popup[lang].errorMessageConnect,
+                        title: popup[lang].errorTitle,
                         btn: "ok"
                     }
                 });
@@ -238,7 +248,7 @@ class StyledForm extends Component {
         for (let err in errors) {
             if (errors[err]) {
                 var e = document.getElementById(err);
-                if (err === "type" || err === "agree") e.scrollIntoView(true);
+                if (err === "type" || err === "agree") e.scrollIntoView(true); // because focus doesn't work on checkbox and radio
                 else e.focus();
                 window.scrollBy(0, -120);
                 break;
@@ -250,6 +260,7 @@ class StyledForm extends Component {
         const { lang } = this.props;
         const dayOptions = [];
         const StaffOptions = [];
+        console.log(this.state.message);
         let i = 1;
         for (let day in weekDays[lang]) {
             dayOptions.push({

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import googleGeocoder from "google-geocoder";
 import { Popup, Map } from "../components";
-import { equipment, staff, type } from "../data/translations";
+import { equipment, weekDays, staff, type } from "../data/translations";
 import { GMAPS_KEY, GEOCODE_KEY } from "../config";
 import "../styles/kitchen.css";
 import "../styles/carousel.css";
@@ -119,18 +120,25 @@ class Kitchen extends Component {
 
     render = () => {
         let { kitchen, isMapLoaded, location } = this.state;
+        const { lang } = this.props;
         const Equipment = [];
         const Staff = [];
+
         for (let e in equipment["fr"]) {
             if (kitchen.equipment && kitchen.equipment[e]) {
                 Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment["fr"][e]}</li>);
             }
         }
+        if (!Equipment[0]) {
+            Equipment.push(<li key="equipment-none"><i className="fa fa-window-close"></i></li>);
+        }
 
         for (let s in kitchen.staff) {
             Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff["fr"][s]}</li>);
         }
-
+        if (!Staff[0]) {
+            Staff.push(<li key="staff-none"><i className="fa fa-window-close"></i></li>);
+        }
         return (
             <div className="listing-container" >
                 <div className="flex-listing-container">
@@ -176,8 +184,10 @@ class Kitchen extends Component {
                     <div className="description" >
                         <h2>{kitchen.name}</h2>
                         <h4>{kitchen.region}</h4> <br />
-                        <h4>{type["fr"][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
-                        <h4>Availability: {kitchen.days ? kitchen.days.daysFrom + " - " + kitchen.days.daysTo + ", " : ""}
+                        <h4>{type[lang][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
+                        <h4>Availability:&nbsp;
+                            {kitchen.days ? weekDays[lang][weekDays.map[kitchen.days.daysFrom]]
+                                + " - " + weekDays[lang][weekDays.map[kitchen.days.daysTo]] + ", " : ""}
                             {kitchen.hours ? kitchen.hours.hoursFrom + ":00 - " + kitchen.hours.hoursTo + ":00" : "00 - 24"}
                         </h4>
                         <p>{kitchen.description}</p>
@@ -233,5 +243,14 @@ class Kitchen extends Component {
         this.setState({ overlay: "overlay off" });
     }
 }
+
+const mapStateToProps = (state) => ({
+    lang: state.user.lang
+});
+
+Kitchen = connect(
+    mapStateToProps,
+    null
+)(Kitchen);
 
 export default Kitchen;

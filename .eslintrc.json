@@ -24,6 +24,13 @@
                 "SwitchCase": 1
             }
         ],
+        "brace-style": [
+            "warn",
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
         "linebreak-style": [
             "warn",
             "unix"

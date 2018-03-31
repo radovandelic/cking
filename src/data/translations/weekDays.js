@@ -25,7 +25,16 @@ const weekDays = {
         friday: "Friday",
         saturday: "Saturday",
         sunday: "Sunday"
-    }
+    },
+    map: [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday"
+    ]
 };
 
 export default weekDays;

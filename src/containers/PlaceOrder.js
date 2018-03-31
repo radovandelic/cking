@@ -13,6 +13,11 @@ class StyledForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            kitchen: {
+                id: props.match.params.id,
+                name: "",
+                address: ""
+            },
             redirect: false,
             type: "once",
             price: 0,
@@ -48,6 +53,7 @@ class StyledForm extends Component {
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
+                const kitchen = { id: data.id, name: data.name, address: data.address };
                 const hours = data.hours && data.hours.hoursFrom && data.hours.hoursTo ? data.hours : { hoursFrom: 0, hoursTo: 24 };
                 const days = data.days && data.days.daysFrom && data.days.daysTo ? data.days : { daysFrom: 1, daysTo: 0 };
                 const price = data.price;
@@ -55,95 +61,151 @@ class StyledForm extends Component {
                 for (let index = hours.hoursFrom; index < hours.hoursTo + 1; index++) {
                     hourOptions.push({ label: String(index) + ":00", value: String(index) });
                 }
-                this.setState({ hourOptions, hours, days, price, rent });
+                this.setState({ hourOptions, hours, days, price, rent, kitchen });
             });
 
     }
 
     errorValidator = (values) => {
-        const { price } = this.state;
+        const { type } = this.state;
         const validateDateFrom = (dateFrom) => {
-            return !dateFrom ? "Start date is required" : null;
+            return !dateFrom && type !== "recurring" ? "Start date is required" : null;
         };
         const validateDateTo = (dateTo) => {
-            return !dateTo ? "End date is required" : null;
+            return !dateTo && type !== "recurring" ? "End date is required" : null;
+        };
+        const validateDaysFrom = (daysFrom) => {
+            return !daysFrom && type === "recurring" ? "Start day is required" : null;
+        };
+        const validateDaysTo = (daysTo) => {
+            return !daysTo && type === "recurring" ? "End day is required" : null;
+        };
+        const validateHoursFrom = (hoursFrom) => {
+            return !hoursFrom && type !== "long" ? "Start hour is required" : null;
+        };
+        const validateHoursTo = (hoursTo) => {
+            return !hoursTo && type !== "long" ? "End hour is required" : null;
         };
         const validateTime = (values) => {
-            const { days } = this.state;
-            days.daysTo = days.daysTo === 0 ? 7 : days.daysTo;
-            days.daysFrom = days.daysFrom === 0 ? 7 : days.daysFrom;
-            const today = new Date();
+            const { type } = this.state;
+            if (type !== "recurring") {
+                let today = new Date();
+                today -= today % 86400000; // set time to midnight
+                today = new Date(today);
+                const dateFrom = new Date(values.dateFrom);
+                const dateTo = new Date(values.dateTo);
+                let totalDays = (dateTo - dateFrom) / 86400000;
+                if (totalDays < 0 || dateFrom < today) return "Invalid timeframe selected.";
+                if (type === "long" && totalDays < 180) return "The minimum timeframe for long term rent is 6 months.";
+            }
+            if (type === "recurring") {
+                const daysFrom = Number(values.daysFrom) || 7;
+                const daysTo = Number(values.daysTo) || 7;
+                if (daysFrom > daysTo) return "Invalid timeframe selected.";
+            }
+            if (type !== "long") {
+                const hoursFrom = Number(values.hoursFrom);
+                const hoursTo = Number(values.hoursTo);
+                if (hoursTo - hoursFrom <= 0) return "Invalid timeframe selected.";
+            }
+            return null;
+        };
+
+        return {
+            dateFrom: validateDateFrom(values.dateFrom),
+            dateTo: validateDateTo(values.dateTo),
+            daysFrom: validateDaysFrom(values.daysFrom),
+            daysTo: validateDaysTo(values.daysTo),
+            hoursFrom: validateHoursFrom(values.hoursFrom),
+            hoursTo: validateHoursTo(values.hoursTo),
+            time: validateTime(values)
+        };
+    }
+
+    successValidator = (values, errors) => {
+        const validateTime = (values) => {
+            const { type, days, price } = this.state;
+            days.daysTo = days.daysTo || 7;
+            days.daysFrom = days.daysFrom || 7;
             const dateFrom = new Date(values.dateFrom);
             const dateTo = new Date(values.dateTo);
             const hoursFrom = Number(values.hoursFrom);
             const hoursTo = Number(values.hoursTo);
-            console.log((dateTo - dateFrom) / 86400000);
-            /* let weekDay = dateFrom.getDay()
-            weekDay = weekDay === 0 ? 7 : weekDay; */
             let totalHours = hoursTo - hoursFrom;
-            let totalDays = 0;
             let totalPrice = 0;
-            if (totalDays < 0 || dateFrom < today) return "Invalid timeframe selected.";
-            if (totalHours <= 0) return "Invalid timeframe selected.";
-
-            // why did they have to set sunday to zero ugh
-            for (let i = dateFrom.valueOf(); i <= dateTo; i += 86400000) {
-                var day = new Date(i);
-                var weekDay = day.getDay() !== 0 ? day.getDay() : 7;
-                if (weekDay >= days.daysFrom && weekDay <= days.daysTo) {
-                    totalDays++;
-                }
+            let totalDays = 0;
+            switch (type) {
+                case "once":
+                    for (let i = dateFrom.valueOf(); i <= dateTo; i += 86400000) {
+                        var day = new Date(i);
+                        var weekDay = day.getDay() !== 0 ? day.getDay() : 7;
+                        if (weekDay >= days.daysFrom && weekDay <= days.daysTo) {
+                            totalDays++;
+                        }
+                    }
+                    totalHours *= totalDays;
+                    totalPrice = (totalHours * price);
+                    totalPrice += 0.15 * totalPrice;
+                    return !isNaN(totalHours) && totalPrice > 0 ?
+                        `The estimated price for the selected time period (${totalHours} hours) is €${totalPrice} (€${price}/h + 15% service fee, VAT excluded)`
+                        : "";
+                case "recurring":
+                    let daysFrom = Number(values.daysFrom) || 7;
+                    let daysTo = Number(values.daysTo) || 7;
+                    totalDays = (daysTo - daysFrom) + 1;
+                    totalHours *= totalDays;
+                    totalPrice = totalHours * price;
+                    totalPrice += 0.15 * totalPrice;
+                    return !isNaN(totalPrice) && totalPrice > 0 ?
+                        `The estimated price for the selected time period (${totalHours} hours) is €${totalPrice}/week (€${price}/h + 15% service fee, VAT excluded)`
+                        : "";
+                case "long":
+                    const { rent } = this.state;
+                    totalDays = (dateTo - dateFrom) / 86400000;
+                    const totalMonths = Math.round(totalDays / 30);
+                    totalPrice = totalMonths * rent;
+                    totalPrice += 0.15 * totalPrice;
+                    return !isNaN(totalPrice) && totalPrice > 0 ?
+                        `The estimated price for the selected time period (${totalMonths} months) is €${totalPrice} (€${rent}/month + 15% service fee, VAT excluded)`
+                        : "";
+                default:
+                    return null;
             }
-            totalHours *= totalDays;
-            totalPrice = (totalHours * price);
-            totalPrice += 0.15 * totalPrice;
-            return !isNaN(totalHours) && totalHours !== 0 ?
-                `The price for the selected time period (${totalHours} hours) is €${totalPrice} (€${price}/h + 15% service fee)`
-                : "";
         };
-
-        this.setState({ message: validateTime(values) });
-        return {
-            dateFrom: validateDateFrom(values.dateFrom),
-            dateTo: validateDateTo(values.dateTo)
-        };
+        if (!errors.time) {
+            this.setState({ message: validateTime(values) });
+        } else {
+            this.setState({ message: "" });
+        }
+        return null;
     }
 
     submit = (submittedValues) => {
-        console.log(submittedValues);
-        /*let url = 'http://0.0.0.0:9000/api/users/register';
+        const { access_token } = this.props;
+        submittedValues.access_token = access_token;
+        submittedValues.kitchen = this.state.kitchen;
+        submittedValues.type = this.state.type;
+        let url = "http://0.0.0.0:9000/api/orders";
         let query = {
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(submittedValues)
-        }
+        };
         fetch(url, query)
-            .then(res => {
-                switch (res.status) {
-                    case 409:
-                        this.setState({ popup: { message: errorMessageAlreadyRegistered } });
-                        throw new Error(errorMessageAlreadyRegistered);
-                    case 201:
-                        return res.json();
-                    default:
-                        this.setState({ popup: { message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
-                }
-
-            })
+            .then(res => res.json())
             .then(data => {
-                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
-                    window.localStorage.setItem("access_token", data.token);
-                    window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
-                }
-                data.user.access_token = data.token;
-                updateUser(data.user);
-                this.setState({ redirect: data.kitchenOwner ? '/dashboard' : '/' });
+                this.setState({
+                    overlay: "overlay on",
+                    popup: {
+                        title: "Success",
+                        message: "You have successfully placed an order. You will receive a reply from Cookwork soon."
+                    }
+                });
             })
-            .catch(err => this.setState({ overlay: "overlay on" }));*/
+            .catch(err => this.setState({ overlay: "overlay on", popup: { message: errorMessageConnect } }));
 
     }
 
@@ -162,7 +224,7 @@ class StyledForm extends Component {
     }
 
     render = () => {
-        const { type, hourOptions, days, hours, rent, message } = this.state;
+        const { type, hourOptions, days, hours, price, rent, message } = this.state;
         const { lang } = this.props;
 
         let i = 1;
@@ -185,6 +247,7 @@ class StyledForm extends Component {
                         defaultValues={{ type: "once" }}
                         validateError={this.errorValidator}
                         onSubmitFailure={this.onSubmitFailure}
+                        validateSuccess={this.successValidator}
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
@@ -195,9 +258,9 @@ class StyledForm extends Component {
                                             rent !== -1 ?
                                                 <ul className="radio-grid" >
                                                     <label htmlFor="type">Interval type: </label>
-                                                    <li> <StyledRadio group={group} value="once" id="once" label="One time" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="recurring" id="recurring" label="Recurring" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="long" id="long" label="Long term (minimum 1 month)" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="once" id="once" label={`One time (€${price}/h + 15%)`} className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="recurring" id="recurring" label={`Recurring (€${price}/h + 15%)`} className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="long" id="long" label={`Long term (€${rent}/month + 15%, minimum 6 months)`} className="d-inline-block" /> </li>
                                                 </ul>
                                                 :
                                                 <ul className="radio-grid" >
@@ -211,22 +274,22 @@ class StyledForm extends Component {
                                 {type !== "recurring" ?
                                     <div className="inline">
                                         <div className="form-group" >
-                                            <label htmlFor="dateFrom">From:</label>
+                                            <label htmlFor="dateFrom">Start date:</label>
                                             <StyledText type="date" field="dateFrom" id="dateFrom" style={{ width: "85%", height: "31px" }} />
                                         </div>
                                         <div className="form-group" >
-                                            <label htmlFor="dateTo">To:</label>
+                                            <label htmlFor="dateTo">End date:</label>
                                             <StyledText type="date" field="dateTo" id="dateTo" style={{ width: "85%", height: "31px" }} />
                                         </div>
                                     </div>
                                     :
                                     <div className="inline">
                                         <div className="form-group" >
-                                            <label htmlFor="daysFrom">From:</label>
+                                            <label htmlFor="daysFrom">Start day:</label>
                                             <StyledSelect field="daysFrom" id="daysFrom" options={dayOptions} style={{ width: "85%" }} />
                                         </div>
                                         <div className="form-group" >
-                                            <label htmlFor="daysTo">To:</label>
+                                            <label htmlFor="daysTo">End day:</label>
                                             <StyledSelect field="daysTo" id="daysTo" options={dayOptions} style={{ width: "85%" }} />
                                         </div>
                                     </div>
@@ -248,9 +311,10 @@ class StyledForm extends Component {
                                     </div>
                                     : null}
                                 <div className="form-group" >
-                                    <h4 className={message === "Invalid timeframe selected." ? "react-form-message-error" : ""} >
-                                        {message}
-                                    </h4>
+                                    <StyledText type="hidden" field="time" id="time" />
+                                </div>
+                                <div className="form-group" >
+                                    {message ? <h4> {message} </h4> : null}
                                 </div>
                                 <h4 >This Kitchen's availability is from {dayOptions[0].label} to {dayOptions[dayOptions.length - 1].label},&nbsp;
                                     {hours.hoursFrom}:00 to {hours.hoursTo}:00. </h4>
@@ -260,18 +324,19 @@ class StyledForm extends Component {
                             </form>
                         )}
                     </Form>
-                    <Popup overlay={this.state.overlay} title={"Error"}
+                    <Popup overlay={this.state.overlay} title={this.state.popup.title}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
         );
     }
     closePopup = () => {
-        this.setState({ overlay: "overlay off" });
+        this.setState({ overlay: "overlay off", redirect: "/dashboard" });
     }
 }
 const mapStateToProps = state => {
     return {
+        access_token: state.user.access_token,
         lang: state.user.lang
     };
 };

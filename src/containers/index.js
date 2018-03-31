@@ -9,7 +9,7 @@ import ImageUpload from "./ImageUpload";
 import UpdateAccount from "./UpdateAccount";
 import Browse from "./Browse";
 import Kitchen from "./Kitchen";
-import RentKitchen from "./RentKitchen";
+import PlaceOrder from "./PlaceOrder";
 import ContactForm from "./ContactForm";
 import VerifyAccount from "./VerifyAccount";
 import RegisterUserInfo from "./RegisterUserInfo";
@@ -17,5 +17,5 @@ import Terms from "./Terms";
 
 export {
     Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
-    ImageUpload, Browse, Kitchen, RentKitchen, ContactForm, VerifyAccount, RegisterUserInfo, Terms
+    ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms
 };

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from "react-form";
 import { Popup } from "../components";
 import { updateKitchen } from "../actions";
-import { weekDays, register, registerKitchen, staff, type, errors } from "../data/translations";
+import { weekDays, register, registerKitchen, staff, type, popup, errors } from "../data/translations";
 import "../styles/forms.css";
 
 const capacityOptions = [];
@@ -67,11 +67,11 @@ const equipment = [
     "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
 ];
 
-const successMessage = "Your kitchen has been updated.";
-
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
+        const successMessage = popup[lang].successMessageUpdate;
         super(props);
         this.state = {
             defaultValues: {},
@@ -87,10 +87,6 @@ class StyledForm extends Component {
 
     errorValidator = (values) => {
         const { lang } = this.props;
-        const validateName = (name) => {
-            if (!name || !name.trim()) return registerKitchen[lang].name + errors[lang].required;
-            return name && name.length < 3 ? "Le nom doit comporter plus de 3 caractères." : null;
-        };
         const validateType = (type) => {
             if (!type || !type.trim()) return registerKitchen[lang].type + errors[lang].required;
         };
@@ -131,7 +127,6 @@ class StyledForm extends Component {
             if (!agree) return errors[lang].agree;
         };
         return {
-            name: validateName(values.name),
             type: validateType(values.type),
             phone: validatePhone(values.phone),
             address: validateAddress(values.address),
@@ -146,21 +141,18 @@ class StyledForm extends Component {
         };
     }
 
-    warningValidator = (values) => {
-        const validateRent = (rent) => {
-            return rent && (rent < 100 || rent > 20000 || isNaN(rent)) ? "Prix non valide" : null;
-        };
-        return {
-            rent: validateRent(values.rent)
-        };
-    }
-
     successValidator = (values, errors) => {
+        const { lang } = this.props;
         const validatePrice = () => {
-            return !errors.price ? "* CookWork prend une commission de 15% sur les réservations effectuées sur sa plateforme à intégrer qu prix total." : null;
+            return !errors.price ? registerKitchen[lang].commissionNotif : null;
         };
+        const validateRent = (rent) => {
+            return rent && !errors.rent ? registerKitchen[lang].commissionNotif : null;
+        };
+
         return {
-            price: validatePrice(values.price)
+            price: validatePrice(),
+            rent: validateRent(values.rent)
         };
     }
 
@@ -203,7 +195,7 @@ class StyledForm extends Component {
 
     submit = (submittedValues) => {
         const { updateKitchen } = this.props;
-        const { kitchen, user } = this.props;
+        const { kitchen, user, lang } = this.props;
         submittedValues = this.formatData(submittedValues);
         submittedValues.access_token = user.access_token;
         let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/`;
@@ -222,8 +214,8 @@ class StyledForm extends Component {
                 this.setState({
                     overlay: "overlay on",
                     popup: {
-                        message: successMessage,
-                        title: "Success",
+                        message: popup[lang].successMessageUpdate,
+                        title: popup[lang].successTitle,
                         btn: "ok"
                     }
                 });
@@ -232,8 +224,8 @@ class StyledForm extends Component {
                 this.setState({
                     overlay: "overlay on",
                     popup: {
-                        message: "There has been an error connecting to the server. Please try again later.",
-                        title: "Error",
+                        message: popup[lang].errorMessageConnect,
+                        title: popup[lang].errorTitle,
                         btn: "ok"
                     }
                 });
@@ -306,7 +298,6 @@ class StyledForm extends Component {
                 <div>
                     <Form
                         validateError={this.errorValidator}
-                        validateWarning={this.warningValidator}
                         validateSuccess={this.successValidator}
                         defaultValues={kitchen} onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
@@ -317,10 +308,6 @@ class StyledForm extends Component {
                                     {registerKitchen[lang].paragraph5}<br />
                                     {registerKitchen[lang].paragraph6} <a href="mailto:contact@co-oking.be">contact@co-oking.be</a>
                                 </p>
-                                <div className="form-group" >
-                                    <label htmlFor="name">{registerKitchen[lang].name}</label>
-                                    <StyledText className="form-control" type="text" field="name" id="name" />
-                                </div>
                                 <div className="form-group" >
                                     <label htmlFor="phone">{registerKitchen[lang].phone}</label>
                                     <StyledText className="form-control" type="text" field="phone" id="phone" />

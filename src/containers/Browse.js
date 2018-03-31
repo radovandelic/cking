@@ -3,22 +3,21 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Popup } from "../components";
 import "../styles/browse.css";
-import { type } from "../data/translations";
+import { type, popup } from "../data/translations";
 import { GMAPS_KEY } from "../config";
 
-var errorTitle = "Error";
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class Browse extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             kitchens: [],
             count: -1,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
+                message: popup[lang].errorMessageConnect
             }
         };
     }
@@ -71,7 +70,7 @@ class Browse extends Component {
 
     render = () => {
         let { kitchens, count } = this.state;
-        let { user } = this.props;
+        let { user, lang } = this.props;
         let Listings = [];
         for (const kitchen of kitchens) {
             kitchen.type = type["fr"][kitchen.type];
@@ -119,7 +118,7 @@ class Browse extends Component {
                     Listings
                 }
             </div>
-            <Popup overlay={this.state.overlay} title={errorTitle}
+            <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>
         );
@@ -132,7 +131,8 @@ class Browse extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        lang: state.user.lang
     };
 };
 

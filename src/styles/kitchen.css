@@ -24,10 +24,6 @@
     text-align: left;
 }
 
-.single-listing-information h4 {
-    margin: 20px;
-}
-
 .single-listing-information h5 {
     margin: 5px;
 }
@@ -40,6 +36,10 @@
 
 .fa.fa-check {
     color: #ff6114;
+}
+
+.fa.fa-window-close {
+    color: #484848;
 }
 
 .description {
