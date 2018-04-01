@@ -6,7 +6,7 @@ const header = {
         dashboard: "Tableau de bord",
         login: "S'identifier",
         register: "S'enregistrer",
-        contact: "Contact"
+        contact: "Contact",
     },
     nl: {
         createListing: "Ik huur mijn keuken",
@@ -15,7 +15,7 @@ const header = {
         dashboard: "Dashboard",
         login: "Log in",
         register: "Registreren",
-        contact: "Contact"
+        contact: "Contact",
     },
     en: {
         createListing: "Create listing",
@@ -24,8 +24,8 @@ const header = {
         dashboard: "Dashboard",
         login: "Login",
         register: "Register",
-        contact: "Contact"
-    }
+        contact: "Contact",
+    },
 };
 
 export default header;

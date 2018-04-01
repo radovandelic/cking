@@ -43,7 +43,7 @@ const equipment = {
         ownEquipment: "Possibilité d’apporter son matériel (sous conditions)",
     },
     nl: {},
-    en: {}
+    en: {},
 };
 
 export default equipment;

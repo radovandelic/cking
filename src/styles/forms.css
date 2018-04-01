@@ -203,6 +203,13 @@ textarea.react-form-input {
     margin-bottom: 30px;
 }
 
+.form-group.form-group-date input,
+.form-group.form-group-date select {
+    width: 85%;
+    height: 36px;
+    font-size: 16px;
+}
+
 @media screen and (max-width: 600px) {
     .form-container>h3 {
         text-align: justify;

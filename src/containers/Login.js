@@ -5,33 +5,30 @@ import { connect } from "react-redux";
 import base64 from "base-64";
 import { Popup } from "../components";
 import { updateKitchen, updateUser } from "../actions";
+import { popup } from "../data/translations";
 import "../styles/forms.css";
-
-var errorTitle = "Error";
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
-var errorMessageNotFound = "E-mail or password not found.";
-var errorMessageUnauthorized = "Unauthorized access.";
 
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
-            }
+                message: popup[lang].errorMessageConnect,
+            },
         };
     }
 
     submit = (submittedValues) => {
-        let { updateKitchen, updateUser } = this.props;
+        const { updateUser, updateKitchen, lang } = this.props;
         let url = "http://0.0.0.0:9000/api/auth";
-        let username = submittedValues.email;
-        let password = submittedValues.password;
+        const username = submittedValues.email;
+        const password = submittedValues.password;
 
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode(username + ":" + password));
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
@@ -39,39 +36,36 @@ class StyledForm extends Component {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
-                role: "user"
-            })
+                role: "user",
+            }),
         })
             .then(response => {
                 switch (response.status) {
                     case 401:
-                        this.setState({ popup: { message: errorMessageUnauthorized } });
-                        throw new Error(errorMessageNotFound);
+                        this.setState({ popup: { message: popup[lang].errorMessageUnauthorized } });
+                        throw new Error(popup["en"].errorMessageNotFound);
                     case 400:
-                        this.setState({ popup: { message: errorMessageNotFound } });
-                        throw new Error(errorMessageNotFound);
+                        this.setState({ popup: { message: popup[lang].errorMessageNotFound } });
+                        throw new Error(popup["en"].errorMessageNotFound);
                     case 201:
                         return response.json();
                     default:
-                        this.setState({ popup: { message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
+                        this.setState({ popup: { message: popup[lang].errorMessageConnect } });
+                        throw new Error(popup["en"].errorMessageConnect);
                 }
             })
             .then(data => {
+                data.user.access_token = data.token;
+                updateUser(data.user);
                 if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
                 }
-                data.user.access_token = data.token;
-                updateUser(data.user);
                 url = `http://0.0.0.0:9000/api/kitchens/user/${data.user.id}/?access_token=${data.token}`;
                 return fetch(url, { method: "GET", headers: headers });
             })
             .then(response => response.json())
             .then(kitchen => {
-                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
-                    window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(kitchen)));
-                }
                 updateKitchen(kitchen);
                 this.setState({ redirect: "/dashboard" });
             })
@@ -81,6 +75,7 @@ class StyledForm extends Component {
             });
     }
     render = () => {
+        const { lang } = this.props;
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
@@ -110,7 +105,7 @@ class StyledForm extends Component {
                             </form>
                         )}
                     </Form>
-                    <Popup overlay={this.state.overlay} title={errorTitle}
+                    <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
@@ -122,26 +117,17 @@ class StyledForm extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateKitchen: (kitchen) => {
-            dispatch(updateKitchen(kitchen));
-        },
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateUser: (user) => dispatch(updateUser(user)),
+    updateKitchen: (kitchen) => dispatch(updateKitchen(kitchen)),
+});
 
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(StyledForm);
-
-export default StyledForm;

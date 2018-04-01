@@ -2,72 +2,18 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, StyledText, StyledTextArea, StyledRadio, StyledRadioGroup, StyledCheckbox, StyledSelect } from "react-form";
-import base64 from "base-64";
 import { Popup } from "../components";
 import { updateKitchen } from "../actions";
-import { registerKitchen, register, staff, type, weekDays, popup, errors } from "../data/translations";
+import { registerKitchen, register, regions, staff, type, weekDays, popup, errors } from "../data/translations";
 import "../styles/forms.css";
-
-const capacityOptions = [];
-const hourOptions = [];
-for (let index = 1; index < 21; index++) {
-    capacityOptions.push({ label: String(index), value: String(index) });
-}
-for (let index = 0; index < 25; index++) {
-    hourOptions.push({ label: String(index) + ":00", value: String(index) });
-}
-
-const regionOptions = [
-    {
-        label: "Antwerpen",
-        value: "Antwerpen"
-    },
-    {
-        label: "Brabant",
-        value: "Brabant"
-    },
-    {
-        label: "Bruxelles",
-        value: "Bruxelles"
-    },
-    {
-        label: "East Flanders",
-        value: "EastFlanders"
-    },
-    {
-        label: "Hainaut",
-        value: "Hainaut"
-    },
-    {
-        label: "Liege",
-        value: "Liege"
-    },
-    {
-        label: "Limburg",
-        value: "Limburg"
-    },
-    {
-        label: "Luxembourg",
-        value: "Luxembourg"
-    },
-    {
-        label: "Namur",
-        value: "Namur"
-    },
-    {
-        label: "West Flanders",
-        value: "WestFlanders"
-    }
-];
 
 const equipment = [
     "parking", "toilets", "fridge", "bainMarie", "mixer", "electronicCashier", "coolingCell", "nColdRoom",
     "pColdRoom", "etuve", "extraction", "oven", "pizzaOven", "fryer", "grill", "juicer", "pastaMachine",
     "mixMachine", "sauceMachine", "vacuumMachine", "microwave", "piano", "workplan", "griddle", "ceramicHob", "induction",
     "dishwasher", "sink", "threePhase", "cleaningProducts", "baker", "sauteuse", "freezer", "tableware", "vmc",
-    "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment"
+    "displays", "slicer", "dryStorage", "smallEquipment", "furniture", "ownEquipment",
 ];
-
 
 class StyledForm extends Component {
 
@@ -84,8 +30,8 @@ class StyledForm extends Component {
                     {popup[lang].successMessageRegister3}
                 </p>),
                 btn: "yesno",
-                title: popup[lang].successTitle
-            }
+                title: popup[lang].successTitle,
+            },
         };
     }
 
@@ -121,12 +67,13 @@ class StyledForm extends Component {
         };
         const validateDays = (daysFrom, daysTo) => {
             if (!daysFrom || !daysTo) return registerKitchen[lang].days + errors[lang].required;
-            return daysFrom && daysTo && ((daysFrom > daysTo && daysTo !== "0") || (daysFrom === "0" && daysTo !== "0"))
-                ? registerKitchen[lang].days + errors[lang].invalid : null;
+            daysFrom = Number(daysFrom) || 7;
+            daysTo = Number(daysTo) || 7;
+            return daysFrom && daysTo && (daysFrom > daysTo) ? registerKitchen[lang].days + errors[lang].invalid : null;
         };
         const validateHours = (hoursFrom, hoursTo) => {
             if (!hoursFrom || !hoursTo) return registerKitchen[lang].hours + errors[lang].required;
-            return hoursFrom && hoursTo && hoursFrom >= hoursTo ? registerKitchen[lang].hours + errors[lang].invalid : null;
+            return hoursFrom && hoursTo && Number(hoursFrom) >= Number(hoursTo) ? registerKitchen[lang].hours + errors[lang].invalid : null;
         };
         const validateAgree = (agree) => {
             if (!agree) return errors[lang].agree;
@@ -142,7 +89,7 @@ class StyledForm extends Component {
             price: validatePrice(values.price),
             daysmsg: validateDays(values.daysFrom, values.daysTo),
             hoursmsg: validateHours(values.hoursFrom, values.hoursTo),
-            agree: validateAgree(values.agree)
+            agree: validateAgree(values.agree),
         };
     }
 
@@ -157,12 +104,13 @@ class StyledForm extends Component {
 
         return {
             price: validatePrice(),
-            rent: validateRent(values.rent)
+            rent: validateRent(values.rent),
         };
     }
 
     formatData = (submittedValues) => {
-        submittedValues.events = Boolean(submittedValues.events) || undefined;
+        const { lang } = this.props;
+        submittedValues.events = Boolean(submittedValues.events);
         submittedValues.size = Number(submittedValues.size);
         submittedValues.price = Number(submittedValues.price);
         submittedValues.rent = Number(submittedValues.rent) || undefined;
@@ -170,26 +118,26 @@ class StyledForm extends Component {
         submittedValues.standingCapacity = Number(submittedValues.standingCapacity) || undefined;
         submittedValues.sittingCapacity = Number(submittedValues.sittingCapacity) || undefined;
         submittedValues.hours = {
-            hoursFrom: Number(submittedValues.hoursFrom) || undefined,
-            hoursTo: Number(submittedValues.hoursTo) || undefined
+            hoursFrom: Number(submittedValues.hoursFrom) || 0,
+            hoursTo: Number(submittedValues.hoursTo) || 24,
         };
         submittedValues.days = {
-            daysFrom: Number(submittedValues.daysFrom) || undefined,
-            daysTo: Number(submittedValues.daysTo) || undefined
+            daysFrom: Number(submittedValues.daysFrom) || 0,
+            daysTo: Number(submittedValues.daysTo) || 0,
         };
         submittedValues.equipment = {};
         submittedValues.staff = {};
 
-        //place equipment booleans inside equipment object
-        for (let e of equipment) {
+        // place equipment booleans inside equipment object
+        for (const e of equipment) {
             if (submittedValues[e]) {
                 submittedValues.equipment[e] = submittedValues[e];
                 submittedValues[e] = undefined;
             }
         }
 
-        //place staff booleans inside staff object
-        for (let s in staff) {
+        // place staff booleans inside staff object
+        for (const s in staff[lang]) {
             if (submittedValues[s]) {
                 submittedValues.staff[s] = submittedValues[s];
                 submittedValues[s] = undefined;
@@ -199,25 +147,21 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        const { updateKitchen, user, lang } = this.props;
+        const { updateKitchen, access_token, lang } = this.props;
         submittedValues = this.formatData(submittedValues);
-        submittedValues.access_token = user.access_token;
-        let url = "http://0.0.0.0:9000/api/kitchens";
-        let query = {
+        submittedValues.access_token = access_token;
+        const url = "http://0.0.0.0:9000/api/kitchens";
+        const query = {
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(submittedValues)
+            body: JSON.stringify(submittedValues),
         };
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
-                    window.localStorage.setItem("mykitchen",
-                        base64.encode(JSON.stringify(data)));
-                }
                 updateKitchen(data);
                 this.setState({
                     overlay: "overlay on",
@@ -228,8 +172,8 @@ class StyledForm extends Component {
                             {popup[lang].successMessageRegister3}
                         </p>),
                         title: popup[lang].successTitle,
-                        btn: "yesno"
-                    }
+                        btn: "yesno",
+                    },
                 });
             })
             .catch(err => {
@@ -238,48 +182,80 @@ class StyledForm extends Component {
                     popup: {
                         message: popup[lang].errorMessageConnect,
                         title: popup[lang].errorTitle,
-                        btn: "ok"
-                    }
+                        btn: "ok",
+                    },
                 });
             });
     }
 
     onSubmitFailure = (errors) => {
-        for (let err in errors) {
+        for (const err in errors) {
             if (errors[err]) {
-                var e = document.getElementById(err);
-                if (err === "type" || err === "agree") e.scrollIntoView(true); // because focus doesn't work on checkbox and radio
+                const e = document.getElementById(err);
+                if (err === "hoursmsg" || err === "daysmsg") {
+                    e.scrollIntoView(true);
+                    window.scrollBy(0, -200);
+                    return;
+                }
+                if (err === "type" || err === "agree") e.scrollIntoView(true); // because e.focus() doesn't work on checkbox and radio
                 else e.focus();
                 window.scrollBy(0, -120);
-                break;
+                return;
             }
         }
     }
 
-    render = () => {
-        const { lang } = this.props;
-        const dayOptions = [];
-        const StaffOptions = [];
-        console.log(this.state.message);
+    populateOptions = (lang) => {
+        const capacityOptions = [],
+            hourOptions = [],
+            regionOptions = [],
+            dayOptions = [],
+            StaffOptions = [];
         let i = 1;
-        for (let day in weekDays[lang]) {
+
+        for (let index = 1; index < 21; index++) capacityOptions.push({ label: String(index), value: String(index) });
+        for (let index = 0; index < 25; index++) hourOptions.push({ label: String(index) + ":00", value: String(index) });
+
+        regionOptions.push({
+            label: register[lang].your + register[lang].region,
+            value: "",
+            disabled: true,
+        });
+        for (const region in regions[lang]) {
+            if (regions[lang].hasOwnProperty(region) && region !== "all") {
+                regionOptions.push({
+                    label: regions[lang][region],
+                    value: region,
+                });
+            }
+        }
+
+        for (const day in weekDays[lang]) {
             dayOptions.push({
                 label: weekDays[lang][day],
-                value: i < 7 ? String(i) : String(0)
+                value: i < 7 ? String(i) : String(0),
             });
             i++;
         }
+
         for (const s in staff[lang]) {
             StaffOptions.push(
                 <li key={staff[lang][s]} > <StyledCheckbox field={s} id={s} label={staff[lang][s]} className="d-inline-block" /></li>
             );
         }
+        return { regionOptions, dayOptions, hourOptions, capacityOptions, StaffOptions };
+    }
+
+    render = () => {
+        const { lang, region, phone } = this.props;
+        const { regionOptions, dayOptions, hourOptions, capacityOptions, StaffOptions } = this.populateOptions(lang);
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
+                        defaultValues={{ region, phone }}
                         validateError={this.errorValidator}
                         validateSuccess={this.successValidator}
                         onSubmitFailure={this.onSubmitFailure}
@@ -349,8 +325,8 @@ class StyledForm extends Component {
                                     &nbsp;&nbsp;-&nbsp;&nbsp;
                                     <StyledSelect field="daysTo" id="daysTo" options={dayOptions} />
                                 </div>
-                                <div className="hiddn">
-                                    <StyledText type="hidden" field="daysmsg" id="daysmsg" />
+                                <div className="hiddn" id="daysmsg">
+                                    <StyledText type="hidden" field="daysmsg" />
                                 </div>
                                 <label htmlFor="hours">{registerKitchen[lang].hours}</label>
                                 <div className="form-group form-group-hours" >
@@ -358,8 +334,8 @@ class StyledForm extends Component {
                                     &nbsp;&nbsp;-&nbsp;&nbsp;
                                     <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
                                 </div>
-                                <div className="hiddn">
-                                    <StyledText type="hidden" field="hoursmsg" id="hoursmsg" />
+                                <div className="hiddn" id="hoursmsg">
+                                    <StyledText type="hidden" field="hoursmsg" />
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="capacity">{registerKitchen[lang].capacity}</label>
@@ -421,6 +397,24 @@ class StyledForm extends Component {
                                         <li>  <StyledCheckbox field="ownEquipment" id="own-equipment" label="Possibilité d’apporter son matériel (sous conditions)" className="d-inline-block" /> </li>
                                     </ul>
                                 </div>
+                                <label htmlFor="staff">{registerKitchen[lang].staff}</label>
+                                <div className="form-group" style={{ height: "100px" }}>
+                                    <ul className="checkbox-grid">
+                                        {StaffOptions}
+                                    </ul>
+                                </div>
+                                <div htmlFor="cancellation" className="form-group" style={{ height: "140px" }}>
+                                    <label>{registerKitchen[lang].cancellation}</label>
+                                    <StyledRadioGroup field="cancellation" key={lang} >
+                                        {group => (
+                                            <ul className="radio-grid" >
+                                                <li> <StyledRadio group={group} value="flexible" id="fexible" label={registerKitchen[lang].flexible} className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="moderate" id="moderate" label={registerKitchen[lang].moderate} className="d-inline-block cancellation-item" /> </li>
+                                                <li> <StyledRadio group={group} value="strict" id="strict" label={registerKitchen[lang].strict} className="d-inline-block cancellation-item" /> </li>
+                                            </ul>
+                                        )}
+                                    </StyledRadioGroup>
+                                </div>
                                 <div htmlFor="events" className="form-group">
                                     <label>{registerKitchen[lang].events}</label>
                                     <StyledRadioGroup onChange={(e) => { this.setState({ events: Boolean(e) }); }} field="events">
@@ -462,34 +456,28 @@ class StyledForm extends Component {
                         btn={this.state.popup.btn}
                         title={this.state.popup.title}
                         overlay={this.state.overlay}
-                        close={this.closePopup} yes="/uploadimage" no="dashboard" />
+                        close={this.closePopup} yes="/uploadimage" no="/dashboard" />
                 </div>
         );
     }
     closePopup = (e) => {
-        let redirect = e.target.value || false;
+        const redirect = e.target.value || false;
         this.setState({ overlay: "overlay off", redirect: redirect });
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    access_token: state.user.access_token,
+    region: state.user.region || "",
+    phone: state.user.phone || "",
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateKitchen: (kitchen) => {
-            dispatch(updateKitchen(kitchen));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateKitchen: (kitchen) => dispatch(updateKitchen(kitchen)),
+});
 
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(StyledForm);
-
-export default StyledForm;

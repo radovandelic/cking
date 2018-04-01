@@ -3,33 +3,26 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, StyledText, StyledTextArea } from "react-form";
 import { Popup } from "../components";
+import { popup } from "../data/translations";
 import "../styles/forms.css";
 import "../styles/contact.css";
 
-var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
-var successTitle = "Message sent";
-var successMessage =
-    <p>
-        Your message has been sent to the cookwork support team.
-        <br />
-        You will receive a response soon.
-    </p>;
+const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                title: "Error",
-                message: errorMessageConnect
-            }
+                title: popup[lang].errorTitle,
+                message: popup[lang].errorMessageConnect,
+            },
         };
     }
-
 
     errorValidator = (values) => {
         const validateEmail = (email) => {
@@ -40,7 +33,7 @@ class StyledForm extends Component {
         };
         return {
             email: validateEmail(values.email),
-            message: validateMessage(values.message)
+            message: validateMessage(values.message),
         };
     }
 
@@ -54,42 +47,52 @@ class StyledForm extends Component {
 
         return {
             email: validateEmail(values.email),
-            message: validateMessage(values.message)
+            message: validateMessage(values.message),
         };
     }
     submit = (submittedValues) => {
-        let url = "http://0.0.0.0:9000/api/mails/enquiry";
-        let headers = new Headers();
+        const { lang } = this.props;
+        const url = "http://0.0.0.0:9000/api/mails/enquiry";
+        const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
         fetch(url, {
             method: "POST",
             headers: headers,
-            body: JSON.stringify(submittedValues)
+            body: JSON.stringify(submittedValues),
         })
             .then(response => {
                 switch (response.status) {
                     case 500:
-                        this.setState({ popup: { title: "Error", message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
+                        this.setState({ popup: { title: popup[lang].errorTitle, message: popup[lang].errorMessageConnect } });
+                        throw new Error(popup["en"].errorMessageConnect);
                     case 200:
                         return response.json();
                     default:
-                        this.setState({ popup: { title: "Error", message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
+                        this.setState({ popup: { title: popup[lang].errorTitle, message: popup[lang].errorMessageConnect } });
+                        throw new Error(popup["en"].errorMessageConnect);
                 }
             })
             .then(data => {
                 this.setState({
                     overlay: "overlay on",
-                    popup: { title: successTitle, message: successMessage }
+                    popup: {
+                        title: popup[lang].successTitleContact,
+                        message: (
+                            <p>
+                                {popup[lang].successMessageContact1}
+                                <br />
+                                {popup[lang].successMessageContact2}
+                            </p>
+                        ),
+                    },
                 });
             })
             .catch(err => this.setState({ overlay: "overlay on" }));
     }
 
     render = () => {
-        let { email } = this.props.user;
+        const { email } = this.props.user;
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
@@ -134,16 +137,12 @@ class StyledForm extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    user: state.user,
+    lang: state.user.lang,
+});
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     null
 )(StyledForm);
-
-export default StyledForm;

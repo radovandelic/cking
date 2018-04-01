@@ -4,25 +4,25 @@ const regions = {
         Antwerpen: "Anvers",
         Brabant: "Brabant",
         Bruxelles: "Bruxelles",
+        WestFlanders: "Flandre occidentale",
         EastFlanders: "Flandre orientale",
         Hainaut: "Hainaut",
         Liege: "Liège",
         Limburg: "Limbourg",
         Luxembourg: "Luxembourg",
         Namur: "Namur",
-        WestFlanders: "Flandre occidentale",
     },
     nl: {
         all: "Alle",
         Antwerpen: "Antwerpen",
         Brabant: "Brabant",
         Bruxelles: "Brussel",
-        EastFlanders: "Oost-Vlaanderen",
         Hainaut: "Henegouwen",
         Liege: "Luik",
         Limburg: "Limburg",
         Luxembourg: "Luxemburg",
         Namur: "Namen",
+        EastFlanders: "Oost-Vlaanderen",
         WestFlanders: "West-Vlaanderen",
     },
     en: {
@@ -37,7 +37,7 @@ const regions = {
         Luxembourg: "Luxembourg",
         Namur: "Namur",
         WestFlanders: "West Flanders",
-    }
+    },
 };
 
 export default regions;

@@ -17,5 +17,5 @@ import Terms from "./Terms";
 
 export {
     Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
-    ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms
+    ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms,
 };

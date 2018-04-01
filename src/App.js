@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header, FAQ, AdminRedirect, NotFound, Footer } from "./components";
 import {
     Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
-    ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms
+    ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms,
 } from "./containers";
 import { home } from "./data/translations";
 import "./styles/bootstrap.css";
@@ -41,8 +41,8 @@ class App extends Component {
                                 <Route exact path="/updateaccount" component={UpdateAccount} />
                                 <Route exact path="/browse/:region/:type" component={Browse} />
                                 <Route exact path="/listings/kitchens/:id" component={Kitchen} />
-                                <Route exact path="/listings/kitchens/:id/rent" component={PlaceOrder} />
-                                <Route exact path="/userinfo" component={RegisterUserInfo} />
+                                <Route exact path="/listings/kitchens/:id/order" component={PlaceOrder} />
+                                <Route exact path="/userinfo/:region" component={RegisterUserInfo} />
                                 <Route exact path="/verifyaccount/:id/:token" component={VerifyAccount} />
                                 <Route exact path="/terms" component={Terms} />
                                 <Route exact path="/admin" component={AdminRedirect} />
@@ -87,12 +87,11 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        id: state.user.id,
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    id: state.user.id,
+    lang: state.user.lang,
+});
+
 App = connect(
     mapStateToProps,
     null

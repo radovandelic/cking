@@ -1,5 +1,5 @@
 
-export const staff = {
+const staff = {
     fr: {
         cookstaff: "Personnel de cuisine",
         roomstaff: "Personnel de salle",
@@ -7,7 +7,7 @@ export const staff = {
         cleaning: "Service de nettoyage",
         storage: "Service de stockage",
         refrigeratorVehicle: "Véhicule réfrigéré",
-        reception: "Réception de marchandises"
+        reception: "Réception de marchandises",
     },
     nl: {
         cookstaff: "Koken personeel",
@@ -16,7 +16,7 @@ export const staff = {
         cleaning: "Reinigingsservice",
         storage: "Opslag service",
         refrigeratorVehicle: "Koelwagen",
-        reception: "Ontvangst van goederen"
+        reception: "Ontvangst van goederen",
     },
     en: {
         cookstaff: "Cooking staff",
@@ -25,8 +25,8 @@ export const staff = {
         cleaning: "Cleaning service",
         storage: "Storage service",
         refrigeratorVehicle: "Refrigerated vehicle",
-        reception: "Receipt of goods"
-    }
+        reception: "Receipt of goods",
+    },
 };
 
 export default staff;

@@ -35,7 +35,7 @@ const registerKitchen = {
         capacityStanding: "Capacité debout pour évènement:",
         capacitySitting: "Capacité assis pour évènement:",
         submit: "Inscrivez-vous cuisine",
-        submitUpdate: "Mise à jour"
+        submitUpdate: "Mise à jour",
     },
     nl: {
         equipment: "",
@@ -73,7 +73,7 @@ const registerKitchen = {
         capacityStanding: "Permanent vermogen voor evenement:",
         capacitySitting: "Zitcapaciteit voor evenement:",
         submit: "Registreer keuken",
-        submitUpdate: "Keuken updaten"
+        submitUpdate: "Keuken updaten",
     },
     en: {
         equipment: "",
@@ -111,8 +111,8 @@ const registerKitchen = {
         yes: "Yes",
         no: "No",
         capacityStanding: "Standing capacity for events:",
-        capacitySitting: "Sitting capacity for events:"
-    }
+        capacitySitting: "Sitting capacity for events:",
+    },
 };
 
 export default registerKitchen;

@@ -6,7 +6,7 @@
     },
     "extends": "react-app",
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 7,
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
             "jsx": true
@@ -17,6 +17,14 @@
         "react"
     ],
     "rules": {
+        "no-constant-condition": "error",
+        "no-cond-assign": "error",
+        "no-unused-vars": "warn",
+        "prefer-const": "warn",
+        "no-empty": "warn",
+        "no-extra-boolean-cast": "warn",
+        "no-unneeded-ternary": "warn",
+        "no-irregular-whitespace": "warn",
         "indent": [
             "warn",
             4,
@@ -46,8 +54,32 @@
             "warn",
             "always"
         ],
-        "no-unused-vars": [
-            "warn"
+        "no-extra-semi": "warn",
+        "comma-dangle": [
+            "warn",
+            "always-multiline"
+        ],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 1
+            }
+        ],
+        "spaced-comment": [
+            "warn",
+            "always",
+            {
+                "exceptions": [
+                    "*"
+                ]
+            }
+        ],
+        "yoda": [
+            "warn",
+            "never",
+            {
+                "exceptRange": true
+            }
         ],
         "no-console": 0
     }

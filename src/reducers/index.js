@@ -9,7 +9,7 @@ const kitchenReducer = (state = {}, action) => {
         case "UPDATE_KITCHEN":
             if (!action.kitchen.id) {
                 localStorage.removeItem("mykitchen");
-            } else if (typeof (Storage) !== undefined && window.localStorage.getItem("mykitchen")) {
+            } else if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
                 window.localStorage.setItem("mykitchen", base64.encode(JSON.stringify(action.kitchen)));
             }
             return action.kitchen;
@@ -21,7 +21,9 @@ const kitchenReducer = (state = {}, action) => {
 const userReducer = (state = { lang: lang }, action) => {
     switch (action.type) {
         case "UPDATE_USER":
-            if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
+            if (!action.user.id) {
+                localStorage.removeItem("user");
+            } else if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
                 window.localStorage.setItem("user", base64.encode(JSON.stringify(action.user)));
             }
             return action.user;
@@ -31,9 +33,25 @@ const userReducer = (state = { lang: lang }, action) => {
             return state;
     }
 };
+
+const infoReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "UPDATE_INFO":
+            if (!action.info.id) {
+                localStorage.removeItem("info");
+            } else if (typeof (Storage) !== undefined && window.localStorage.getItem("user")) {
+                window.localStorage.setItem("info", base64.encode(JSON.stringify(action.info)));
+            }
+            return action.info;
+        default:
+            return state;
+    }
+};
+
 const rootReducer = combineReducers({
     user: userReducer,
     kitchen: kitchenReducer,
+    info: infoReducer,
 });
 
 export default rootReducer;

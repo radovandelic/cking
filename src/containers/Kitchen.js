@@ -3,37 +3,36 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import googleGeocoder from "google-geocoder";
 import { Popup, Map } from "../components";
-import { equipment, weekDays, staff, type } from "../data/translations";
+import { equipment, weekDays, staff, type, popup } from "../data/translations";
 import { GMAPS_KEY, GEOCODE_KEY } from "../config";
 import "../styles/kitchen.css";
 import "../styles/carousel.css";
 import spin from "../spin.svg";
 
 const geocoder = googleGeocoder({ key: GEOCODE_KEY });
-var errorTitle = "Error";
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class Kitchen extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             kitchen: {
-                images: []
+                images: [],
             },
             gallery: [],
             location: undefined,
             isMapLoaded: false,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
-            }
+                message: popup[lang].errorMessageConnect,
+            },
         };
     }
 
     loadMapScript = () => {
         if (!document.getElementById("gmaps")) {
-            let script = document.createElement("script");
+            const script = document.createElement("script");
             script.id = "gmaps";
             script.type = "text/javascript";
             script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
@@ -43,28 +42,28 @@ class Kitchen extends Component {
     }
 
     loadCarouselScripts = () => {
-        //load carousel scripts here so we don't slow down the rest of the app
-        if (!document.getElementById("jssor")) { //check if scripts are already loaded
+        // load carousel scripts here so we don't slow down the rest of the app
+        if (!document.getElementById("jssor")) { // check if scripts are already loaded
             let script = document.createElement("script");
             script.id = "jssor";
             script.src = "/static/js/jssor.slider-27.1.0.min.js";
-            //script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
-            //script.crossorigin = "anonymous";
+            // script.integrity = "sha256-I6cF3fG3SkCsFWISv0FVllzVmZmDDLuiUcw60+n1Q3I=";
+            // script.crossorigin = "anonymous";
             document.body.appendChild(script);
 
             script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "/static/js/carousel.js";
+            script.src = "/static/js/carousel.min.js";
             document.body.appendChild(script);
         } else {
             window.jssor_1_slider_init();
         }
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         const { id } = this.props.match.params;
-        let url = "http://0.0.0.0:9000/api/kitchens/" + id;
-        let headers = new Headers();
+        const url = "http://0.0.0.0:9000/api/kitchens/" + id;
+        const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
 
@@ -72,14 +71,14 @@ class Kitchen extends Component {
 
         fetch(url, {
             method: "GET",
-            headers: headers
+            headers: headers,
         })
             .then(response => response.json())
             .then(data => {
                 let gallery = [];
                 if (data.images && data.images[0]) {
                     gallery = [];
-                    for (let image of data.images) {
+                    for (const image of data.images) {
                         gallery.push(
                             <div className="carousel-thumb" key={image._id} data-p="170.00">
                                 <img alt={data.name} data-u="image" src={image.large} />
@@ -96,20 +95,18 @@ class Kitchen extends Component {
                     );
                 }
 
-                //get kitchen coordinates
+                // get kitchen coordinates
                 geocoder.find(`${data.address}, ${data.postalCode}, ${data.region}`, (err, response) => {
                     if (!err && response[0]) {
 
-                        //set kitchen coordinates
+                        // set kitchen coordinates
                         this.setState({ location: response[0].location });
                     } else {
-                        console.log(err || response, data);
+                        console.warn(err || response, data);
                     }
                 });
 
-
                 this.setState({ kitchen: data, gallery }, () => {
-                    //load carousel scripts here so we don't slow down the rest of the app
                     this.loadCarouselScripts();
                 });
             })
@@ -118,13 +115,12 @@ class Kitchen extends Component {
             });
     }
 
-    render = () => {
-        let { kitchen, isMapLoaded, location } = this.state;
-        const { lang } = this.props;
+    populateLists = (lang) => {
+        const { kitchen } = this.state;
         const Equipment = [];
         const Staff = [];
 
-        for (let e in equipment["fr"]) {
+        for (const e in equipment["fr"]) {
             if (kitchen.equipment && kitchen.equipment[e]) {
                 Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment["fr"][e]}</li>);
             }
@@ -132,13 +128,20 @@ class Kitchen extends Component {
         if (!Equipment[0]) {
             Equipment.push(<li key="equipment-none"><i className="fa fa-window-close"></i></li>);
         }
-
-        for (let s in kitchen.staff) {
+        for (const s in kitchen.staff) {
             Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff["fr"][s]}</li>);
         }
         if (!Staff[0]) {
             Staff.push(<li key="staff-none"><i className="fa fa-window-close"></i></li>);
         }
+        return { Equipment, Staff };
+    }
+
+    render = () => {
+        const { kitchen, isMapLoaded, location } = this.state;
+        const { lang } = this.props;
+        const { Equipment, Staff } = this.populateLists(lang);
+
         return (
             <div className="listing-container" >
                 <div className="flex-listing-container">
@@ -191,7 +194,7 @@ class Kitchen extends Component {
                             {kitchen.hours ? kitchen.hours.hoursFrom + ":00 - " + kitchen.hours.hoursTo + ":00" : "00 - 24"}
                         </h4>
                         <p>{kitchen.description}</p>
-                        <Link to={`/listings/kitchens/${kitchen.id}/rent`}>
+                        <Link to={`/listings/kitchens/${kitchen.id}/order`}>
                             <button className="btn btn-orange">Contact</button>
                         </Link>
                     </div>
@@ -233,7 +236,7 @@ class Kitchen extends Component {
                         </div>
                         : null
                 }
-                <Popup overlay={this.state.overlay} title={errorTitle}
+                <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                     message={this.state.popup.message} btn="ok" close={this.closePopup} />
             </div >
         );
@@ -245,12 +248,10 @@ class Kitchen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    lang: state.user.lang
+    lang: state.user.lang,
 });
 
-Kitchen = connect(
+export default connect(
     mapStateToProps,
     null
 )(Kitchen);
-
-export default Kitchen;

@@ -7,7 +7,7 @@ const togglePanel = (e) => {
     e.target.nextSibling.classList.toggle("active");
 };
 
-let FAQ = (props) => {
+const FAQ = (props) => {
     const { lang } = props;
     const Accordion = [];
     for (const el of faq[lang]) {
@@ -31,16 +31,11 @@ let FAQ = (props) => {
     );
 };
 
+const mapStateToProps = state => ({
+    lang: state.user.lang,
+});
 
-const mapStateToProps = state => {
-    return {
-        lang: state.user.lang || navigator.language.substring(0, 2)
-    };
-};
-
-FAQ = connect(
+export default connect(
     mapStateToProps,
     null
 )(FAQ);
-
-export default FAQ;

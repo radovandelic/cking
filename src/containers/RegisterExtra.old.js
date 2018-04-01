@@ -6,7 +6,7 @@ import { Popup } from "../components";
 import { updateUser } from "../actions";
 import "../styles/forms.css";
 
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
+const errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class StyledForm extends Component {
 
@@ -16,8 +16,8 @@ class StyledForm extends Component {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
-            }
+                message: errorMessageConnect,
+            },
         };
     }
 
@@ -32,7 +32,7 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        /*const { updateUser } = this.props;
+        /* const { updateUser } = this.props;
         let url = 'http://0.0.0.0:9000/api/users/register';
         let query = {
             headers: {
@@ -130,17 +130,11 @@ class StyledForm extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateUser: (user) => dispatch(updateUser(user)),
+});
 
-StyledForm = connect(
+export default connect(
     null,
     mapDispatchToProps
 )(StyledForm);
-
-export default StyledForm;

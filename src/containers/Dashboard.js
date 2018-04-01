@@ -1,20 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateKitchen, updateUser, updateLang } from "../actions";
+import { updateKitchen, updateUser, updateInfo, updateLang } from "../actions";
 import { dashboard, header } from "../data/translations";
 import "../styles/dashboard.css";
 
-let Dashboard = (props) => {
+const Dashboard = (props) => {
 
     const logout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("mykitchen");
-        localStorage.removeItem("mykitchen_id");
         const lang = props.lang;
         props.updateKitchen({});
         props.updateUser({});
+        props.updateInfo({});
+        localStorage.removeItem("access_token");
         props.updateLang(lang);
         window.location.href = "/";
     };
@@ -47,31 +45,20 @@ let Dashboard = (props) => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        kitchen: state.kitchen,
-        user: state.user,
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    kitchen: state.kitchen,
+    user: state.user,
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateKitchen: (kitchen) => {
-            dispatch(updateKitchen(kitchen));
-        },
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        },
-        updateLang: (lang) => {
-            dispatch(updateLang(lang));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateKitchen: (kitchen) => dispatch(updateKitchen(kitchen)),
+    updateUser: (user) => dispatch(updateUser(user)),
+    updateInfo: (info) => dispatch(updateInfo(info)),
+    updateLang: (lang) => dispatch(updateLang(lang)),
+});
 
-Dashboard = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Dashboard);
-
-export default Dashboard;

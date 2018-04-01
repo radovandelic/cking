@@ -6,7 +6,6 @@ import "../styles/browse.css";
 import { type, popup } from "../data/translations";
 import { GMAPS_KEY } from "../config";
 
-
 class Browse extends Component {
 
     constructor(props) {
@@ -17,8 +16,8 @@ class Browse extends Component {
             count: -1,
             overlay: "overlay off",
             popup: {
-                message: popup[lang].errorMessageConnect
-            }
+                message: popup[lang].errorMessageConnect,
+            },
         };
     }
 
@@ -28,13 +27,12 @@ class Browse extends Component {
         type = type !== "all" ? "&type=" + type : "";
         const url = `http://0.0.0.0:9000/api/kitchens?verified=true${region}${type}`;
 
-
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
         fetch(url, {
             method: "GET",
-            headers: headers
+            headers: headers,
         })
             .then(response => response.json())
             .then(data => {
@@ -44,8 +42,8 @@ class Browse extends Component {
                 this.setState({ overlay: "overlay on" });
             });
 
-        //load map and carousel scripts here so we don't slow down the rest of the app
-        if (!document.getElementById("jssor")) { //check if scripts are already loaded
+        // load map and carousel scripts here so we don't slow down the rest of the app
+        if (!document.getElementById("jssor")) { // check if scripts are already loaded
             let script = document.createElement("script");
             script.id = "jssor";
             script.src = "/static/js/jssor.slider-27.1.0.min.js";
@@ -54,12 +52,12 @@ class Browse extends Component {
 
             script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "/static/js/carousel.js";
+            script.src = "/static/js/carousel.min.js";
             script.async = true;
             document.body.appendChild(script);
         }
         if (!document.getElementById("gmaps")) {
-            let script = document.createElement("script");
+            const script = document.createElement("script");
             script.id = "gmaps";
             script.type = "text/javascript";
             script.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`;
@@ -69,9 +67,10 @@ class Browse extends Component {
     }
 
     render = () => {
-        let { kitchens, count } = this.state;
-        let { user, lang } = this.props;
-        let Listings = [];
+        const { kitchens, count } = this.state;
+        const { user, lang } = this.props;
+        const { region } = this.props.match.params;
+        const Listings = [];
         for (const kitchen of kitchens) {
             kitchen.type = type["fr"][kitchen.type];
             Listings.push(
@@ -111,7 +110,7 @@ class Browse extends Component {
                 {count === 0
                     ?
                     user.id ?
-                        <Redirect to="/userinfo" />
+                        <Redirect to={"/userinfo/" + region} />
                         :
                         <Redirect to="/register" />
                     :
@@ -129,16 +128,12 @@ class Browse extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+    lang: state.user.lang,
+});
 
-Browse = connect(
+export default connect(
     mapStateToProps,
     null
 )(Browse);
-
-export default Browse;

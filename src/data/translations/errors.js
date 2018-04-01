@@ -4,12 +4,12 @@ const errors = {
         invalid: " non valide",
         size: "Superficie non valide",
         postalCode: "Code Postal non valide",
-        agree: "Veuillez lire et accepter les conditions d'utilisation"
+        agree: "Veuillez lire et accepter les conditions d'utilisation",
     },
     nl: {
         required: " is verplicht",
         invalid: " is ongeldig",
-        agree: "Lees en accepteer de gebruiksvoorwaarden"
+        agree: "Lees en accepteer de gebruiksvoorwaarden",
     },
     en: {
         required: " is required",
@@ -21,7 +21,7 @@ const errors = {
         time: "Invalid timeframe selected",
         dateFrom: "Start date is required",
         dateTo: "End date is required",
-    }
+    },
 };
 
 export default errors;

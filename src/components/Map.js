@@ -9,8 +9,8 @@ const circleOptions = {
     radius: 1500,
     center: {
         lat: 50.850,
-        lng: 4.351
-    }
+        lng: 4.351,
+    },
 };
 
 export default withGoogleMap((props) => {

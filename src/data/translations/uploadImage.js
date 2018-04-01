@@ -9,8 +9,8 @@ const uploadImage = {
         upload: "Upload",
         remove: "Remove",
         uploadedMsg: "Image uploaded.",
-        errorMsg: "Error uploading. Try again later."
-    }
+        errorMsg: "Error uploading. Try again later.",
+    },
 };
 
 export default uploadImage;

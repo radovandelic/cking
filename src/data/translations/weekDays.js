@@ -6,7 +6,7 @@ const weekDays = {
         thursday: "Jeudi",
         friday: "Vendredi",
         saturday: "Samedi",
-        sunday: "Dimanch"
+        sunday: "Dimanch",
     },
     nl: {
         monday: "Maandag",
@@ -15,7 +15,7 @@ const weekDays = {
         thursday: "Donderdag",
         friday: "Vrijdag",
         saturday: "Zaterdag",
-        sunday: "Zondag"
+        sunday: "Zondag",
     },
     en: {
         monday: "Monday",
@@ -24,7 +24,7 @@ const weekDays = {
         thursday: "Thursday",
         friday: "Friday",
         saturday: "Saturday",
-        sunday: "Sunday"
+        sunday: "Sunday",
     },
     map: [
         "sunday",
@@ -33,8 +33,8 @@ const weekDays = {
         "wednesday",
         "thursday",
         "friday",
-        "saturday"
-    ]
+        "saturday",
+    ],
 };
 
 export default weekDays;

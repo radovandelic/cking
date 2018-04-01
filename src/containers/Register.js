@@ -5,8 +5,10 @@ import { Form, StyledText, StyledCheckbox, StyledRadioGroup, StyledRadio } from 
 import base64 from "base-64";
 import { Popup } from "../components";
 import { updateUser } from "../actions";
-import { register, popup } from "../data/translations";
+import { register, popup, errors } from "../data/translations";
 import "../styles/forms.css";
+
+const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
 class StyledForm extends Component {
 
@@ -16,14 +18,13 @@ class StyledForm extends Component {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                message: ""
-            }
+                message: "",
+            },
         };
     }
 
     errorValidator = (values) => {
-        let regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
+        const { lang } = this.props;
         const validateFirstName = (firstName) => {
             if (!firstName || !firstName.trim()) return "First name is required.";
             return firstName.length < 2 ? "First name must be longer than 2 characters." : null;
@@ -36,7 +37,7 @@ class StyledForm extends Component {
             return !kitchenOwner ? "User type is required." : null;
         };
         const validateEmail = (email) => {
-            if (!email || !email.trim()) return "Email is required.";
+            if (!email || !email.trim()) return "Email " + errors[lang].required;
             return email && !regex.test(email) ? "Please enter a valid email." : null;
         };
         const validatePassword = (password) => {
@@ -57,7 +58,7 @@ class StyledForm extends Component {
             email: validateEmail(values.email),
             password: validatePassword(values.password),
             confirmPassword: validateConfirmPassword(values.password, values.confirmPassword),
-            agree: validateAgree(values.agree)
+            agree: validateAgree(values.agree),
         };
     }
 
@@ -65,14 +66,14 @@ class StyledForm extends Component {
         const { updateUser, lang } = this.props;
         submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true" ? true : undefined;
         submittedValues.lang = lang;
-        let url = "http://0.0.0.0:9000/api/users/register";
-        let query = {
+        const url = "http://0.0.0.0:9000/api/users/register";
+        const query = {
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(submittedValues)
+            body: JSON.stringify(submittedValues),
         };
         fetch(url, query)
             .then(res => {
@@ -102,7 +103,7 @@ class StyledForm extends Component {
     }
 
     onSubmitFailure = (errors) => {
-        for (let e in errors) {
+        for (const e in errors) {
             if (errors[e]) {
                 document.getElementById(e).focus();
                 window.scrollBy(0, -120);
@@ -189,23 +190,15 @@ class StyledForm extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateUser: (user) => dispatch(updateUser(user)),
+});
 
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(StyledForm);
-
-export default StyledForm;

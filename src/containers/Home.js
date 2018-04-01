@@ -6,20 +6,19 @@ import { FAQ } from "../components";
 import { home, regions, type } from "../data/translations";
 import "../styles/home.css";
 
-
 class Home extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             region: "all",
-            type: "all"
+            type: "all",
         };
     }
 
     selectOnChange = (e) => {
-        let selectedIndex = e.target.selectedIndex;
-        let value = e.target.children[selectedIndex].value;
+        const selectedIndex = e.target.selectedIndex;
+        const value = e.target.children[selectedIndex].value;
         this.setState({ [e.target.id]: value });
     }
 
@@ -93,14 +92,11 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        lang: state.user.lang
-    };
-};
-Home = connect(
+const mapStateToProps = state => ({
+    lang: state.user.lang,
+});
+
+export default connect(
     mapStateToProps,
     null
 )(Home);
-
-export default Home;

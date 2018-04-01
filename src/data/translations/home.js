@@ -47,7 +47,7 @@ const home = {
 
         faqTitle: "Des questions? Vos premières réponses",
         faqFooter: "Autre questions? Hesitate pas à nous contacter",
-        contactTitle: "Des questions?"
+        contactTitle: "Des questions?",
     },
     nl: {
         title1: "Huur eenvoudig een keuken bij jou in de buurt",
@@ -95,7 +95,7 @@ const home = {
 
         faqTitle: "Vaak gestelde vragen",
         faqFooter: "Andere vragen? Aarzel dan niet om ons te contacteren",
-        contactTitle: "Vragen?"
+        contactTitle: "Vragen?",
     },
     en: {
         title1: "Rent a kitchen near you, easily",
@@ -143,8 +143,8 @@ const home = {
 
         faqTitle: "FAQ",
         faqFooter: "Other questions? Don't hesitate to contact us",
-        contactTitle: "Questions?"
-    }
+        contactTitle: "Questions?",
+    },
 };
 
 export default home;

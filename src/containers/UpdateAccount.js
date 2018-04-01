@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledText, StyledRadioGroup, StyledRadio } from "react-form";
+import { Form, StyledText, StyledSelect, StyledRadioGroup, StyledRadio } from "react-form";
 import { Popup } from "../components";
 import { updateUser } from "../actions";
+import { register, regions, popup } from "../data/translations";
 import "../styles/forms.css";
 
-var regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-var errorTitle = "Error";
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
+const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             redirect: false,
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
-            }
+                message: popup[lang].errorMessageConnect,
+            },
         };
     }
 
@@ -39,22 +39,22 @@ class StyledForm extends Component {
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
-            email: validateEmail(values.email)
+            email: validateEmail(values.email),
         };
     }
 
     submit = (submittedValues) => {
-        const { updateUser, user } = this.props;
+        const { updateUser, user, lang } = this.props;
         submittedValues.access_token = user.access_token;
-        submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true" ? true : false;
-        let url = `http://0.0.0.0:9000/api/users/${user.id}`;
-        let query = {
+        submittedValues.kitchenOwner = submittedValues.kitchenOwner === "true";
+        const url = `http://0.0.0.0:9000/api/users/${user.id}`;
+        const query = {
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             method: "PUT",
-            body: JSON.stringify(submittedValues)
+            body: JSON.stringify(submittedValues),
         };
         fetch(url, query)
             .then(res => {
@@ -64,8 +64,8 @@ class StyledForm extends Component {
                     case 200:
                         return res.json();
                     default:
-                        this.setState({ popup: { message: errorMessageConnect } });
-                        throw new Error(errorMessageConnect);
+                        this.setState({ popup: { message: popup[lang].errorMessageConnect } });
+                        throw new Error(popup[lang].errorMessageConnect);
                 }
 
             })
@@ -79,7 +79,7 @@ class StyledForm extends Component {
     }
 
     onSubmitFailure = (errors) => {
-        for (let e in errors) {
+        for (const e in errors) {
             if (errors[e]) {
                 document.getElementById(e).focus();
                 window.scrollBy(0, -120);
@@ -88,8 +88,28 @@ class StyledForm extends Component {
         }
     }
 
+    populateOptions = (lang) => {
+        const regionOptions = [];
+
+        regionOptions.push({
+            label: register[lang].region,
+            value: "",
+            disabled: true,
+        });
+        for (const region in regions[lang]) {
+            if (regions[lang].hasOwnProperty(region) && region !== "all") {
+                regionOptions.push({
+                    label: regions[lang][region],
+                    value: region,
+                });
+            }
+        }
+
+        return { regionOptions };
+    }
     render = () => {
-        const { user } = this.props;
+        const { user, lang } = this.props;
+        const { regionOptions } = this.populateOptions(lang);
         const defaultValues = Object.assign({}, user);
         defaultValues.kitchenOwner = String(defaultValues.kitchenOwner);
         return (
@@ -98,46 +118,74 @@ class StyledForm extends Component {
                 :
                 <div>
                     <Form
-                        validateError={this.errorValidator} defaultValues={defaultValues}
+                        defaultValues={defaultValues}
+                        validateError={this.errorValidator}
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <div className="inline">
                                     <div className="form-group">
-                                        <label htmlFor="firstName">First name</label>
+                                        <label htmlFor="firstName">{register[lang].firstName}</label>
                                         <StyledText className="form-control" field="firstName" id="firstName" />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="lastName">Last name</label>
+                                        <label htmlFor="lastName">{register[lang].lastName}</label>
                                         <StyledText className="form-control" field="lastName" id="lastName" />
                                     </div>
                                 </div>
                                 <div className="form-group radio-group" >
-                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner">
+                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner" key={lang}>
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="false" id="false" label="Kitchen user" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="true" id="true" label="Kitchen owner" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="false" id="false" label={register[lang].kitchenOwner0} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="true" id="true" label={register[lang].kitchenOwner1} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
                                 </div>
                                 <div className="form-group" >
-                                    <label htmlFor="username">Username</label>
+                                    <StyledSelect type="text" field="region" id="region"
+                                        options={regionOptions} />
+                                </div>
+                                <div className="form-group" >
+                                    <label htmlFor="username">{register[lang].username}</label>
                                     <StyledText className="form-control" field="name" id="name" />
                                 </div>
                                 <div className="form-group" >
                                     <label htmlFor="email">Email</label>
-                                    <StyledText value={user.email} type="email" className="form-control" field="email" id="email" />
+                                    <StyledText readOnly type="email" className="form-control" field="email" id="email" />
                                 </div>
                                 <div className="form-group" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Update Information</button>
+                                    <label htmlFor="phone">{register[lang].phone}</label>
+                                    <StyledText type="phone" className="form-control" field="phone" id="phone" />
+                                </div>
+                                {!user.kitchenOwner ?
+                                    <div className="form-group radio-group">
+                                        <StyledRadioGroup field="activity" id="activity">
+                                            {group => (
+                                                <ul className="radio-grid" >
+                                                    <label htmlFor="activity">Votre activité:</label>
+                                                    <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="organiser" id="organiser" label="Je veux organiser des ateliers" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="caterer" id="caterer" label="Traiteur sans atelier" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="professional" id="professional" label="Professionnel ayant besoin de plus d'espace" className="d-inline-block" /> </li>
+                                                    <li> <StyledRadio group={group} value="kitchenworker" id="kitchenworker" label="Je travaille en cuisine (Chef, CDP, commis, plongeur, autre)" className="d-inline-block" /> </li>
+                                                </ul>
+                                            )}
+                                        </StyledRadioGroup>
+                                    </div>
+                                    : null
+                                }
+                                <div className="form-group" >
+                                    <button id="submit" type="submit" className="btn btn-orange">{register[lang].update}</button>
                                 </div>
                             </form>
                         )}
                     </Form>
-                    <Popup overlay={this.state.overlay} title={errorTitle}
+                    <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
                 </div>
 
@@ -148,23 +196,16 @@ class StyledForm extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateUser: (user) => dispatch(updateUser(user)),
+});
 
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(StyledForm);
-
-export default StyledForm;

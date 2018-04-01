@@ -10,21 +10,21 @@ class VerifyAccount extends Component {
         super(props);
         this.state = {
             message: 0,
-            status: false
+            status: false,
         };
     }
 
     componentDidMount = () => {
         const { id, token } = this.props.match.params;
         const { user, updateUser } = this.props;
-        let url = "http://0.0.0.0:9000/api/users/verify/" + id + "/" + token;
-        let headers = new Headers();
+        const url = "http://0.0.0.0:9000/api/users/verify/" + id + "/" + token;
+        const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
 
         fetch(url, {
             method: "GET",
-            headers: headers
+            headers: headers,
         })
             .then(response => {
                 switch (response.status) {
@@ -72,23 +72,15 @@ class VerifyAccount extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateUser: (user) => {
-            dispatch(updateUser(user));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateUser: (user) => dispatch(updateUser(user)),
+});
 
-VerifyAccount = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(VerifyAccount);
-
-export default VerifyAccount;

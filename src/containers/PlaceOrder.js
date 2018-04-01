@@ -3,20 +3,19 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, StyledText, StyledSelect, StyledRadioGroup, StyledRadio } from "react-form";
 import { Popup } from "../components";
-import { weekDays } from "../data/translations";
+import { weekDays, popup } from "../data/translations";
 import "../styles/forms.css";
-
-var errorMessageConnect = "There has been an error connecting to the server. Please try again later.";
 
 class StyledForm extends Component {
 
     constructor(props) {
+        const { lang } = props;
         super(props);
         this.state = {
             kitchen: {
                 id: props.match.params.id,
                 name: "",
-                address: ""
+                address: "",
             },
             redirect: false,
             type: "once",
@@ -24,44 +23,63 @@ class StyledForm extends Component {
             rent: -1,
             hours: {
                 hoursFrom: 0,
-                hoursTo: 24
+                hoursTo: 24,
             },
             days: {
                 daysFrom: 1,
-                daysTo: 0
+                daysTo: 0,
             },
-            hourOptions: [],
+            totalDays: -1,
+            totalHours: -1,
+            totalPrice: -1,
             message: "",
             overlay: "overlay off",
             popup: {
-                message: errorMessageConnect
-            }
+                title: popup[lang].errorTitle,
+                message: popup[lang].errorMessageConnect,
+            },
         };
+    }
+    populateOptions = (lang) => {
+        const { days, hours } = this.state;
+        const dayOptions = [], hourOptions = [];
+        let i = 1;
+
+        days.daysTo = days.daysTo === 0 ? 7 : days.daysTo;
+        for (const day in weekDays[lang]) {
+            if (i >= days.daysFrom && i <= days.daysTo)
+                dayOptions.push({
+                    label: weekDays[lang][day],
+                    value: i < 7 ? String(i) : String(0),
+                });
+            i++;
+        }
+        for (let index = hours.hoursFrom; index < hours.hoursTo + 1; index++) {
+            hourOptions.push({ label: String(index) + ":00", value: String(index) });
+        }
+
+        return { dayOptions, hourOptions };
     }
 
     componentWillMount = () => {
         const { id } = this.props.match.params;
-        const hourOptions = [];
-        let url = "http://0.0.0.0:9000/api/kitchens/" + id;
-        let query = {
+        const url = "http://0.0.0.0:9000/api/kitchens/" + id;
+        const query = {
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            method: "GET"
+            method: "GET",
         };
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
-                const kitchen = { id: data.id, name: data.name, address: data.address };
+                const kitchen = { id: data.id, name: data.name, address: data.address, postalCode: data.postalCode, region: data.region };
                 const hours = data.hours && data.hours.hoursFrom && data.hours.hoursTo ? data.hours : { hoursFrom: 0, hoursTo: 24 };
                 const days = data.days && data.days.daysFrom && data.days.daysTo ? data.days : { daysFrom: 1, daysTo: 0 };
                 const price = data.price;
                 const rent = data.rent ? data.rent : -1;
-                for (let index = hours.hoursFrom; index < hours.hoursTo + 1; index++) {
-                    hourOptions.push({ label: String(index) + ":00", value: String(index) });
-                }
-                this.setState({ hourOptions, hours, days, price, rent, kitchen });
+                this.setState({ hours, days, price, rent, kitchen });
             });
 
     }
@@ -94,7 +112,7 @@ class StyledForm extends Component {
                 today = new Date(today);
                 const dateFrom = new Date(values.dateFrom);
                 const dateTo = new Date(values.dateTo);
-                let totalDays = (dateTo - dateFrom) / 86400000;
+                const totalDays = (dateTo - dateFrom) / 86400000;
                 if (totalDays < 0 || dateFrom < today) return "Invalid timeframe selected.";
                 if (type === "long" && totalDays < 180) return "The minimum timeframe for long term rent is 6 months.";
             }
@@ -118,7 +136,7 @@ class StyledForm extends Component {
             daysTo: validateDaysTo(values.daysTo),
             hoursFrom: validateHoursFrom(values.hoursFrom),
             hoursTo: validateHoursTo(values.hoursTo),
-            time: validateTime(values)
+            time: validateTime(values),
         };
     }
 
@@ -127,6 +145,7 @@ class StyledForm extends Component {
             const { type, days, price } = this.state;
             days.daysTo = days.daysTo || 7;
             days.daysFrom = days.daysFrom || 7;
+
             const dateFrom = new Date(values.dateFrom);
             const dateTo = new Date(values.dateTo);
             const hoursFrom = Number(values.hoursFrom);
@@ -134,11 +153,12 @@ class StyledForm extends Component {
             let totalHours = hoursTo - hoursFrom;
             let totalPrice = 0;
             let totalDays = 0;
+
             switch (type) {
                 case "once":
                     for (let i = dateFrom.valueOf(); i <= dateTo; i += 86400000) {
-                        var day = new Date(i);
-                        var weekDay = day.getDay() !== 0 ? day.getDay() : 7;
+                        const day = new Date(i);
+                        const weekDay = day.getDay() !== 0 ? day.getDay() : 7;
                         if (weekDay >= days.daysFrom && weekDay <= days.daysTo) {
                             totalDays++;
                         }
@@ -146,25 +166,30 @@ class StyledForm extends Component {
                     totalHours *= totalDays;
                     totalPrice = (totalHours * price);
                     totalPrice += 0.15 * totalPrice;
+                    this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalHours) && totalPrice > 0 ?
                         `The estimated price for the selected time period (${totalHours} hours) is €${totalPrice} (€${price}/h + 15% service fee, VAT excluded)`
                         : "";
                 case "recurring":
-                    let daysFrom = Number(values.daysFrom) || 7;
-                    let daysTo = Number(values.daysTo) || 7;
+                    const daysFrom = Number(values.daysFrom) || 7;
+                    const daysTo = Number(values.daysTo) || 7;
+
                     totalDays = (daysTo - daysFrom) + 1;
                     totalHours *= totalDays;
                     totalPrice = totalHours * price;
                     totalPrice += 0.15 * totalPrice;
+                    this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
                         `The estimated price for the selected time period (${totalHours} hours) is €${totalPrice}/week (€${price}/h + 15% service fee, VAT excluded)`
                         : "";
                 case "long":
                     const { rent } = this.state;
                     totalDays = (dateTo - dateFrom) / 86400000;
+
                     const totalMonths = Math.round(totalDays / 30);
                     totalPrice = totalMonths * rent;
                     totalPrice += 0.15 * totalPrice;
+                    this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
                         `The estimated price for the selected time period (${totalMonths} months) is €${totalPrice} (€${rent}/month + 15% service fee, VAT excluded)`
                         : "";
@@ -181,31 +206,38 @@ class StyledForm extends Component {
     }
 
     submit = (submittedValues) => {
-        const { access_token } = this.props;
+        const { access_token, lang } = this.props;
         submittedValues.access_token = access_token;
         submittedValues.kitchen = this.state.kitchen;
+        submittedValues.kitchen.price = this.state.price;
+        submittedValues.kitchen.rent = this.state.rent !== -1 ? this.state.rent : undefined;
+        submittedValues.totalDays = this.state.totalDays;
+        submittedValues.totalHours = this.state.totalHours;
+        submittedValues.totalPrice = this.state.totalPrice;
         submittedValues.type = this.state.type;
-        let url = "http://0.0.0.0:9000/api/orders";
-        let query = {
+
+        const url = "http://0.0.0.0:9000/api/orders";
+        const query = {
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(submittedValues)
+            body: JSON.stringify(submittedValues),
         };
+
         fetch(url, query)
             .then(res => res.json())
             .then(data => {
                 this.setState({
                     overlay: "overlay on",
                     popup: {
-                        title: "Success",
-                        message: "You have successfully placed an order. You will receive a reply from Cookwork soon."
-                    }
+                        title: popup[lang].successTitle,
+                        message: "You have successfully placed an order. You will receive a reply from Cookwork soon.",
+                    },
                 });
             })
-            .catch(err => this.setState({ overlay: "overlay on", popup: { message: errorMessageConnect } }));
+            .catch(err => this.setState({ overlay: "overlay on", popup: { message: popup[lang].errorMessageConnect } }));
 
     }
 
@@ -214,7 +246,7 @@ class StyledForm extends Component {
     }
 
     onSubmitFailure = (errors) => {
-        for (let e in errors) {
+        for (const e in errors) {
             if (errors[e]) {
                 document.getElementById(e).focus();
                 window.scrollBy(0, -120);
@@ -224,20 +256,10 @@ class StyledForm extends Component {
     }
 
     render = () => {
-        const { type, hourOptions, days, hours, price, rent, message } = this.state;
         const { lang } = this.props;
+        const { type, hours, price, rent, message } = this.state;
+        const { dayOptions, hourOptions } = this.populateOptions(lang);
 
-        let i = 1;
-        const dayOptions = [];
-        days.daysTo = days.daysTo === 0 ? 7 : days.daysTo;
-        for (let day in weekDays[lang]) {
-            if (i >= days.daysFrom && i <= days.daysTo)
-                dayOptions.push({
-                    label: weekDays[lang][day],
-                    value: i < 7 ? String(i) : String(0)
-                });
-            i++;
-        }
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
@@ -331,19 +353,18 @@ class StyledForm extends Component {
         );
     }
     closePopup = () => {
-        this.setState({ overlay: "overlay off", redirect: "/dashboard" });
+        const { lang } = this.props;
+        const redirect = this.state.popup.title === popup[lang].successTitle ? "/dashboard" : false;
+        this.setState({ overlay: "overlay off", redirect });
     }
 }
-const mapStateToProps = state => {
-    return {
-        access_token: state.user.access_token,
-        lang: state.user.lang
-    };
-};
 
-StyledForm = connect(
+const mapStateToProps = state => ({
+    access_token: state.user.access_token,
+    lang: state.user.lang,
+});
+
+export default connect(
     mapStateToProps,
     null
 )(StyledForm);
-
-export default StyledForm;

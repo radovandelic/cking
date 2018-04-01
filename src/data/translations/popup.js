@@ -15,7 +15,7 @@ const popup = {
         errorTitle: "Erreur",
         errorMessageConnect: "Une erreur s'est produite lors de la connexion au serveur. ",
         errorMessageAlreadyRegistered: "Cette adresse email est déjà enregistrée.",
-        errorMessageUnauthorized: "L'accès non autorisé."
+        errorMessageUnauthorized: "L'accès non autorisé.",
     },
     nl: {
         submit: "Sturen",
@@ -33,7 +33,7 @@ const popup = {
         errorTitle: "Fout",
         errorMessageConnect: "Er is een fout opgetreden bij het maken van verbinding met de server. ",
         errorMessageAlreadyRegistered: "Dit emailadres is al geregistreerd.",
-        errorMessageUnauthorized: "Onbevoegde toegang."
+        errorMessageUnauthorized: "Onbevoegde toegang.",
     },
     en: {
         yes: "Yes",
@@ -52,8 +52,8 @@ const popup = {
         submit: "Send",
         successMessageRegister1: "Your kitchen has been saved.",
         successMessageRegister2: "Please wait 2-5 days for the cookwork team to verify your application.",
-        successMessageRegister3: "Would you like to add some images?"
-    }
+        successMessageRegister3: "Would you like to add some images?",
+    },
 };
 
 export default popup;

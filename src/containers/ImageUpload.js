@@ -7,19 +7,19 @@ class StyledForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            kitchenName: "default"
+            kitchenName: "default",
         };
     }
 
     componentWillMount = () => {
         const { kitchen } = this.props;
-        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}`;
+        const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}`;
         fetch(url, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+            },
         })
             .then(res => res.json())
             .then(kitchen => {
@@ -35,17 +35,17 @@ class StyledForm extends Component {
     submit = (e) => {
         e.preventDefault();
         const { kitchen, user } = this.props;
-        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
+        const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
         fetch(url, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 access_token: user.access_token,
-                image: this.state.image
-            })
+                image: this.state.image,
+            }),
         })
             .then(res => res.json())
             .then(kitchen => {
@@ -63,7 +63,7 @@ class StyledForm extends Component {
         const file = e.target.files[0];
         reader.onload = (upload) => {
             this.setState({
-                image: upload.target.result
+                image: upload.target.result,
             });
         };
         reader.onerror = (err) => {
@@ -77,23 +77,22 @@ class StyledForm extends Component {
         e.preventDefault();
         const { kitchen, user } = this.props;
         const images = [];
+        const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/delete`;
         for (const image of this.state.images) {
             if (this.refs[image._id].checked) {
                 images.push(image);
             }
         }
-
-        let url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/delete`;
         fetch(url, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 access_token: user.access_token,
-                images
-            })
+                images,
+            }),
         })
             .then(res => res.json())
             .then(kitchen => {
@@ -108,7 +107,7 @@ class StyledForm extends Component {
     render = () => {
         if (this.state.images) {
             var Images = [];
-            for (let image of this.state.images) {
+            for (const image of this.state.images) {
                 Images.push(<div key={image._id} className="image-grid">
                     <img src={image.thumbnail} alt={this.state.kitchenName} />
                     <input type="checkbox" value={image._id} ref={image._id} />
@@ -149,16 +148,12 @@ class StyledForm extends Component {
         );
     }
 }
-const mapStateToProps = state => {
-    return {
-        user: state.user,
-        kitchen: state.kitchen
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+    kitchen: state.kitchen,
+});
 
-StyledForm = connect(
+export default connect(
     mapStateToProps,
     null
 )(StyledForm);
-
-export default StyledForm;

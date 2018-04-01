@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
-import base64 from "base-64";
-import { updateLang } from "../actions";
+import { updateLang, updateUser } from "../actions";
 import { header } from "../data/translations";
 import "../styles/header.css";
 import logo from "../logo.jpg";
@@ -16,35 +15,28 @@ class Header extends Component {
         collapse.classList.toggle("in");
     }
 
-    updateLang(user, lang) {
-        let url = "http://0.0.0.0:9000/api/users/" + user.id;
-        user.lang = lang;
+    updateLang(user) {
+        const { updateUser, access_token } = this.props;
+        const url = "http://0.0.0.0:9000/api/users/" + user.id;
         fetch(url, {
             method: "PUT",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify(user),
         })
             .then(response => response.json())
-            .then(data => {
-                window.localStorage.setItem("user", base64.encode(JSON.stringify(data)));
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            .then(data => updateUser({ ...data, access_token }))
+            .catch(err => console.warn(err));
     }
 
     langChange = (e) => {
         const { updateLang, user } = this.props;
         const lang = e.target.value;
-        if (user.id) this.updateLang(user, lang);
-        updateLang(lang);
+        if (user.id) this.updateLang({ ...user, lang });
+        else updateLang(lang);
     }
 
     render = () => {
-        const { kitchen, user, lang } = this.props;
+        const { kitchenid, user, lang } = this.props;
         return (
             <header>
                 <Helmet>
@@ -151,10 +143,10 @@ class Header extends Component {
                                     </li>
                                     <li>{user.kitchenOwner
                                         ?
-                                        <Link to={kitchen.id ? "/updatekitchen" : "/registerkitchen"}
+                                        <Link to={kitchenid ? "/updatekitchen" : "/registerkitchen"}
                                             onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {kitchen.id ? header[lang].editListing : header[lang].createListing}
+                                                {kitchenid ? header[lang].editListing : header[lang].createListing}
                                             </button>
                                         </Link>
                                         :
@@ -176,25 +168,19 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        kitchen: state.kitchen,
-        user: state.user,
-        lang: state.user.lang
-    };
-};
+const mapStateToProps = state => ({
+    user: state.user,
+    access_token: state.user.access_token,
+    kitchenid: state.kitchen.id,
+    lang: state.user.lang,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateLang: (lang) => {
-            dispatch(updateLang(lang));
-        }
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    updateLang: (lang) => dispatch(updateLang(lang)),
+    updateUser: (user) => dispatch(updateUser(user)),
+});
 
-Header = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Header);
-
-export default Header;

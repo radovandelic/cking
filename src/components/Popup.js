@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { popup } from "../data/translations";
 import "../styles/popup.css";
 
-let Popup = (props) => {
+const Popup = (props) => {
     const { lang } = props;
     return (
 
@@ -30,13 +30,10 @@ let Popup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    lang: state.user.lang
+    lang: state.user.lang,
 });
 
-
-Popup = connect(
+export default connect(
     mapStateToProps,
     null
 )(Popup);
-
-export default Popup;
