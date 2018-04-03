@@ -1,4 +1,5 @@
-'use strict'; // eslint-disable-line
+/* eslint-disable */
+'use strict';
 
 const autoprefixer = require('autoprefixer');
 const path = require('path');

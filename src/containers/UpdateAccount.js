@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledText, StyledSelect, StyledRadioGroup, StyledRadio } from "react-form";
-import { Popup } from "../components";
+import { Form, StyledRadioGroup, StyledRadio } from "react-form";
+import { TextInput, Radio, Select, Popup } from "../components";
 import { updateUser } from "../actions";
-import { register, regions, popup } from "../data/translations";
+import { register, region, popup, errors } from "../data/text";
 import "../styles/forms.css";
 
 const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -24,17 +24,21 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
+        const { lang } = this.props;
         const validateFirstName = (firstName) => {
-            if (!firstName || !firstName.trim()) return "First name is required.";
-            return firstName.length < 2 ? "First name must be longer than 2 characters." : null;
+            return !firstName || !firstName.trim() ? register[lang].firstName + errors[lang].required
+                : firstName.length < 2 ? register[lang].firstName + errors[lang].short
+                    : null;
         };
         const validateLastName = (lastName) => {
-            if (!lastName || !lastName.trim()) return "Last name is required.";
-            return lastName && lastName.length < 2 ? "Last name must be longer than 2 characters." : null;
+            return !lastName || !lastName.trim() ? register[lang].lastName + errors[lang].required
+                : lastName.length < 2 ? register[lang].lastName + errors[lang].short
+                    : null;
         };
         const validateEmail = (email) => {
-            if (!email || !email.trim()) return "Email is required.";
-            return email && !regex.test(email) ? "Please enter a valid email." : null;
+            return !email || !email.trim() ? "Email" + errors[lang].required
+                : !regex.test(email) ? errors[lang].email
+                    : null;
         };
         return {
             firstName: validateFirstName(values.firstName),
@@ -96,11 +100,11 @@ class StyledForm extends Component {
             value: "",
             disabled: true,
         });
-        for (const region in regions[lang]) {
-            if (regions[lang].hasOwnProperty(region) && region !== "all") {
+        for (const r in region[lang]) {
+            if (region[lang].hasOwnProperty(r) && r !== "all") {
                 regionOptions.push({
-                    label: regions[lang][region],
-                    value: region,
+                    label: region[lang][r],
+                    value: r,
                 });
             }
         }
@@ -109,6 +113,7 @@ class StyledForm extends Component {
     }
     render = () => {
         const { user, lang } = this.props;
+        const label = register[lang];
         const { regionOptions } = this.populateOptions(lang);
         const defaultValues = Object.assign({}, user);
         defaultValues.kitchenOwner = String(defaultValues.kitchenOwner);
@@ -125,47 +130,22 @@ class StyledForm extends Component {
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
                                 <div className="inline">
-                                    <div className="form-group">
-                                        <label htmlFor="firstName">{register[lang].firstName}</label>
-                                        <StyledText className="form-control" field="firstName" id="firstName" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="lastName">{register[lang].lastName}</label>
-                                        <StyledText className="form-control" field="lastName" id="lastName" />
-                                    </div>
+                                    <TextInput id="firstName" placeholder={label.firstName} />
+                                    <TextInput id="lastName" placeholder={label.lastName} />
                                 </div>
-                                <div className="form-group radio-group" >
-                                    <StyledRadioGroup field="kitchenOwner" id="kitchenOwner" key={lang}>
-                                        {group => (
-                                            <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="false" id="false" label={register[lang].kitchenOwner0} className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="true" id="true" label={register[lang].kitchenOwner1} className="d-inline-block" /> </li>
-                                            </ul>
-                                        )}
-                                    </StyledRadioGroup>
-                                </div>
-                                <div className="form-group" >
-                                    <StyledSelect type="text" field="region" id="region"
-                                        options={regionOptions} />
-                                </div>
-                                <div className="form-group" >
-                                    <label htmlFor="username">{register[lang].username}</label>
-                                    <StyledText className="form-control" field="name" id="name" />
-                                </div>
-                                <div className="form-group" >
-                                    <label htmlFor="email">Email</label>
-                                    <StyledText readOnly type="email" className="form-control" field="email" id="email" />
-                                </div>
-                                <div className="form-group" >
-                                    <label htmlFor="phone">{register[lang].phone}</label>
-                                    <StyledText type="phone" className="form-control" field="phone" id="phone" />
-                                </div>
+                                <Radio id="kitchenOwner" options={["false", "true"]} key={lang}
+                                    labels={{ false: label.kitchenOwner0, true: label.kitchenOwner1 }} />
+                                <Select id="region" options={regionOptions} />
+                                <TextInput id="name" placeholder={label.username} icon="fa-user" />
+                                <TextInput id="email" placeholder="Email" icon="fa-envelope" readOnly />
+                                <TextInput id="phone" placeholder={label.phone} icon="fa-phone-square" />
+
                                 {!user.kitchenOwner ?
                                     <div className="form-group radio-group">
+                                        <label htmlFor="activity">Votre activité:</label>
                                         <StyledRadioGroup field="activity" id="activity">
                                             {group => (
                                                 <ul className="radio-grid" >
-                                                    <label htmlFor="activity">Votre activité:</label>
                                                     <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
                                                     <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
                                                     <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
@@ -180,7 +160,7 @@ class StyledForm extends Component {
                                     : null
                                 }
                                 <div className="form-group" >
-                                    <button id="submit" type="submit" className="btn btn-orange">{register[lang].update}</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">{label.update}</button>
                                 </div>
                             </form>
                         )}

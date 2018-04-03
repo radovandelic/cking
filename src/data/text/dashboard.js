@@ -1,4 +1,4 @@
-const dashboard = {
+export default {
     fr: {
         welcomeMsg: "Bienvenue, ",
         editImages: "Télécharger / supprimer des images de cuisine",
@@ -18,5 +18,3 @@ const dashboard = {
         logout: "Logout",
     },
 };
-
-export default dashboard;

@@ -1,7 +1,13 @@
 .FAQ {
     width: 100%;
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
+}
+
+.accordion.accordion-title {
+    font-size: 18px;
+    text-align: center;
+    transition: .4s;
 }
 
 .accordion {
@@ -13,10 +19,11 @@
     border: none;
     text-align: left;
     outline: none;
-    font-size: 15px;
+    font-size: 16px;
     transition: .4s;
 }
 
+.accordion.accordion-title,
 .accordion:hover {
     color: #ff6114;
     background-color: #fff;
@@ -28,6 +35,10 @@
     display: none;
     background-color: #fff;
     overflow: hidden;
+}
+
+.panel h5 {
+    font-size: 16px;
 }
 
 .panel.active {
@@ -52,11 +63,11 @@
 
 .faq-container {
     position: fixed;
-    top: 50px;
+    top: 0;
     left: 50%;
     transform: translate(-50%, 0);
     visibility: hidden;
-    padding: 20px;
+    padding: 10px;
     background: #fff;
     width: 100%;
     max-width: 700px;

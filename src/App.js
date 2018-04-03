@@ -6,7 +6,7 @@ import {
     Home, LoadUserInfo, Login, Register, Dashboard, RegisterKitchen, UpdateKitchen, UpdateAccount,
     ImageUpload, Browse, Kitchen, PlaceOrder, ContactForm, VerifyAccount, RegisterUserInfo, Terms,
 } from "./containers";
-import { home } from "./data/translations";
+import { home } from "./data/text";
 import "./styles/bootstrap.css";
 import "./styles/font-awesome.min.css";
 import "./styles/App.css";
@@ -42,7 +42,7 @@ class App extends Component {
                                 <Route exact path="/browse/:region/:type" component={Browse} />
                                 <Route exact path="/listings/kitchens/:id" component={Kitchen} />
                                 <Route exact path="/listings/kitchens/:id/order" component={PlaceOrder} />
-                                <Route exact path="/userinfo/:region" component={RegisterUserInfo} />
+                                <Route exact path="/userinfo/:targetregion" component={RegisterUserInfo} />
                                 <Route exact path="/verifyaccount/:id/:token" component={VerifyAccount} />
                                 <Route exact path="/terms" component={Terms} />
                                 <Route exact path="/admin" component={AdminRedirect} />
@@ -66,8 +66,9 @@ class App extends Component {
                     <div id="FAQ" className="faq-container" >
                         <a className="close" href="#home">&times;</a>
                         <div className="input-div">
-                            <h3><b>FAQ</b></h3>
-                            {lang === "fr" ? <h4>Des questions? Vos premières réponses </h4> : null}
+                            <button className="accordion accordion-title">
+                                <b>FAQ</b>
+                            </button>
                         </div>
                         <FAQ />
                     </div>
@@ -78,7 +79,7 @@ class App extends Component {
                         <div className="input-div">
                             <h3><b>{home[lang].contactTitle}</b></h3>
                         </div>
-                        <ContactForm />
+                        <ContactForm key={lang} />
                     </div>
                     <a href="#home" className="contact-overlay">&nbsp;</a>
                 </div>

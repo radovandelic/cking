@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { faq } from "../data/translations";
+import { faq } from "../data/text";
 import "../styles/faq.css";
 
 const togglePanel = (e) => {

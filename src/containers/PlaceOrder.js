@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, StyledText, StyledSelect, StyledRadioGroup, StyledRadio } from "react-form";
 import { Popup } from "../components";
-import { weekDays, popup } from "../data/translations";
+import { weekDays, popup } from "../data/text";
 import "../styles/forms.css";
 
 class StyledForm extends Component {

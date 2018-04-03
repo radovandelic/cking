@@ -1,4 +1,4 @@
-const faq = {
+export default {
     nl: [{
         Q: `Hoe verloopt de selectie van hosts en van starters bij CookWork?`,
         A: `Zowel de hosts als de starters worden via een intake gesprek geselecteerd. Hierdoor weten wemeteen welke kandidaten de juiste motivatie hebben en dezelfde visie delen.`,
@@ -149,5 +149,3 @@ const faq = {
         A: `La seule chose que vous devez faire après la période d'essai est de profiter de votre propre entreprise!`,
     }],
 };
-
-export default faq;

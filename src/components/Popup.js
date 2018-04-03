@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { popup } from "../data/translations";
+import { popup } from "../data/text";
 import "../styles/popup.css";
 
 const Popup = (props) => {

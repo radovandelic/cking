@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Popup } from "../components";
 import "../styles/browse.css";
-import { type, popup } from "../data/translations";
+import { type, popup } from "../data/text";
 import { GMAPS_KEY } from "../config";
 
 class Browse extends Component {

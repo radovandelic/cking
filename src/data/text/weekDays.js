@@ -1,4 +1,4 @@
-const weekDays = {
+export default {
     fr: {
         monday: "Lundi",
         tuesday: "Mardi",
@@ -36,5 +36,3 @@ const weekDays = {
         "saturday",
     ],
 };
-
-export default weekDays;

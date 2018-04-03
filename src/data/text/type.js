@@ -1,4 +1,4 @@
-const type = {
+export default {
     fr: {
         all: "Tout",
         kitchen: "Cuisine laboratoire",
@@ -20,6 +20,10 @@ const type = {
         restaurant: "Restaurant kitchen",
         collectiverestaurant: "Commercial kitchen",
     },
+    map: [
+        "kitchen",
+        "sharedkitchen",
+        "restaurant",
+        "collectiverestaurant",
+    ],
 };
-
-export default type;

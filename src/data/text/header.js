@@ -1,4 +1,4 @@
-const header = {
+export default {
     fr: {
         createListing: "Je loue ma cuisine",
         editListing: "J’édite mon annonce",
@@ -27,5 +27,3 @@ const header = {
         contact: "Contact",
     },
 };
-
-export default header;

@@ -1,4 +1,4 @@
-const registerKitchen = {
+export default {
     fr: {
         title: "Formulaire location de cuisine",
         paragraph1: "Vous cherchez à diminuer vos frais fixes et augmenter votre rentabilité ?",
@@ -38,7 +38,7 @@ const registerKitchen = {
         submitUpdate: "Mise à jour",
     },
     nl: {
-        equipment: "",
+        equipment: "Beschikbare uitrusting:",
         title: "Keuken verhuur formulier",
         paragraph1: "Wilt u uw vaste kosten verlagen en uw winstgevendheid verhogen?",
         paragraph2: "Huur je keuken op de momenten dat je het niet gebruikt!",
@@ -76,7 +76,7 @@ const registerKitchen = {
         submitUpdate: "Keuken updaten",
     },
     en: {
-        equipment: "",
+        equipment: "Available equipment:",
         submit: "Register Kitchen",
         submitUpdate: "Update Kitchen",
         title: "Kitchen rental form",
@@ -93,7 +93,7 @@ const registerKitchen = {
         address: "Address of the property",
         postalCode: "Postal code",
         region: "City / Region",
-        size: "Area of ​​the property (in m2)",
+        size: "Size of ​​the property (in m2)",
         AFSCA: "Institution Unit Number (FASFC)",
         VAT: "VAT number",
         days: "Days of availability",
@@ -114,5 +114,3 @@ const registerKitchen = {
         capacitySitting: "Sitting capacity for events:",
     },
 };
-
-export default registerKitchen;

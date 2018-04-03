@@ -1,4 +1,4 @@
-const regions = {
+export default {
     fr: {
         all: "Tout",
         Antwerpen: "Anvers",
@@ -39,5 +39,3 @@ const regions = {
         WestFlanders: "West Flanders",
     },
 };
-
-export default regions;

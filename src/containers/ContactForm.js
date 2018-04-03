@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, StyledText, StyledTextArea } from "react-form";
 import { Popup } from "../components";
-import { popup } from "../data/translations";
+import { popup, errors } from "../data/text";
 import "../styles/forms.css";
 import "../styles/contact.css";
 
@@ -25,11 +25,16 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
+        const { lang } = this.props;
         const validateEmail = (email) => {
-            return !email ? "email est requis" : null;
+            return !email ? "Email" + errors[lang].required
+                : !regex.test(email) ? "Email" + errors[lang].invalid
+                    : null;
         };
         const validateMessage = (message) => {
-            return !message ? "message est requis" : null;
+            return !message ? popup[lang].message + errors[lang].required
+                : message.length < 10 ? popup[lang].message + errors[lang].short
+                    : null;
         };
         return {
             email: validateEmail(values.email),
@@ -37,25 +42,13 @@ class StyledForm extends Component {
         };
     }
 
-    warningValidator = (values) => {
-        const validateEmail = (email) => {
-            return email && !regex.test(email) ? "email invalide" : null;
-        };
-        const validateMessage = (message) => {
-            return message && message.length < 10 ? "Message is too short." : null;
-        };
-
-        return {
-            email: validateEmail(values.email),
-            message: validateMessage(values.message),
-        };
-    }
     submit = (submittedValues) => {
         const { lang } = this.props;
         const url = "http://0.0.0.0:9000/api/mails/enquiry";
         const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
+
         fetch(url, {
             method: "POST",
             headers: headers,
@@ -92,28 +85,27 @@ class StyledForm extends Component {
     }
 
     render = () => {
-        const { email } = this.props.user;
+        const { email, lang } = this.props;
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
                 :
                 <div>
                     <Form
-                        defaultValues={{ email: email || "" }}
+                        defaultValues={{ email }}
                         validateError={this.errorValidator}
-                        validateWarning={this.warningValidator}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form2">
+                            <form onSubmit={formApi.submitForm} id="form">
                                 <div className="form-group has-feedback" >
-                                    <StyledText placeholder="Email" type="email" field="email" id="email" />
+                                    <StyledText placeholder="Email" type="email" field="email" id="eml" />
                                     <i className="fa fa-envelope form-control-feedback"></i>
                                 </div>
-                                <div className="form-group has-feedback" >
-                                    <StyledTextArea placeholder="Message" style={{ width: "100%" }} rows="4" field="message" id="message" />
+                                <div className="form-group" >
+                                    <StyledTextArea placeholder={popup[lang].message} rows="4" field="message" id="msg" />
                                 </div>
-                                <div className="form-group has-feedback" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Envoyer</button>
+                                <div className="form-group" >
+                                    <button type="submit" className="btn btn-orange">{popup[lang].submit}</button>
                                 </div>
                             </form>
                         )}
@@ -129,8 +121,8 @@ class StyledForm extends Component {
     closePopup = () => {
         this.setState({ overlay: "overlay off" }, () => {
             if (this.state.popup.title !== "Error") {
-                document.getElementById("message").value = "";
-                document.getElementById("email").value = "";
+                document.getElementById("msg").value = "";
+                document.getElementById("eml").value = "";
                 window.location.href = "#top";
             }
         });
@@ -138,7 +130,7 @@ class StyledForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
+    email: state.user.email || "",
     lang: state.user.lang,
 });
 

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import googleGeocoder from "google-geocoder";
 import { Popup, Map } from "../components";
-import { equipment, weekDays, staff, type, popup } from "../data/translations";
+import { equipment, weekDays, staff, type, popup } from "../data/text";
 import { GMAPS_KEY, GEOCODE_KEY } from "../config";
 import "../styles/kitchen.css";
 import "../styles/carousel.css";

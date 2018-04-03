@@ -1,6 +1,6 @@
 import React from "react";
 
-const home = {
+export default {
     fr: {
         title1: "Louez une cuisine près de chez vous, facilement",
         description1: (
@@ -48,6 +48,7 @@ const home = {
         faqTitle: "Des questions? Vos premières réponses",
         faqFooter: "Autre questions? Hesitate pas à nous contacter",
         contactTitle: "Des questions?",
+        message: "Message",
     },
     nl: {
         title1: "Huur eenvoudig een keuken bij jou in de buurt",
@@ -96,6 +97,7 @@ const home = {
         faqTitle: "Vaak gestelde vragen",
         faqFooter: "Andere vragen? Aarzel dan niet om ons te contacteren",
         contactTitle: "Vragen?",
+        message: "Bericht",
     },
     en: {
         title1: "Rent a kitchen near you, easily",
@@ -144,7 +146,6 @@ const home = {
         faqTitle: "FAQ",
         faqFooter: "Other questions? Don't hesitate to contact us",
         contactTitle: "Questions?",
+        message: "Message",
     },
 };
-
-export default home;

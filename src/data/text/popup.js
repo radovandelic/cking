@@ -1,6 +1,5 @@
-const popup = {
+export default {
     fr: {
-        submit: "Envoyer",
         successMessageRegister1: "Nous avons enregistré votre atelier.",
         successMessageRegister2: "Merci de patienter pour que notre équipe vérifie et valide votre annonce.",
         successMessageRegister3: "Voulez-vous ajouter des images? Cela rendra votre annonce plus attractive",
@@ -9,6 +8,8 @@ const popup = {
         ok: "D'accord",
         successTitle: "Succès",
         successMessageUpdate: "Votre cuisine a été mise à jour.",
+        message: "Message",
+        submit: "Envoyer",
         successTitleContact: "Message envoyé",
         successMessageContact1: "Votre message a été envoyé à l'équipe de support de cookware.",
         successMessageContact2: "Vous recevrez une réponse bientôt.",
@@ -16,9 +17,10 @@ const popup = {
         errorMessageConnect: "Une erreur s'est produite lors de la connexion au serveur. ",
         errorMessageAlreadyRegistered: "Cette adresse email est déjà enregistrée.",
         errorMessageUnauthorized: "L'accès non autorisé.",
+        verified: "Compte vérifié",
+        notFound: "Jeton d'utilisateur ou de vérification non trouvé.",
     },
     nl: {
-        submit: "Sturen",
         successMessageRegister1: "We hebben je ruimte geregistreerd.",
         successMessageRegister2: "Bedankt ! Wij gaan je advertentie checken en bevestigen. Een beetje afwacht! ",
         successMessageRegister3: "Wil je afbeeldingen toevoegen? ",
@@ -27,6 +29,8 @@ const popup = {
         ok: "OK",
         successTitle: "Succes",
         successMessageUpdate: "Uw keuken is bijgewerkt.",
+        message: "Bericht",
+        submit: "Sturen",
         successTitleContact: "Bericht verzonden",
         successMessageContact1: "Je bericht is verzonden aan het cookwork-ondersteuningsteam.",
         successMessageContact2: "U ontvangt binnenkort een reactie.",
@@ -34,11 +38,15 @@ const popup = {
         errorMessageConnect: "Er is een fout opgetreden bij het maken van verbinding met de server. ",
         errorMessageAlreadyRegistered: "Dit emailadres is al geregistreerd.",
         errorMessageUnauthorized: "Onbevoegde toegang.",
+        verified: "Account geverifieerd",
+        notFound: "Token voor gebruiker of verificatie niet gevonden.",
     },
     en: {
         yes: "Yes",
         no: "No",
         ok: "Ok",
+        message: "Message",
+        submit: "Envoyer",
         successTitle: "Success",
         successMessageUpdate: "Your kitchen has been updated.",
         successTitleContact: "Message sent",
@@ -49,11 +57,10 @@ const popup = {
         errorMessageAlreadyRegistered: "This email address is already registered.",
         errorMessageNotFound: "E-mail or password not found.",
         errorMessageUnauthorized: "Unauthorized access.",
-        submit: "Send",
         successMessageRegister1: "Your kitchen has been saved.",
         successMessageRegister2: "Please wait 2-5 days for the cookwork team to verify your application.",
         successMessageRegister3: "Would you like to add some images?",
+        verified: "Account verified",
+        notFound: "User or verification token not found.",
     },
 };
-
-export default popup;

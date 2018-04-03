@@ -1,2 +1,3 @@
-import translations from "./translations";
-export { translations };
+import text from "./text";
+import maps from "./maps";
+export { text, maps };

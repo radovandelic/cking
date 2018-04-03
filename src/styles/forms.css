@@ -41,6 +41,7 @@ label {
 
 .checkbox-grid,
 .radio-grid {
+    padding-top: 10px;
     padding-left: 0;
 }
 
@@ -100,7 +101,8 @@ textarea.react-form-input {
 }
 
 .form-group-checkbox,
-.form-group-hours {
+.form-group-hours,
+.form-group-days {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -122,7 +124,7 @@ textarea.react-form-input {
 }
 
 .react-form-message-error {
-    color: #c32128;
+    color: #ff6114;
 }
 
 .react-form-message-warning {
@@ -167,7 +169,7 @@ textarea.react-form-input {
 }
 
 .form-group>.fa {
-    margin: 22px;
+    margin: 27px 22px;
     font-size: 24px;
     z-index: 1;
     color: #ff6114;

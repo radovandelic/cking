@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateKitchen, updateUser, updateInfo, updateLang } from "../actions";
-import { dashboard, header } from "../data/translations";
+import { dashboard, header } from "../data/text";
 import "../styles/dashboard.css";
 
 const Dashboard = (props) => {

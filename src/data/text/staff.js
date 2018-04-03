@@ -1,5 +1,5 @@
 
-const staff = {
+export default {
     fr: {
         cookstaff: "Personnel de cuisine",
         roomstaff: "Personnel de salle",
@@ -27,6 +27,13 @@ const staff = {
         refrigeratorVehicle: "Refrigerated vehicle",
         reception: "Receipt of goods",
     },
+    map: [
+        "cookstaff",
+        "roomstaff",
+        "dishwashers",
+        "cleaning",
+        "storage",
+        "refrigeratorVehicle",
+        "reception",
+    ],
 };
-
-export default staff;

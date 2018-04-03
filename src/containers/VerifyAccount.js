@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateUser } from "../actions";
+import { header, popup } from "../data/text";
 import "../styles/dashboard.css";
 
 class VerifyAccount extends Component {
@@ -14,14 +15,13 @@ class VerifyAccount extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         const { id, token } = this.props.match.params;
         const { user, updateUser } = this.props;
         const url = "http://0.0.0.0:9000/api/users/verify/" + id + "/" + token;
         const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Content-Type", "application/json");
-
         fetch(url, {
             method: "GET",
             headers: headers,
@@ -29,41 +29,42 @@ class VerifyAccount extends Component {
             .then(response => {
                 switch (response.status) {
                     case 200:
-                        this.setState({ message: "Account verified", status: 200 });
+                        this.setState({ message: "verified", status: 200 });
                         user.verified = true;
                         updateUser(user);
                         break;
                     case 404:
-                        this.setState({ message: "User or verification token not found.", status: 404 });
+                        this.setState({ message: "notFound", status: 404 });
                         break;
                     default:
-                        this.setState({ message: "Error connecting to the server. Please try again later.", status: 500 });
+                        this.setState({ message: "errorMessageConnect", status: 500 });
                         break;
                 }
                 return response.json();
-            })
+            })/* 
             .then(data => {
-                this.setState({ status: 200, message: "Account verified" });
-            })
+                this.setState({ status: 200, message: "verified" });
+            }) */
             .catch(err => {
-                this.setState({ message: "Error connecting to the server. Please try again later.", status: 500 });
+                if (this.state.status === 404);
+                this.setState({ message: this.state.status === 404 ? "notFound" : "errorMessageConnect" });
             });
     }
 
     render = () => {
         const { message, status } = this.state;
-        const { user } = this.props;
+        const { user, lang } = this.props;
         return (
             <div className="dashoard-container">
-                <h4>{message}</h4>
+                <h4>{popup[lang][message]}</h4>
                 {status === 200 ?
                     user.id ?
                         <Link to="/dashboard">
-                            <button className="btn btn-orange">Dashboard</button>
+                            <button className="btn btn-orange">{header[lang].dashboard}</button>
                         </Link>
                         :
                         <Link to="/login">
-                            <button className="btn btn-orange">Login</button>
+                            <button className="btn btn-orange">{header[lang].login}</button>
                         </Link>
                     : null
                 }
@@ -74,6 +75,7 @@ class VerifyAccount extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    lang: state.user.lang,
 });
 
 const mapDispatchToProps = dispatch => ({

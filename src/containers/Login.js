@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, StyledText, StyledCheckbox } from "react-form";
+import { Form, StyledCheckbox } from "react-form";
 import { connect } from "react-redux";
 import base64 from "base-64";
-import { Popup } from "../components";
+import { TextInput, Popup } from "../components";
 import { updateKitchen, updateUser } from "../actions";
-import { popup } from "../data/translations";
+import { register, popup } from "../data/text";
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -76,6 +76,7 @@ class StyledForm extends Component {
     }
     render = () => {
         const { lang } = this.props;
+        const label = register[lang];
         return (
             this.state.redirect
                 ? <Redirect push to={this.state.redirect} />
@@ -86,20 +87,14 @@ class StyledForm extends Component {
                         defaultValues={{ rememberMe: true }}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container login-container">
-                                <div className="input-div form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Email" type="email" field="email" id="email" />
-                                    <i className="fa fa-user form-control-feedback"></i>
-                                </div>
-                                <div className="input-div form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Password" type="password" field="password" id="password" />
-                                    <i className="fa fa-lock form-control-feedback"></i>
-                                </div>
+                                <TextInput id="email" placeholder={"Email"} type="email" icon="fa-envelope" />
+                                <TextInput id="password" placeholder={label.password} type="password" icon="fa-lock" />
                                 <div className="inline">
                                     <div className="form-group" >
-                                        <StyledCheckbox field="rememberMe" id="rememberme" label="Remember Me " />
+                                        <StyledCheckbox field="rememberMe" id="rememberme" label={label.rememberMe} />
                                     </div>
                                     <div className="form-group" >
-                                        <button id="submit" type="submit" className="btn btn-orange">Login</button>
+                                        <button id="submit" type="submit" className="btn btn-orange">{label.login}</button>
                                     </div>
                                 </div>
                             </form>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Form, StyledText, StyledTextArea, StyledRadioGroup, StyledRadio, StyledSelect } from "react-form";
 import { Popup } from "../components";
 import { updateUser, updateInfo } from "../actions";
-import { register, regions, weekDays, popup } from "../data/translations";
+import { register, registerUserInfo, orderType, region, weekDays, popup, errors } from "../data/text";
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -27,27 +27,30 @@ class StyledForm extends Component {
     }
 
     errorValidator = (values) => {
+        const { lang } = this.props;
         const { type } = this.state;
+        const msg = errors[lang];
+
         const validateActivity = (activity) => {
-            return !activity ? "Activity type is required." : null;
+            return !activity ? msg.req : null;
         };
         const validateDateFrom = (dateFrom) => {
-            return !dateFrom && type && type !== "recurring" ? "Start date is required" : null;
+            return !dateFrom && type && type !== "recurring" ? registerUserInfo[lang].dateFrom + msg.required : null;
         };
         const validateDateTo = (dateTo) => {
-            return !dateTo && type && type !== "recurring" ? "End date is required" : null;
+            return !dateTo && type && type !== "recurring" ? registerUserInfo[lang].dateTo + msg.required : null;
         };
         const validateDaysFrom = (daysFrom) => {
-            return !daysFrom && type === "recurring" ? "Start day is required" : null;
+            return !daysFrom && type === "recurring" ? registerUserInfo[lang].daysFrom + msg.required : null;
         };
         const validateDaysTo = (daysTo) => {
-            return !daysTo && type === "recurring" ? "End day is required" : null;
+            return !daysTo && type === "recurring" ? registerUserInfo[lang].daysTo + msg.required : null;
         };
         const validateHoursFrom = (hoursFrom) => {
-            return !hoursFrom && type && type !== "long" ? "Start hour is required" : null;
+            return !hoursFrom && type && type !== "long" ? msg.req : null;
         };
         const validateHoursTo = (hoursTo) => {
-            return !hoursTo && type && type !== "long" ? "End hour is required" : null;
+            return !hoursTo && type && type !== "long" ? msg.req : null;
         };
         const validateTime = (values) => {
             const { type } = this.state;
@@ -58,17 +61,17 @@ class StyledForm extends Component {
                 const dateFrom = new Date(values.dateFrom);
                 const dateTo = new Date(values.dateTo);
                 const totalDays = (dateTo - dateFrom) / 86400000;
-                if (totalDays < 0 || dateFrom < today) return "Invalid timeframe selected.";
+                if (totalDays < 0 || dateFrom < today) return msg.time;
             }
             if (type === "recurring") {
                 const daysFrom = Number(values.daysFrom) || 7;
                 const daysTo = Number(values.daysTo) || 7;
-                if (daysFrom > daysTo) return "Invalid timeframe selected.";
+                if (daysFrom > daysTo) return msg.time;
             }
             if (type && type !== "long") {
                 const hoursFrom = Number(values.hoursFrom);
                 const hoursTo = Number(values.hoursTo);
-                if (hoursTo - hoursFrom <= 0) return "Invalid timeframe selected.";
+                if (hoursTo - hoursFrom <= 0) return msg.time;
             }
             return null;
         };
@@ -125,7 +128,7 @@ class StyledForm extends Component {
                     overlay: "overlay on",
                     popup: {
                         title: popup[lang].successTitle,
-                        message: "Your request has been forwarded to the Cookwork team. You should receive a response soon.",
+                        message: registerUserInfo[lang].successTitle,
                     },
                 });
             })
@@ -155,11 +158,11 @@ class StyledForm extends Component {
             value: "",
             disabled: true,
         });
-        for (const region in regions[lang]) {
-            if (regions[lang].hasOwnProperty(region) && region !== "all") {
+        for (const r in region[lang]) {
+            if (region[lang].hasOwnProperty(r) && r !== "all") {
                 regionOptions.push({
-                    label: regions[lang][region],
-                    value: region,
+                    label: region[lang][r],
+                    value: r,
                 });
 
             }
@@ -180,14 +183,15 @@ class StyledForm extends Component {
 
     render = () => {
         const { user, lang } = this.props;
-        const { region } = this.props.match.params;
+        const { targetregion } = this.props.match.params;
         const { type } = this.state;
         const { regionOptions, dayOptions, hourOptions } = this.populateInputs(lang);
+        const text = registerUserInfo[lang];
 
         let { info } = this.props;
         info = info.id ? this.formatDefaultValues(info) : {};
         info = Object.assign(info, {
-            region,
+            region: targetregion,
             phone: info.phone || user.phone || "",
             activity: info.activity || user.activity || "",
         });
@@ -203,7 +207,7 @@ class StyledForm extends Component {
                         onSubmit={this.submit}>
                         {formApi => (
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
-                                <h3><b>Trouvez la cuisine qu'il vous faut, maintenant</b></h3>
+                                <h3><b>{text.title}</b></h3>
                                 <div className="form-group radio-group">
                                     <StyledRadioGroup field="activity" id="activity">
                                         {group => (
@@ -240,14 +244,14 @@ class StyledForm extends Component {
                                 </div>
                                 <div className="form-group has-feedback" >
                                     <StyledText className="form-control" placeholder="Numéro de téléphone " type="text" field="phone" id="phone" />
-                                </div> <h3>Utilisation unique: date et heures</h3>
+                                </div> <h3>Utilisation: date, jours et heures</h3>
                                 <div className="form-group radio-group">
                                     <StyledRadioGroup field="type" id="type" onChange={this.onTypeChange} >
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="once" id="once" label="One time" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label="Recurring" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="long" id="long" label="Long term (6 months or longer)" className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="once" id="once" label={orderType["fr"].once} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label={orderType["fr"].recurring} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="long" id="long" label={orderType["fr"].long} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
@@ -255,22 +259,22 @@ class StyledForm extends Component {
                                 {type ? type !== "recurring" ?
                                     <div className="inline">
                                         <div className="form-group form-group-date" >
-                                            <label htmlFor="dateFrom">Start date:</label>
+                                            <label htmlFor="dateFrom">{text.dateFrom}</label>
                                             <StyledText type="date" field="dateFrom" id="dateFrom" className="form-control" />
                                         </div>
                                         <div className="form-group form-group-date" >
-                                            <label htmlFor="dateTo">End date:</label>
+                                            <label htmlFor="dateTo">{text.dateTo}</label>
                                             <StyledText type="date" field="dateTo" id="dateTo" className="form-control" />
                                         </div>
                                     </div>
                                     :
                                     <div className="inline">
                                         <div className="form-group form-group-date">
-                                            <label htmlFor="daysFrom">Start day:</label>
+                                            <label htmlFor="daysFrom">{text.daysFrom}</label>
                                             <StyledSelect field="daysFrom" id="daysFrom" options={dayOptions} />
                                         </div>
                                         <div className="form-group form-group-date">
-                                            <label htmlFor="daysTo">End day:</label>
+                                            <label htmlFor="daysTo">{text.daysTo}</label>
                                             <StyledSelect field="daysTo" id="daysTo" options={dayOptions} />
                                         </div>
                                     </div>
@@ -278,11 +282,11 @@ class StyledForm extends Component {
                                 {type && type !== "long" ?
                                     <div className="inline">
                                         <div className="form-group" >
-                                            <label htmlFor="hoursFrom">From:</label>
+                                            <label htmlFor="hoursFrom">{text.from}</label>
                                             <StyledSelect field="hoursFrom" id="hoursFrom" options={hourOptions} />
                                         </div>
                                         <div className="form-group" >
-                                            <label htmlFor="hoursTo">To:</label>
+                                            <label htmlFor="hoursTo">{text.to}</label>
                                             <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
                                         </div>
                                         <div className="form-group" >
@@ -295,10 +299,12 @@ class StyledForm extends Component {
                                     <StyledText type="hidden" field="time" id="time" />
                                 </div>
                                 <div className="form-group" >
-                                    <StyledTextArea className="form-control" placeholder="Vos commentaires" style={{ width: "100%" }} rows="4" field="comments" id="comments" />
+                                    <label htmlFor="comments">{registerUserInfo["fr"].commentsHeader0}</label>
+                                    <label htmlFor="comments">{registerUserInfo["fr"].commentsHeader1}</label>
+                                    <StyledTextArea className="form-control" placeholder={text.comments} rows="4" field="comments" id="comments" />
                                 </div>
                                 <div className="form-group" >
-                                    <button id="submit" type="submit" className="btn btn-orange">Submit</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">{registerUserInfo["en"].submit}</button>
                                 </div>
                             </form>
                         )}

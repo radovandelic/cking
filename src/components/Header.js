@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 import { updateLang, updateUser } from "../actions";
-import { header } from "../data/translations";
+import { header } from "../data/text";
 import "../styles/header.css";
 import logo from "../logo.jpg";
 

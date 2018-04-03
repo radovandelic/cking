@@ -1,4 +1,4 @@
-const register = {
+export default {
     fr: {
         title: "Pour utiliser la plateforme Cookwork, il faut d'abord vous enregistrer. Merci.",
         firstName: "Prénom",
@@ -6,6 +6,7 @@ const register = {
         username: "Nom d'utilisateur",
         registeringAs0: "Je m'inscris en tant qu'",
         registeringAs1: "Je m'inscris en tant que ",
+        type: "Type de compte d'utilisateur",
         kitchenOwner0: "utilisateur de cuisine",
         kitchenOwner1: "propriétaire de cuisine",
         password: "Mot de passe",
@@ -18,6 +19,7 @@ const register = {
         rememberMe: "Souviens-toi de moi",
         register: "Registre",
         update: "Mettre à jour l'information",
+        login: "S'identifier",
     },
     nl: {
         title: "Om Cookwork te gebruiken, moet je eerst inschrijven: Bedankt",
@@ -26,6 +28,7 @@ const register = {
         username: "Gebruikersnaam",
         registeringAs0: "Ik registreer me als een ",
         registeringAs1: "Ik registreer me als ",
+        type: "Type gebruikersaccount",
         kitchenOwner0: "Keukengebruiker",
         kitchenOwner1: "Keukeneigenaar",
         password: "Wachtwoord",
@@ -38,6 +41,7 @@ const register = {
         rememberMe: "Onthoud me",
         register: "Registreren",
         update: "Update informatie",
+        login: "Log in",
     },
     en: {
         title: "Please register to use the cookwork platform",
@@ -46,6 +50,7 @@ const register = {
         username: "Username",
         registeringAs0: "I am registering as a ",
         registeringAs1: "I am registering as a ",
+        type: "User account type",
         kitchenOwner0: "Kitchen user",
         kitchenOwner1: "Kitchen owner",
         password: "Password",
@@ -58,7 +63,6 @@ const register = {
         rememberMe: "Remember me",
         register: "Register",
         update: "Update information",
+        login: "Login",
     },
 };
-
-export default register;
