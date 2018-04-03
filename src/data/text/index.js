@@ -28,5 +28,5 @@ const text = {
     register, registerKitchen, uploadImage, registerUserInfo, weekDays, popup, errors,
 };
 
-console.log(JSON.stringify(text));
+// console.log(JSON.stringify(text));
 export default text;
