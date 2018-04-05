@@ -86,7 +86,7 @@ class StyledForm extends Component {
                         onSubmit={this.submit}
                         defaultValues={{ rememberMe: true }}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form" className="form-container login-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container login-container" key={lang}>
                                 <TextInput id="email" placeholder={"Email"} type="email" icon="fa-envelope" />
                                 <TextInput id="password" placeholder={label.password} type="password" icon="fa-lock" />
                                 <div className="inline">

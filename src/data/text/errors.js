@@ -13,6 +13,7 @@ export default {
         dateFrom: "la date de début est requise",
         dateTo: "la date de fin est requise",
         time: "délai non valide",
+        minimum: "Le délai minimum pour le loyer à long terme est de",
         agree: "Veuillez lire et accepter les conditions d'utilisation",
     },
     nl: {
@@ -29,6 +30,7 @@ export default {
         dateFrom: "startdatum is verplicht",
         dateTo: "einddatum is verplicht",
         time: "ongeldige tijdspanne",
+        minimum: "Het minimale tijdsbestek voor lange termijn huur is",
         agree: "Lees en accepteer de Servicevoorwaarden",
     },
     en: {
@@ -45,6 +47,7 @@ export default {
         dateFrom: "start date is required",
         dateTo: "end date is required",
         time: "invalid timeframe",
+        minimum: "The minimum timeframe for long term rent is",
         agree: "Please read and accept the Terms of Service",
     },
 };

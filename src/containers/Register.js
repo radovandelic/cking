@@ -131,7 +131,7 @@ class StyledForm extends Component {
                         defaultValues={{ rememberMe: true }}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <h3>{label.title}</h3>
                                 <div className="inline">
                                     <TextInput id="firstName" placeholder={label.firstName} />
@@ -142,7 +142,7 @@ class StyledForm extends Component {
                                 <TextInput id="password" placeholder={label.password} type="password" icon="fa-lock" />
                                 <TextInput id="confirmPassword" placeholder={label.confirmPassword} type="password" icon="fa-lock" />
 
-                                <Radio id="kitchenOwner" options={["false", "true"]} key={lang}
+                                <Radio id="kitchenOwner" options={["false", "true"]}
                                     labels={{
                                         false: label.registeringAs0 + label.kitchenOwner0,
                                         true: label.registeringAs1 + label.kitchenOwner1,

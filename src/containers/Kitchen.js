@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import googleGeocoder from "google-geocoder";
 import { Popup, Map } from "../components";
-import { equipment, weekDays, staff, type, popup } from "../data/text";
+import { registerKitchen, equipment, weekDays, staff, type, popup } from "../data/text";
 import { GMAPS_KEY, GEOCODE_KEY } from "../config";
 import "../styles/kitchen.css";
 import "../styles/carousel.css";
@@ -120,16 +120,18 @@ class Kitchen extends Component {
         const Equipment = [];
         const Staff = [];
 
-        for (const e in equipment["fr"]) {
-            if (kitchen.equipment && kitchen.equipment[e]) {
-                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment["fr"][e]}</li>);
+        if (kitchen.equipment) {
+            for (const e in kitchen.equipment) {
+                Equipment.push(<li key={e}><i className="fa fa-check"></i>&nbsp; {equipment[lang][e]}</li>);
             }
         }
         if (!Equipment[0]) {
             Equipment.push(<li key="equipment-none"><i className="fa fa-window-close"></i></li>);
         }
-        for (const s in kitchen.staff) {
-            Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff["fr"][s]}</li>);
+        if (kitchen.staff) {
+            for (const s in kitchen.staff) {
+                Staff.push(<li key={s}><i className="fa fa-check"></i>&nbsp; {staff[lang][s]}</li>);
+            }
         }
         if (!Staff[0]) {
             Staff.push(<li key="staff-none"><i className="fa fa-window-close"></i></li>);
@@ -140,6 +142,7 @@ class Kitchen extends Component {
     render = () => {
         const { kitchen, isMapLoaded, location } = this.state;
         const { lang } = this.props;
+        const text = registerKitchen[lang];
         const { Equipment, Staff } = this.populateLists(lang);
 
         return (
@@ -188,7 +191,7 @@ class Kitchen extends Component {
                         <h2>{kitchen.name}</h2>
                         <h4>{kitchen.region}</h4> <br />
                         <h4>{type[lang][kitchen.type]}, {kitchen.size} m<sup>2</sup></h4>
-                        <h4>Availability:&nbsp;
+                        <h4>{text.availability}:&nbsp;
                             {kitchen.days ? weekDays[lang][weekDays.map[kitchen.days.daysFrom]]
                                 + " - " + weekDays[lang][weekDays.map[kitchen.days.daysTo]] + ", " : ""}
                             {kitchen.hours ? kitchen.hours.hoursFrom + ":00 - " + kitchen.hours.hoursTo + ":00" : "00 - 24"}
@@ -200,15 +203,12 @@ class Kitchen extends Component {
                     </div>
                 </div>
                 <div className="single-listing-information">
-                    {/* <h5> {kitchen.hours && kitchen.hours.hoursFrom && kitchen.hours.hoursTo
-                        ? `Heures de disponibilité: ${kitchen.hours.hoursFrom} - ${kitchen.hours.hoursTo}` : ""}
-                    </h5>
-                    <h5>Nombre de personnes pouvant travailler en cuisine: {kitchen.capacity}</h5> */}
-                    <h4>Equipements disponibles:</h4>
+                    {/* <h5>Nombre de personnes pouvant travailler en cuisine: {kitchen.capacity}</h5> */}
+                    <h4>{text.equipment}</h4>
                     <ul className="checkbox-grid">
                         {Equipment}
                     </ul>
-                    <h4>Services disponibles (en option payante pour le locataire):</h4>
+                    <h4>{text.staff}</h4>
                     <ul className="checkbox-grid">
                         {Staff}
                     </ul>
@@ -216,9 +216,9 @@ class Kitchen extends Component {
                 </div>
                 {kitchen.events ?
                     <div className="single-listing-information">
-                        <h4 id="events"><i className="fa fa-check"></i> Espace disponible pour évènement</h4>
-                        {kitchen.standingCapacity ? <h5>Capacité debout pour évènement: {kitchen.standingCapacity}</h5> : null}
-                        {kitchen.sittingCapacity ? <h5>Capacité assis pour évènement: {kitchen.sittingCapacity}</h5> : null}
+                        <h4 id="events"><i className="fa fa-check"></i> {text.events}</h4>
+                        {kitchen.standingCapacity ? <h5>{text.capacityStanding}: {kitchen.standingCapacity}</h5> : null}
+                        {kitchen.sittingCapacity ? <h5>{text.capacitySitting}: {kitchen.sittingCapacity}</h5> : null}
                     </div>
                     : null
                 }

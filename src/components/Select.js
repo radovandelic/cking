@@ -2,10 +2,10 @@ import React from "react";
 import { StyledSelect, StyledText } from "react-form";
 
 export default (props) => {
-    const { id, label, options, time } = props;
+    const { id, label, options, time, className } = props;
     return (
         !time ?
-            <div className="form-group" >
+            <div className={className || "form-group"} >
                 {label ? <label htmlFor={id}>{label}</label> : null}
                 <StyledSelect field={id} id={id}
                     options={options} />

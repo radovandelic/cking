@@ -72,7 +72,6 @@ class Browse extends Component {
         const { region } = this.props.match.params;
         const Listings = [];
         for (const kitchen of kitchens) {
-            kitchen.type = type["fr"][kitchen.type];
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
                     <div className="circle-container">
@@ -88,7 +87,7 @@ class Browse extends Component {
                         <div className="listing-info">
                             <Link to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 <h4>{kitchen.name}</h4>
-                                <h6>{kitchen.type}</h6>
+                                <h6>{type[lang][kitchen.type]}</h6>
                                 <h4>{kitchen.size} m<sup>2</sup> </h4>
                                 {user.id ? <h3 className="price-m">€{kitchen.price} / h</h3> : null}
                             </Link>

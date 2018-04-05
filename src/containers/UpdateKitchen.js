@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledText, StyledRadio, StyledRadioGroup, StyledCheckbox } from "react-form";
+import { Form, StyledRadio, StyledRadioGroup, StyledCheckbox } from "react-form";
 import { TextInput, Radio, Select, CheckBox, Popup } from "../components";
 import { updateKitchen } from "../actions";
 import { maps } from "../data";
@@ -259,11 +259,6 @@ class StyledForm extends Component {
             i++;
         }
 
-        for (const s in staff[lang]) {
-            options.staff.push(
-                <li key={staff[lang][s]} > <StyledCheckbox field={s} id={s} label={staff[lang][s]} className="d-inline-block" /></li>
-            );
-        }
         return options;
     }
 
@@ -295,7 +290,7 @@ class StyledForm extends Component {
                         defaultValues={kitchen} onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <h4>{registerKitchen[lang].title}</h4>
                                 <p style={{ textAlign: "justify" }}>
                                     {registerKitchen[lang].paragraph5}<br />
@@ -308,12 +303,11 @@ class StyledForm extends Component {
 
                                 {Inputs.slice(3)}
 
-                                <CheckBox options={equipment.map} label={registerKitchen[lang].equipment} labels={equipment["fr"]} />
+                                <CheckBox options={equipment.map} label={registerKitchen[lang].equipment} labels={equipment[lang]} />
                                 <CheckBox options={staff.map} label={registerKitchen[lang].staff} labels={staff[lang]} />
                                 <Radio id="cancellation" label={registerKitchen[lang].cancellation} labels={cancellation[lang]} options={cancellation.map} />
-
-                                <div htmlFor="events" className="form-group">
-                                    <label>{registerKitchen[lang].events}</label>
+                                <div className="form-group">
+                                    <label htmlFor="events">{registerKitchen[lang].events}?</label>
                                     <StyledRadioGroup onChange={(e) => { kitchen.events = e; }} field="events">
                                         {group => (
                                             <ul className="radio-grid" >
@@ -324,11 +318,9 @@ class StyledForm extends Component {
                                     </StyledRadioGroup>
                                 </div>
                                 {kitchen.events ? (
-                                    <div className="form-group" >
-                                        <label htmlFor="standingCapacity">{registerKitchen[lang].capacityStanding}</label>
-                                        <StyledText className="form-control" type="number" field="standingCapacity" id="standing-capacity" />
-                                        <label htmlFor="standingCapacity">{registerKitchen[lang].capacitySitting}</label>
-                                        <StyledText className="form-control" type="number" field="sittingCapacity" id="sitting-capacity" />
+                                    <div>
+                                        <TextInput id="standingCapacity" label={registerKitchen[lang].capacityStanding} type="number" />
+                                        <TextInput id="sittingCapacity" label={registerKitchen[lang].capacitySitting} type="number" />
                                     </div>
                                 ) : null}
                                 <div className="form-group" id="terms" >

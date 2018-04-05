@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "../styles/forms.css";
+import { uploadImage, errors } from "../data/text";
 
 class StyledForm extends Component {
 
@@ -8,11 +9,12 @@ class StyledForm extends Component {
         super(props);
         this.state = {
             kitchenName: "default",
+            message: "",
         };
     }
 
     componentWillMount = () => {
-        const { kitchen } = this.props;
+        const { kitchen, lang } = this.props;
         const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}`;
         fetch(url, {
             method: "GET",
@@ -27,14 +29,14 @@ class StyledForm extends Component {
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error connecting to server. Try again later." });
+                this.setState({ message: errors[lang].errorMessageConnect });
             });
 
     }
 
     submit = (e) => {
         e.preventDefault();
-        const { kitchen, user } = this.props;
+        const { kitchen, user, lang } = this.props;
         const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/upload`;
         fetch(url, {
             method: "PUT",
@@ -49,16 +51,16 @@ class StyledForm extends Component {
         })
             .then(res => res.json())
             .then(kitchen => {
-                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image uploaded" });
+                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: uploadImage[lang].uploadedMsg });
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error uploading. Try again later." });
+                this.setState({ message: uploadImage[lang].errorMsg });
             });
     }
 
     handleFile = (e) => {
-
+        const { lang } = this.props;
         const reader = new FileReader();
         const file = e.target.files[0];
         reader.onload = (upload) => {
@@ -68,14 +70,14 @@ class StyledForm extends Component {
         };
         reader.onerror = (err) => {
             console.log(err);
-            this.setState({ message: "Error reading file." });
+            this.setState({ message: uploadImage[lang].errorReading });
         };
         reader.readAsDataURL(file);
     }
 
     delete = (e) => {
         e.preventDefault();
-        const { kitchen, user } = this.props;
+        const { kitchen, user, lang } = this.props;
         const images = [];
         const url = `http://0.0.0.0:9000/api/kitchens/${kitchen.id}/images/delete`;
         for (const image of this.state.images) {
@@ -96,15 +98,16 @@ class StyledForm extends Component {
         })
             .then(res => res.json())
             .then(kitchen => {
-                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: "Image deleted" });
+                this.setState({ images: kitchen.images, kitchenName: kitchen.name, image: null, message: uploadImage[lang].uploadedMsg });
                 document.getElementById("image").value = "";
             })
             .catch(err => {
-                this.setState({ message: "Error uploading. Try again later." });
+                this.setState({ message: uploadImage[lang].errorMsg });
             });
     }
 
     render = () => {
+        const { lang } = this.props;
         if (this.state.images) {
             var Images = [];
             for (const image of this.state.images) {
@@ -115,11 +118,12 @@ class StyledForm extends Component {
                 );
             }
         }
+
         return (
             <div>
                 <form onSubmit={this.submit} id="form" className="form-container image-upload">
                     <div className="form-group" >
-                        <label htmlFor="image">Upload an image</label>
+                        <label htmlFor="image">{uploadImage[lang].uploadImg}</label>
                         <input type="file" accept="image/*" field="image" id="image" onChange={this.handleFile} />
                     </div>
                     {this.state.image ?
@@ -127,7 +131,7 @@ class StyledForm extends Component {
                         :
                         null
                     }
-                    <button id="submit" type="submit" className="mb-4 btn btn-orange">Upload</button>
+                    <button id="submit" type="submit" className="mb-4 btn btn-orange">{uploadImage[lang].upload}</button>
                     <h4 className="uploaded-message">{this.state.message}</h4>
                 </form>
                 {Images ?
@@ -137,7 +141,7 @@ class StyledForm extends Component {
                         </div>
                         <br />
                         <button id="delete" type="submit" className="mb-4 btn btn-danger">
-                            <i className="fa fa-trash" aria-hidden="true"></i>&nbsp; Remove
+                            <i className="fa fa-trash" aria-hidden="true"></i>&nbsp; {uploadImage[lang].remove}
                         </button>
                     </form>
 
@@ -151,6 +155,7 @@ class StyledForm extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     kitchen: state.kitchen,
+    lang: state.user.lang,
 });
 
 export default connect(

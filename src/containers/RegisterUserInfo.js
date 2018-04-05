@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledText, StyledRadioGroup, StyledRadio, StyledSelect } from "react-form";
-import { TextInput, Select, Popup } from "../components";
+import { Form } from "react-form";
+import { TextInput, Select, Radio, Popup } from "../components";
 import { updateUser, updateInfo } from "../actions";
-import { register, registerUserInfo, orderType, region, weekDays, popup, errors } from "../data/text";
+import { register, registerUserInfo, order, region, weekDays, activity, purpose, popup, errors } from "../data/text";
 import "../styles/forms.css";
 
 class StyledForm extends Component {
@@ -195,6 +195,7 @@ class StyledForm extends Component {
             phone: info.phone || user.phone || "",
             activity: info.activity || user.activity || "",
         });
+
         return (
             this.state.redirect ?
                 <Redirect push to={this.state.redirect} />
@@ -206,76 +207,23 @@ class StyledForm extends Component {
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <h3><b>{text.title}</b></h3>
-                                <div className="form-group radio-group">
-                                    <StyledRadioGroup field="activity" id="activity">
-                                        {group => (
-                                            <ul className="radio-grid" >
-                                                <label htmlFor="activity">{text.activity}</label>
-                                                <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="organiser" id="organiser" label="Je veux organiser des ateliers" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="caterer" id="caterer" label="Traiteur sans atelier" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="professional" id="professional" label="Professionnel ayant besoin de plus d'espace" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="kitchenworker" id="kitchenworker" label="Je travaille en cuisine (Chef, CDP, commis, plongeur, autre)" className="d-inline-block" /> </li>
-                                            </ul>
-                                        )}
-                                    </StyledRadioGroup>
-                                </div>
-                                <div className="form-group radio-group">
-                                    <StyledRadioGroup field="purpose" id="purpose">
-                                        {group => (
-                                            <ul className="radio-grid" >
-                                                <label htmlFor="kitchenOwner">{text.purpose}</label>
-                                                <li> <StyledRadio group={group} value="catering" id="catering" label="Assurer mon service de traiteur" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="entreprise" id="entreprise" label="Lancer mon entreprise / mon produit / ma gamme" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="workshop" id="workshop" label="Organiser un atelier culinaire" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="upscaling" id="upscaling" label="Accroitre ma production" className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="delivery" id="delivery" label="Créer un restaurant avec livraison au consommateur" className="d-inline-block" /> </li>
-                                            </ul>
-                                        )}
-                                    </StyledRadioGroup>
-                                </div>
-                                <div id="userinfo-select" className="form-group" style={{ marginLeft: "0" }} >
-                                    <StyledSelect field="region" id="region" style={{ marginLeft: "0" }}
-                                        options={regionOptions} />
-                                </div>
+                                <Radio id="activity" options={activity.map} label={text.activity} labels={activity[lang]} />
+                                <Radio id="purpose" options={purpose.map} label={text.purpose} labels={purpose[lang]} />
+                                <Select id="region" options={regionOptions} />
                                 <TextInput id="phone" placeholder={register[lang].phone} icon="fa-phone-square" />
                                 <h3>{text.datesTitle}</h3>
-                                <div className="form-group radio-group">
-                                    <StyledRadioGroup field="type" id="type" onChange={this.onTypeChange} >
-                                        {group => (
-                                            <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="once" id="once" label={orderType[lang].once} className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label={orderType[lang].recurring} className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="long" id="long" label={orderType[lang].long} className="d-inline-block" /> </li>
-                                            </ul>
-                                        )}
-                                    </StyledRadioGroup>
-                                </div>
+                                <Radio id={"type"} options={["once", "recurring", "long"]} labels={order[lang]} onChange={this.onTypeChange} />
                                 {type ? type !== "recurring" ?
                                     <div className="inline">
-                                        <div className="form-group form-group-date" >
-                                            <label htmlFor="dateFrom">{text.dateFrom}</label>
-                                            <StyledText type="date" field="dateFrom" id="dateFrom" className="form-control" />
-                                        </div>
-                                        <div className="form-group form-group-date" >
-                                            <label htmlFor="dateTo">{text.dateTo}</label>
-                                            <StyledText type="date" field="dateTo" id="dateTo" className="form-control" />
-                                        </div>
+                                        <TextInput id="dateFrom" label={text.dateFrom} type="date" />
+                                        <TextInput id="dateTo" label={text.dateTo} type="date" />
                                     </div>
                                     :
                                     <div className="inline">
-                                        <div className="form-group form-group-date">
-                                            <label htmlFor="daysFrom">{text.daysFrom}</label>
-                                            <StyledSelect field="daysFrom" id="daysFrom" options={dayOptions} />
-                                        </div>
-                                        <div className="form-group form-group-date">
-                                            <label htmlFor="daysTo">{text.daysTo}</label>
-                                            <StyledSelect field="daysTo" id="daysTo" options={dayOptions} />
-                                        </div>
+                                        <Select id="daysFrom" options={dayOptions} label={text.daysFrom} className="form-group form-group-date" />
+                                        <Select id="daysTo" options={dayOptions} label={text.daysTo} className="form-group form-group-date" />
                                     </div>
                                     : null}
                                 {type && type !== "long" ?
@@ -300,7 +248,7 @@ class StyledForm extends Component {
                         message={this.state.popup.message}
                         btn="ok"
                         close={this.closePopup} />
-                </div>
+                </div >
 
         );
     }

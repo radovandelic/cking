@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledRadioGroup, StyledRadio } from "react-form";
+import { Form } from "react-form";
 import { TextInput, Radio, Select, Popup } from "../components";
 import { updateUser } from "../actions";
-import { register, region, popup, errors } from "../data/text";
+import { register, region, popup, errors, activity } from "../data/text";
 import "../styles/forms.css";
 
 const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -128,35 +128,20 @@ class StyledForm extends Component {
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
                         {formApi => (
-                            <form onSubmit={formApi.submitForm} id="form" className="form-container">
+                            <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <div className="inline">
                                     <TextInput id="firstName" placeholder={label.firstName} />
                                     <TextInput id="lastName" placeholder={label.lastName} />
                                 </div>
-                                <Radio id="kitchenOwner" options={["false", "true"]} key={lang}
+                                <Radio id="kitchenOwner" options={["false", "true"]}
                                     labels={{ false: label.kitchenOwner0, true: label.kitchenOwner1 }} />
                                 <Select id="region" options={regionOptions} />
                                 <TextInput id="name" placeholder={label.username} icon="fa-user" />
                                 <TextInput id="email" placeholder="Email" icon="fa-envelope" readOnly />
                                 <TextInput id="phone" placeholder={label.phone} icon="fa-phone-square" />
 
-                                {!user.kitchenOwner ?
-                                    <div className="form-group radio-group">
-                                        <label htmlFor="activity">Votre activité:</label>
-                                        <StyledRadioGroup field="activity" id="activity">
-                                            {group => (
-                                                <ul className="radio-grid" >
-                                                    <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="organiser" id="organiser" label="Je veux organiser des ateliers" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="caterer" id="caterer" label="Traiteur sans atelier" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="professional" id="professional" label="Professionnel ayant besoin de plus d'espace" className="d-inline-block" /> </li>
-                                                    <li> <StyledRadio group={group} value="kitchenworker" id="kitchenworker" label="Je travaille en cuisine (Chef, CDP, commis, plongeur, autre)" className="d-inline-block" /> </li>
-                                                </ul>
-                                            )}
-                                        </StyledRadioGroup>
-                                    </div>
+                                {!user.kitchenOwner
+                                    ? <Radio id="activity" options={activity.map} label={label.activity} labels={activity[lang]} />
                                     : null
                                 }
                                 <div className="form-group" >

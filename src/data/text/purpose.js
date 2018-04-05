@@ -15,9 +15,16 @@ export default {
     },
     en: {
         entreprise: "Start my business / product / range",
-        upscaling: "Increase my production",
-        catering: "Insure my catering service",
+        upscaling: "Grow my production",
+        catering: "Run my catering service",
         workshop: "Organize a culinary workshop",
         delivery: "Create a restaurant with delivery to the consumer",
     },
+    map: [
+        "catering",
+        "entreprise",
+        "workshop",
+        "upscaling",
+        "delivery",
+    ],
 };

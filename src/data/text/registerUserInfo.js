@@ -48,7 +48,7 @@ export default {
         purpose: "I will use this kitchen to ...",
         datesTitle: "Use: date, days and hours",
         commentsHeader0: "Comments ? ",
-        commentsHeader1: "Help us find the ideal workshop",
+        commentsHeader1: "Help us find your ideal workshop",
     },
 };
 
