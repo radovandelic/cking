@@ -14,6 +14,7 @@ export default {
         commentsHeader1: "Aidez-nous à vous trouver l'atelier idéal",
         comments: "Vos commentaires",
         successMessage: "Votre demande a été transmise à l'équipe Cookwork. Vous devriez recevoir une réponse bientôt.",
+        submit: "Soumettre",
     },
     nl: {
         title: "Zoek nu de keuken die je nodig hebt",
@@ -25,6 +26,12 @@ export default {
         to: "tot",
         comments: "Uw opmerkingen",
         successMessage: "Uw aanvraag is doorgestuurd naar het Cookwork-team. Binnenkort ontvangt u een reactie.",
+        activity: "Jouw activiteit:",
+        purpose: "Ik zal deze keuken gebruiken om ...",
+        datesTitle: "Gebruik: datum, dagen en uren",
+        commentsHeader0: "Opmerkingen? ",
+        commentsHeader1: "Help ons de ideale workshop te vinden",
+        submit: "Voorleggen",
     },
     en: {
         title: "Find the kitchen you need, now",
@@ -37,6 +44,11 @@ export default {
         comments: "Your comments",
         submit: "Submit",
         successMessage: "Your request has been forwarded to the Cookwork team. You should receive a response soon.",
+        activity: "Your activity:",
+        purpose: "I will use this kitchen to ...",
+        datesTitle: "Use: date, days and hours",
+        commentsHeader0: "Comments ? ",
+        commentsHeader1: "Help us find the ideal workshop",
     },
 };
 

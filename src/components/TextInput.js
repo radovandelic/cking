@@ -6,10 +6,13 @@ export default (props) => {
     return (
         <div className={"form-group" + (icon ? " has-feedback" : "")} >
             {label ? <label htmlFor={id}>{label}</label> : null}
+
             {type === "textarea" ?
-                <StyledTextArea field={id} id={id} className="form-control" rows="4" />
+                <StyledTextArea field={id} id={id} placeholder={placeholder} className="form-control" rows="4" />
                 :
-                <StyledText field={id} id={id} type={type || "text"} className="form-control" placeholder={placeholder} min={min} max={max} readOnly={readOnly} />}
+                <StyledText field={id} id={id} type={type || "text"} className="form-control" placeholder={placeholder} min={min} max={max} readOnly={readOnly} />
+            }
+
             {icon ? <i className={`fa ${icon} form-control-feedback`}></i> : null}
         </div>
     );

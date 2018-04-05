@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, StyledText, StyledTextArea, StyledRadioGroup, StyledRadio, StyledSelect } from "react-form";
-import { Popup } from "../components";
+import { Form, StyledText, StyledRadioGroup, StyledRadio, StyledSelect } from "react-form";
+import { TextInput, Select, Popup } from "../components";
 import { updateUser, updateInfo } from "../actions";
 import { register, registerUserInfo, orderType, region, weekDays, popup, errors } from "../data/text";
 import "../styles/forms.css";
@@ -212,7 +212,7 @@ class StyledForm extends Component {
                                     <StyledRadioGroup field="activity" id="activity">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <label htmlFor="activity">Votre activité:</label>
+                                                <label htmlFor="activity">{text.activity}</label>
                                                 <li> <StyledRadio group={group} value="restoraunt" id="restoraunt" label="Restaurateur" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="entrepreneur" id="entrepreneur" label="Entrepreneur dans l'alimentation" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="chef" id="chef" label="Chef itinérant" className="d-inline-block" /> </li>
@@ -228,7 +228,7 @@ class StyledForm extends Component {
                                     <StyledRadioGroup field="purpose" id="purpose">
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <label htmlFor="kitchenOwner">J'utiliserai cette cuisine pour ...</label>
+                                                <label htmlFor="kitchenOwner">{text.purpose}</label>
                                                 <li> <StyledRadio group={group} value="catering" id="catering" label="Assurer mon service de traiteur" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="entreprise" id="entreprise" label="Lancer mon entreprise / mon produit / ma gamme" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="workshop" id="workshop" label="Organiser un atelier culinaire" className="d-inline-block" /> </li>
@@ -242,16 +242,15 @@ class StyledForm extends Component {
                                     <StyledSelect field="region" id="region" style={{ marginLeft: "0" }}
                                         options={regionOptions} />
                                 </div>
-                                <div className="form-group has-feedback" >
-                                    <StyledText className="form-control" placeholder="Numéro de téléphone " type="text" field="phone" id="phone" />
-                                </div> <h3>Utilisation: date, jours et heures</h3>
+                                <TextInput id="phone" placeholder={register[lang].phone} icon="fa-phone-square" />
+                                <h3>{text.datesTitle}</h3>
                                 <div className="form-group radio-group">
                                     <StyledRadioGroup field="type" id="type" onChange={this.onTypeChange} >
                                         {group => (
                                             <ul className="radio-grid" >
-                                                <li> <StyledRadio group={group} value="once" id="once" label={orderType["fr"].once} className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label={orderType["fr"].recurring} className="d-inline-block" /> </li>
-                                                <li> <StyledRadio group={group} value="long" id="long" label={orderType["fr"].long} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="once" id="once" label={orderType[lang].once} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="recurring" id="recurring" label={orderType[lang].recurring} className="d-inline-block" /> </li>
+                                                <li> <StyledRadio group={group} value="long" id="long" label={orderType[lang].long} className="d-inline-block" /> </li>
                                             </ul>
                                         )}
                                     </StyledRadioGroup>
@@ -281,30 +280,17 @@ class StyledForm extends Component {
                                     : null}
                                 {type && type !== "long" ?
                                     <div className="inline">
-                                        <div className="form-group" >
-                                            <label htmlFor="hoursFrom">{text.from}</label>
-                                            <StyledSelect field="hoursFrom" id="hoursFrom" options={hourOptions} />
-                                        </div>
-                                        <div className="form-group" >
-                                            <label htmlFor="hoursTo">{text.to}</label>
-                                            <StyledSelect field="hoursTo" id="hoursTo" options={hourOptions} />
-                                        </div>
-                                        <div className="form-group" >
-                                        </div>
-                                        <div className="form-group" >
-                                        </div>
+                                        <Select id="hoursFrom" label={text.from} options={hourOptions} />
+                                        <Select id="hoursTo" label={text.to} options={hourOptions} />
+                                        <div className="form-group" />
+                                        <div className="form-group" />
                                     </div>
                                     : null}
+                                <TextInput id="time" type="hidden" />
+                                <TextInput id="comments" type="textarea" placeholder={text.comments}
+                                    label={(<div>{text.commentsHeader0}<br />{text.commentsHeader1}</div>)} />
                                 <div className="form-group" >
-                                    <StyledText type="hidden" field="time" id="time" />
-                                </div>
-                                <div className="form-group" >
-                                    <label htmlFor="comments">{registerUserInfo["fr"].commentsHeader0}</label>
-                                    <label htmlFor="comments">{registerUserInfo["fr"].commentsHeader1}</label>
-                                    <StyledTextArea className="form-control" placeholder={text.comments} rows="4" field="comments" id="comments" />
-                                </div>
-                                <div className="form-group" >
-                                    <button id="submit" type="submit" className="btn btn-orange">{registerUserInfo["en"].submit}</button>
+                                    <button id="submit" type="submit" className="btn btn-orange">{text.submit}</button>
                                 </div>
                             </form>
                         )}

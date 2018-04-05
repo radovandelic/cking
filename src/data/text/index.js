@@ -24,7 +24,7 @@ export {
 };
 
 const text = {
-    equipment, staff, type, cancellation, region, activity, purpose, header, dashboard,
+    equipment, staff, type, cancellation, region, activity, purpose, orderType, header, faq, home, dashboard,
     register, registerKitchen, uploadImage, registerUserInfo, weekDays, popup, errors,
 };
 
