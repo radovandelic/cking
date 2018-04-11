@@ -5,8 +5,8 @@ export default {
         title1: "Louez une cuisine près de chez vous, facilement",
         description1: (
             <div className="home-description">
-                <h4>CookWork vous permet de louer un atelier pro</h4>
-                <h4>aux normes AFSCA en toute flexibilité</h4>
+                <h4>CookWork vous permet de louer un atelier pro
+                aux normes AFSCA en toute flexibilité</h4>
             </div>),
         selectRegionDefault: "Ville / Region",
         selectTypeDefault: "Espace de cuisine",
@@ -46,7 +46,7 @@ export default {
             </div>),
 
         faqTitle: "Des questions? Vos premières réponses",
-        faqFooter: "Autre questions? Hesitate pas à nous contacter",
+        faqFooter: "Autre questions? Contactez-nous",
         contactTitle: "Des questions?",
         message: "Message",
     },
@@ -54,8 +54,8 @@ export default {
         title1: "Huur eenvoudig een keuken bij jou in de buurt",
         description1: (
             <div className="home-description">
-                <h4>Via CookWork huur je snel en flexibel een professionele,</h4>
-                <h4>AFSCA goedgekeurde keuken</h4>
+                <h4>Via CookWork huur je snel en flexibel een professionele,
+                AFSCA goedgekeurde keuken</h4>
             </div>),
         selectRegionDefault: "Stad / Regio",
         selectTypeDefault: "Type keuken",
@@ -103,8 +103,8 @@ export default {
         title1: "Rent a kitchen near you, easily",
         description1: (
             <div className="home-description">
-                <h4>CookWork allows you to rent a professional kitchen in all flexibility,</h4>
-                <h4>approved by AFSCA standards</h4>
+                <h4>CookWork allows you to rent a professional kitchen in all flexibility,
+                approved by AFSCA standards</h4>
             </div>),
         selectRegionDefault: "City / Region",
         selectTypeDefault: "Type of kitchen",

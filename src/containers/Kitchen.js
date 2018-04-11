@@ -217,8 +217,8 @@ class Kitchen extends Component {
                 {kitchen.events ?
                     <div className="single-listing-information">
                         <h4 id="events"><i className="fa fa-check"></i> {text.events}</h4>
-                        {kitchen.standingCapacity ? <h5>{text.capacityStanding}: {kitchen.standingCapacity}</h5> : null}
-                        {kitchen.sittingCapacity ? <h5>{text.capacitySitting}: {kitchen.sittingCapacity}</h5> : null}
+                        {kitchen.standingCapacity ? <h5>{text.capacityStanding} {kitchen.standingCapacity}</h5> : null}
+                        {kitchen.sittingCapacity ? <h5>{text.capacitySitting} {kitchen.sittingCapacity}</h5> : null}
                     </div>
                     : null
                 }

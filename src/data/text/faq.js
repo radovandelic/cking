@@ -117,20 +117,20 @@ export default {
         A: `Les cuisines et les cuisiniers sont sélectionnés via le formulaire et par contact direct pour introduction. Nous savons immédiatement quels candidats ont la motivation, le profil et partagent la même vision.`,
     },
     {
-        Q: `Qui détermine quelle cuisine et quel chef/entrepreneur travailleront ensemble?`,
-        A: `Un premier contact entre la cuisine et le chef/entrepreneur est faite par l'équipe CookWork. C'est la cuisine qui prend la décision finale pour accepter la demande.`,
+        Q: `Qui détermine quelle cuisine et quel locataire travailleront ensemble?`,
+        A: `Un premier contact entre la cuisine et le locataire est faite par l'équipe CookWork. C'est la cuisine qui prend la décision finale pour accepter la demande.`,
     },
     {
         Q: `Qui paie quoi?`,
-        A: `Le chef/entrepreneur paye un loyer ou ses heures qu'il a demandé, sans autres charges d'énergie; Le starter et l'hôte payent également une caution de base à la cuisine, mais il est remboursé après utilisation.`,
+        A: `Le locataire paye un loyer ou ses heures qu'il a demandé, sans autres charges d'énergie; Le starter et l'hôte payent également une caution de base à la cuisine, mais il est remboursé après utilisation.`,
     },
     {
         Q: `Je travaille avec un autre projet similaire dans la cuisine, et la concurrence?`,
         A: `CookWork est l'extension du premier coworking culinaire en Belgique Co-oking. Le concept fonctionne depuis 2 ans et ne fait qu'évoluer. L'esprit de compétition n'est pas la dynamique sur laquelle s'est construit ce réseaux, mais plutôt celui de la communauté, enfin un groupe qui vous convient pour démarrer votre affaire! `,
     },
     {
-        Q: `Que faire si quelque chose ne va pas avec le chef/entrepreneur (financier, accident, ...)?`,
-        A: `Chaque chef/entrepreneur doit être assuré. De cette façon, vous êtes protégé en cas d'incendie, d'accident ou d'autres dommages, et ce pendant toute la période de production`,
+        Q: `Que faire si quelque chose ne va pas avec le locataire (financier, accident, ...)?`,
+        A: `Chaque locataire doit être assuré. De cette façon, vous êtes protégé en cas d'incendie, d'accident ou d'autres dommages, et ce pendant toute la période de production`,
     },
     {
         Q: `La cuisine peut-elle décider d'arrêter la collaboration?`,
@@ -142,10 +142,10 @@ export default {
     },
     {
         Q: `Qu'en est-il de la sécurité alimentaire?`,
-        A: `Chaque chef/entrepreneur doit avoir un certificat AFSCA. Vous devez demander ce document en ligne sur www.afsca.be avant le début de votre projet`,
+        A: `Chaque locataire doit avoir un certificat AFSCA. Vous devez demander ce document en ligne sur www.afsca.be avant le début de votre projet`,
     },
     {
-        Q: `En tant que chef/entrepreneur, dois-je payer quelque chose après l'utilisation?`,
+        Q: `En tant que locataire, dois-je payer quelque chose après l'utilisation?`,
         A: `La seule chose que vous devez faire après la période d'essai est de profiter de votre propre entreprise!`,
     }],
 };

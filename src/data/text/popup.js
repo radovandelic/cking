@@ -46,7 +46,7 @@ export default {
         no: "No",
         ok: "Ok",
         message: "Message",
-        submit: "Envoyer",
+        submit: "Send",
         successTitle: "Success",
         successMessageUpdate: "Your kitchen has been updated.",
         successTitleContact: "Message sent",

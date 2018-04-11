@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, StyledRadio, StyledRadioGroup, StyledCheckbox } from "react-form";
+import base64 from "base-64";
 import { TextInput, Radio, Select, CheckBox, Popup } from "../components";
 import { updateKitchen } from "../actions";
 import { maps } from "../data";
@@ -152,6 +153,19 @@ class StyledForm extends Component {
         const { updateKitchen, access_token, lang } = this.props;
         submittedValues = this.formatData(submittedValues);
         submittedValues.access_token = access_token;
+        submittedValues = JSON.stringify(submittedValues);
+
+        try { base64.encode(submittedValues); } catch (err) {
+            return this.setState({
+                overlay: "overlay on",
+                popup: {
+                    message: "The entered information contains unsupported characters. Please revise.",
+                    title: popup[lang].errorTitle,
+                    btn: "ok",
+                },
+            });
+        }
+
         const url = "http://0.0.0.0:9000/api/kitchens";
         const query = {
             headers: {
@@ -159,10 +173,13 @@ class StyledForm extends Component {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(submittedValues),
+            body: submittedValues,
         };
         fetch(url, query)
-            .then(res => res.json())
+            .then(res => {
+                base64.encode(submittedValues);
+                return res.json();
+            })
             .then(data => {
                 updateKitchen(data);
                 this.setState({
@@ -193,7 +210,6 @@ class StyledForm extends Component {
     onSubmitFailure = (errors) => {
         for (const err in errors) {
             if (errors[err]) {
-                console.log(err);
                 const e = document.getElementById(err);
                 if (err === "hoursmsg" || err === "daysmsg") {
                     e.scrollIntoView(true);

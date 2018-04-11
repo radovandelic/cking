@@ -57,6 +57,17 @@ class Header extends Component {
                             </Link>
                         </div>
 
+                        {/*                         <ul className="nav navbar-nav navbar-left">
+                            <div className="select lang">
+                                <select key={lang} defaultValue={lang} onChange={this.langChange}>
+                                    <option value="fr" >FR</option>
+                                    <option value="nl" >NL</option>
+                                    <option value="en" >EN</option>
+                                </select>
+                                <div className="select_arrow">
+                                </div>
+                            </div>
+                        </ul> */}
                         <div className="collapse navbar-collapse">
                             {!user.id ?
                                 <ul className="nav navbar-nav navbar-right">

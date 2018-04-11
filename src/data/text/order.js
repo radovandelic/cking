@@ -17,7 +17,7 @@ export default {
         estimate: "Le prix estimé pour la période sélectionnée",
         serviceFee: "de frais de service, TVA non comprise",
         availability: "La disponibilité de cette cuisine est",
-        submit: "Passer la commande",
+        submit: "Demande de réservation",
         successMessage: "Vous avez passé une commande avec succès. Vous recevrez une réponse de Cookwork bientôt.",
     },
     nl: {
