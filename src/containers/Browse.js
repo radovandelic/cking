@@ -71,6 +71,7 @@ class Browse extends Component {
         const { user, lang } = this.props;
         const { region } = this.props.match.params;
         const Listings = [];
+        const exVAT = lang === "fr" ? "HTVA" : lang === "nl" ? "exc. BTW" : "excl. VAT";
         for (const kitchen of kitchens) {
             Listings.push(
                 <div key={kitchen.id} className="thumb-container">
@@ -97,7 +98,7 @@ class Browse extends Component {
                         </div>
                         <div className="listing-info price">
                             <Link className="price" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
-                                {user.id ? <h3>€{+(kitchen.price * 1.2).toFixed(2)} / h</h3> : <button className="btn btn-orange">More Info</button>}
+                                {user.id ? <h3>€{+(kitchen.price * 1.2).toFixed(2)} / h <br /> ({exVAT})</h3> : <button className="btn btn-orange">More Info</button>}
                             </Link>
                         </div>
                     </div>
