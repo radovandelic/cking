@@ -130,7 +130,7 @@ class StyledForm extends Component {
                 const totalDays = type === "once" ? (dateTo - dateFrom) / 86400000 + 1 : daysTo - daysFrom + 1;
                 const totalHours = totalDays * (hoursTo - hoursFrom);
                 if (totalHours <= 0) return msg.time;
-                if (totalHours < 4) return msg.minimum + " 4 " + order[lang].hours;
+                if (totalHours < 4) return msg.minimum;
             }
             return null;
         };
@@ -266,8 +266,8 @@ class StyledForm extends Component {
         const text = order[lang];
         const radioOptions = rent !== -1 ? ["once", "recurring", "long"] : ["once", "recurring"];
         const radioLabels = {
-            once: `${text.once} (€${+price.toFixed(2)}/h + ${order[lang].VAT}, minimum 4 ${text.hours})`,
-            recurring: `${text.recurring} (€${+price.toFixed(2)}/h + ${order[lang].VAT}, minimum 4 ${text.hours}/${text.week})`,
+            once: `${text.once} (€${+price.toFixed(2)}/h + ${order[lang].VAT})`,
+            recurring: `${text.recurring} (€${+price.toFixed(2)}/h + ${order[lang].VAT})`,
             long: `${text.long} (€${+rent.toFixed(2)}/${text.month} + ${order[lang].VAT}, minimum 6 ${text.months})`,
         };
 
