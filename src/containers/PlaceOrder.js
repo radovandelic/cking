@@ -77,8 +77,8 @@ class StyledForm extends Component {
                 const kitchen = { id: data.id, name: data.name, address: data.address, postalCode: data.postalCode, region: data.region };
                 const hours = data.hours && data.hours.hoursFrom && data.hours.hoursTo ? data.hours : { hoursFrom: 0, hoursTo: 24 };
                 const days = data.days && data.days.daysFrom && data.days.daysTo ? data.days : { daysFrom: 1, daysTo: 0 };
-                const price = data.price;
-                const rent = data.rent || -1;
+                const price = +(data.price * 1.2).toFixed(2); // base price + service fee, rounded to 2 decimals
+                const rent = +(data.rent * 1.2).toFixed(2) || -1; // base price + service fee, rounded to 2 decimals
                 this.setState({ hours, days, price, rent, kitchen });
             });
 
@@ -109,25 +109,28 @@ class StyledForm extends Component {
         };
         const validateTime = (values) => {
             const { type } = this.state;
+            const dateFrom = new Date(values.dateFrom);
+            const dateTo = new Date(values.dateTo);
+            const daysFrom = Number(values.daysFrom) || 7;
+            const daysTo = Number(values.daysTo) || 7;
             if (type !== "recurring") {
                 let today = new Date();
                 today -= today % 86400000; // set time to midnight
                 today = new Date(today);
-                const dateFrom = new Date(values.dateFrom);
-                const dateTo = new Date(values.dateTo);
                 const totalDays = (dateTo - dateFrom) / 86400000;
                 if (totalDays < 0 || dateFrom < today) return msg.time;
-                if (type === "long" && totalDays < 180) return `${msg.minimum} 6 ${order[lang].months}`;
+                if (type === "long" && totalDays < 180) return `${msg.minimumMonths} 6 ${order[lang].months}`;
             }
             if (type === "recurring") {
-                const daysFrom = Number(values.daysFrom) || 7;
-                const daysTo = Number(values.daysTo) || 7;
                 if (daysFrom > daysTo) return msg.time;
             }
             if (type !== "long") {
                 const hoursFrom = Number(values.hoursFrom);
                 const hoursTo = Number(values.hoursTo);
-                if (hoursTo - hoursFrom <= 0) return msg.time;
+                const totalDays = type === "once" ? (dateTo - dateFrom) / 86400000 + 1 : daysTo - daysFrom + 1;
+                const totalHours = totalDays * (hoursTo - hoursFrom);
+                if (totalHours <= 0) return msg.time;
+                if (totalHours < 4) return msg.minimum + " 4 " + order[lang].hours;
             }
             return null;
         };
@@ -168,11 +171,10 @@ class StyledForm extends Component {
                         }
                     }
                     totalHours *= totalDays;
-                    totalPrice = (totalHours * price);
-                    totalPrice += 0.15 * totalPrice;
+                    totalPrice = totalHours * price;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalHours) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice} (€${price}/h + 15% ${order[lang].serviceFee})`
+                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21} (€${price}/h + 21% ${order[lang].VAT})`
                         : "";
                 case "recurring":
                     const daysFrom = Number(values.daysFrom) || 7;
@@ -181,10 +183,9 @@ class StyledForm extends Component {
                     totalDays = (daysTo - daysFrom) + 1;
                     totalHours *= totalDays;
                     totalPrice = totalHours * price;
-                    totalPrice += 0.15 * totalPrice;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice}/${order[lang].week} (€${price}/h + 15% ${order[lang].serviceFee})`
+                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21}/${order[lang].week} (€${price}/h + 21% ${order[lang].VAT})`
                         : "";
                 case "long":
                     const { rent } = this.state;
@@ -192,10 +193,9 @@ class StyledForm extends Component {
 
                     const totalMonths = Math.round(totalDays / 30);
                     totalPrice = totalMonths * rent;
-                    totalPrice += 0.15 * totalPrice;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalMonths} ${order[lang].months}) ${lang === "fr" ? "est" : "is"} €${totalPrice} (€${rent}/month + 15% ${order[lang].serviceFee})`
+                        `${order[lang].estimate} (${totalMonths} ${order[lang].months}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21} (€${rent}/month + 21% ${order[lang].VAT})`
                         : "";
                 default:
                     return null;
@@ -266,9 +266,9 @@ class StyledForm extends Component {
         const text = order[lang];
         const radioOptions = rent !== -1 ? ["once", "recurring", "long"] : ["once", "recurring"];
         const radioLabels = {
-            once: `${text.once} (€${price}/h + 15%)`,
-            recurring: `${text.recurring} (€${price}/h + 15%)`,
-            long: `${text.long} (€${rent}/${text.month} + 15%, minimum 6 ${text.months})`,
+            once: `${text.once} (€${+price.toFixed(2)}/h + ${order[lang].VAT}, minimum 4 ${text.hours})`,
+            recurring: `${text.recurring} (€${+price.toFixed(2)}/h + ${order[lang].VAT}, minimum 4 ${text.hours}/${text.week})`,
+            long: `${text.long} (€${+rent.toFixed(2)}/${text.month} + ${order[lang].VAT}, minimum 6 ${text.months})`,
         };
 
         return (

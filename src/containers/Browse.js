@@ -89,7 +89,7 @@ class Browse extends Component {
                                 <h4>{kitchen.name}</h4>
                                 <h6>{type[lang][kitchen.type]}</h6>
                                 <h4>{kitchen.size} m<sup>2</sup> </h4>
-                                {user.id ? <h3 className="price-m">€{kitchen.price} / h</h3> : null}
+                                {user.id ? <h3 className="price-m">€{+(kitchen.price * 1.2).toFixed(2)} / h</h3> : null}
                             </Link>
                             <Link className="address" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
                                 {kitchen.region}
@@ -97,7 +97,7 @@ class Browse extends Component {
                         </div>
                         <div className="listing-info price">
                             <Link className="price" to={user.id ? `/listings/kitchens/${kitchen.id}` : `/register`}>
-                                {user.id ? <h3>€{kitchen.price} / h</h3> : <button className="btn btn-orange">More Info</button>}
+                                {user.id ? <h3>€{+(kitchen.price * 1.2).toFixed(2)} / h</h3> : <button className="btn btn-orange">More Info</button>}
                             </Link>
                         </div>
                     </div>
