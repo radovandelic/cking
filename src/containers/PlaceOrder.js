@@ -174,7 +174,7 @@ class StyledForm extends Component {
                     totalPrice = totalHours * price;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalHours) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21} (€${price}/h + 21% ${order[lang].VAT})`
+                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${+(totalPrice * 1.21).toFixed(2)} (€${price}/h + 21% ${order[lang].VAT})`
                         : "";
                 case "recurring":
                     const daysFrom = Number(values.daysFrom) || 7;
@@ -185,7 +185,7 @@ class StyledForm extends Component {
                     totalPrice = totalHours * price;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21}/${order[lang].week} (€${price}/h + 21% ${order[lang].VAT})`
+                        `${order[lang].estimate} (${totalHours} ${order[lang].hours}) ${lang === "fr" ? "est" : "is"} €${+(totalPrice * 1.21).toFixed(2)}/${order[lang].week} (€${price}/h + 21% ${order[lang].VAT})`
                         : "";
                 case "long":
                     const { rent } = this.state;
@@ -195,7 +195,7 @@ class StyledForm extends Component {
                     totalPrice = totalMonths * rent;
                     this.setState({ totalDays, totalHours, totalPrice });
                     return !isNaN(totalPrice) && totalPrice > 0 ?
-                        `${order[lang].estimate} (${totalMonths} ${order[lang].months}) ${lang === "fr" ? "est" : "is"} €${totalPrice * 1.21} (€${rent}/month + 21% ${order[lang].VAT})`
+                        `${order[lang].estimate} (${totalMonths} ${order[lang].months}) ${lang === "fr" ? "est" : "is"} €${+(totalPrice * 1.21).toFixed(2)} (€${rent}/month + 21% ${order[lang].VAT})`
                         : "";
                 default:
                     return null;
@@ -217,7 +217,7 @@ class StyledForm extends Component {
         submittedValues.kitchen.rent = this.state.rent !== -1 ? this.state.rent : undefined;
         submittedValues.totalDays = this.state.totalDays;
         submittedValues.totalHours = this.state.totalHours;
-        submittedValues.totalPrice = this.state.totalPrice;
+        submittedValues.totalPrice = +this.state.totalPrice.toFixed(2);
         submittedValues.type = this.state.type;
 
         const url = "http://0.0.0.0:9000/api/orders";
