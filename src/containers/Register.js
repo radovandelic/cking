@@ -35,6 +35,9 @@ class StyledForm extends Component {
                 : lastName.length < 2 ? register[lang].lastName + errors[lang].short
                     : null;
         };
+        const validatePhone = (phone) => {
+            return !phone || !phone.trim() ? register[lang].phone + errors[lang].required : null;
+        };
         const validateUserType = (kitchenOwner) => {
             return !kitchenOwner ? register[lang].type + errors[lang].required : null;
         };
@@ -59,6 +62,7 @@ class StyledForm extends Component {
         return {
             firstName: validateFirstName(values.firstName),
             lastName: validateLastName(values.lastName),
+            phone: validatePhone(values.phone),
             kitchenOwner: validateUserType(values.kitchenOwner),
             email: validateEmail(values.email),
             password: validatePassword(values.password),
@@ -137,6 +141,7 @@ class StyledForm extends Component {
                                     <TextInput id="firstName" placeholder={label.firstName} />
                                     <TextInput id="lastName" placeholder={label.lastName} />
                                 </div>
+                                <TextInput id="phone" placeholder={label.phone} icon="fa-phone-square" />
                                 <TextInput id="name" placeholder={label.username} icon="fa-user" />
                                 <TextInput id="email" placeholder={"Email"} type="email" icon="fa-envelope" />
                                 <TextInput id="password" placeholder={label.password} type="password" icon="fa-lock" />
