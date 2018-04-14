@@ -128,7 +128,7 @@ class StyledForm extends Component {
                     overlay: "overlay on",
                     popup: {
                         title: popup[lang].successTitle,
-                        message: registerUserInfo[lang].successTitle,
+                        message: registerUserInfo[lang].successMessage,
                     },
                 });
             })
