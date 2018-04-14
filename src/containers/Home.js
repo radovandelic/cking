@@ -72,6 +72,7 @@ class Home extends Component {
             </div>
             <div className="home-block-3">
                 {home[lang].title3}
+                {home[lang].description3}
             </div>
             <div className="home-block-4" id="FAQ">
                 <div className="home-title"> <h1>FAQ</h1></div>

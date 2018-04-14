@@ -24,7 +24,6 @@ export default {
         title3: (
             <div className="home-title">
                 <h1>Comment ça fonctionne?</h1>
-                <h6>Etapes par étapes, nous vous guidons pour assurer votre booking</h6>
             </div>),
         description3: (
             <div className="home-inline" >
@@ -73,7 +72,6 @@ export default {
         title3: (
             <div className="home-title">
                 <h1>Hoe werkt het?</h1>
-                <h6>Stap voor stap begeleiden we je om je boeking te garanderen</h6>
             </div>),
         description3: (
             <div className="home-inline" >
@@ -122,7 +120,6 @@ export default {
         title3: (
             <div className="home-title">
                 <h1>How it works?</h1>
-                <h6>Step by step we guide you to ensure your booking</h6>
             </div>),
         description3: (
             <div className="home-inline" >
