@@ -66,6 +66,10 @@ nav {
     margin: 0;
 }
 
+.select.lang.mobile {
+    display: none;
+}
+
 .select.lang>select {
     height: 36px;
     padding: 5px 3px;
@@ -92,5 +96,22 @@ nav {
     }
     #lang {
         display: none;
+    }
+    .select.lang.mobile {
+        display: inline-flex;
+        margin: 0;
+        margin-left: -20px;
+        padding: 0;
+        width: 45px;
+    }
+    .select.lang.mobile select {
+        font-size: 10px;
+        margin: 2px 0;
+        height: 36px;
+        border-radius: 5px;
+    }
+    .select.lang.mobile .select_arrow {
+        right: 10px;
+        top: 12px;
     }
 }

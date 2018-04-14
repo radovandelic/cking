@@ -52,13 +52,7 @@ class Header extends Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <Link to="/">
-                                <img className="logo" src={logo} alt="logo" />
-                            </Link>
-                        </div>
-
-                        {/*                         <ul className="nav navbar-nav navbar-left">
-                            <div className="select lang">
+                            <div className="select lang mobile">
                                 <select key={lang} defaultValue={lang} onChange={this.langChange}>
                                     <option value="fr" >FR</option>
                                     <option value="nl" >NL</option>
@@ -67,7 +61,10 @@ class Header extends Component {
                                 <div className="select_arrow">
                                 </div>
                             </div>
-                        </ul> */}
+                            <Link to="/">
+                                <img className="logo" src={logo} alt="logo" />
+                            </Link>
+                        </div>
                         <div className="collapse navbar-collapse">
                             {!user.id ?
                                 <ul className="nav navbar-nav navbar-right">
