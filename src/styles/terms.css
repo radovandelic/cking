@@ -2,15 +2,14 @@ main>.terms-container {
     max-width: 1200px;
 }
 
-.terms-container>p {
+.terms-container>p,
+.terms-container li {
     text-align: justify;
 }
 
 .terms-container>h4 {
     font-weight: bold;
-}
-
-.terms-container>h5 {
-    font-weight: bold;
     text-align: left;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }

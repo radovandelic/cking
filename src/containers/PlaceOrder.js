@@ -266,9 +266,9 @@ class StyledForm extends Component {
         const text = order[lang];
         const radioOptions = rent !== -1 ? ["once", "recurring", "long"] : ["once", "recurring"];
         const radioLabels = {
-            once: `${text.once} (€${+price.toFixed(2)}/h + ${order[lang].VAT})`,
-            recurring: `${text.recurring} (€${+price.toFixed(2)}/h + ${order[lang].VAT})`,
-            long: `${text.long} (€${+rent.toFixed(2)}/${text.month} + ${order[lang].VAT}, minimum 6 ${text.months})`,
+            once: `${text.once} (€${price}/h + ${order[lang].VAT})`,
+            recurring: `${text.recurring} (€${price}/h + ${order[lang].VAT})`,
+            long: `${text.long} (€${rent}/${text.month} + ${order[lang].VAT}, minimum 6 ${text.months})`,
         };
 
         return (

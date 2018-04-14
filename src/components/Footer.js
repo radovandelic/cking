@@ -6,7 +6,7 @@ export default () => (
         <ul className="list-inline">
             <li>
                 <a target="_blank" rel="noopener noreferrer"
-                    href="/terms">Conditions Générales de Vente</a>
+                    href="/terms">Conditions générales d’utilisation</a>
             </li>
 
             <li >
