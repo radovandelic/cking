@@ -25,7 +25,7 @@ class Browse extends Component {
         let { region, type } = this.props.match.params;
         region = region !== "all" ? "&region=" + region : "";
         type = type !== "all" ? "&type=" + type : "";
-        const url = `http://0.0.0.0:9000/api/kitchens?verified=true${region}${type}`;
+        const url = `http://0.0.0.0:9000/api/kitchens?verified=true&sort=createdAt${region}${type}`;
 
         const headers = new Headers();
         headers.append("Accept", "application/json");
