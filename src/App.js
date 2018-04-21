@@ -19,6 +19,19 @@ class App extends Component {
         return null;
     }
 
+    componentDidMount = () => {
+        if (window.location.hostname !== "localhost") {
+            let script = document.createElement("script");
+            script.src = "/static/js/analytics.js";
+            document.body.appendChild(script);
+
+            script = document.createElement("script");
+            script.src = "https://www.googletagmanager.com/gtag/js?id=UA-117632949-1";
+            script.setAttribute("async", "true");
+            document.body.appendChild(script);
+        }
+    }
+
     render = () => {
         const { id, lang } = this.props;
         return (
