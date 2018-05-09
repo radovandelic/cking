@@ -206,7 +206,7 @@ class StyledForm extends Component {
                         validateError={this.errorValidator}
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <h3><b>{text.title}</b></h3>
                                 <Radio id="activity" options={activity.map} label={text.activity} labels={activity[lang]} />
@@ -241,7 +241,7 @@ class StyledForm extends Component {
                                     <button id="submit" type="submit" className="btn btn-orange">{text.submit}</button>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay}
                         title={this.state.popup.title}

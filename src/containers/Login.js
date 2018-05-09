@@ -57,7 +57,7 @@ class StyledForm extends Component {
             .then(data => {
                 data.user.access_token = data.token;
                 updateUser(data.user);
-                if (submittedValues.rememberMe && typeof (Storage) !== undefined) {
+                if (submittedValues.rememberMe && typeof Storage !== undefined) {
                     window.localStorage.setItem("access_token", data.token);
                     window.localStorage.setItem("user", base64.encode(JSON.stringify(data.user)));
                 }
@@ -85,7 +85,7 @@ class StyledForm extends Component {
                     <Form
                         onSubmit={this.submit}
                         defaultValues={{ rememberMe: true }}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container login-container" key={lang}>
                                 <TextInput id="email" placeholder={"Email"} type="email" icon="fa-envelope" />
                                 <TextInput id="password" placeholder={label.password} type="password" icon="fa-lock" />
@@ -98,7 +98,7 @@ class StyledForm extends Component {
                                     </div>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />

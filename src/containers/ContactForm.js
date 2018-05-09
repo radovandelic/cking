@@ -71,13 +71,13 @@ class StyledForm extends Component {
                     overlay: "overlay on",
                     popup: {
                         title: popup[lang].successTitleContact,
-                        message: (
+                        message: 
                             <p>
                                 {popup[lang].successMessageContact1}
                                 <br />
                                 {popup[lang].successMessageContact2}
                             </p>
-                        ),
+                        ,
                     },
                 });
             })
@@ -95,7 +95,7 @@ class StyledForm extends Component {
                         defaultValues={{ email }}
                         validateError={this.errorValidator}
                         onSubmit={this.submit}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form">
                                 <div className="form-group has-feedback" >
                                     <StyledText placeholder="Email" type="email" field="email" id="eml" />
@@ -108,7 +108,7 @@ class StyledForm extends Component {
                                     <button type="submit" className="btn btn-orange">{popup[lang].submit}</button>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay} title={this.state.popup.title}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />

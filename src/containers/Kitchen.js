@@ -87,12 +87,12 @@ class Kitchen extends Component {
                         );
                     }
                 } else {
-                    gallery = (
+                    gallery = 
                         <div data-p="170.00">
                             <img alt={data.name} data-u="image" src="/static/media/no-image.jpg" />
                             <img alt={data.name} data-u="thumb" src="/static/media/no-image.jpg" />
                         </div>
-                    );
+                    ;
                 }
 
                 // get kitchen coordinates

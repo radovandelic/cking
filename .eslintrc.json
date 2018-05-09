@@ -55,6 +55,7 @@
             "always"
         ],
         "no-extra-semi": "warn",
+        "no-extra-parens": "warn",
         "comma-dangle": [
             "warn",
             "always-multiline"

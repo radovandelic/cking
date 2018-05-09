@@ -7,13 +7,13 @@ export default (props) => {
         <div className="form-group radio-group" id={id}>
             <label htmlFor={id}>{label}</label>
             <StyledRadioGroup field={id} id={id} onChange={onChange} >
-                {group => (
+                {group =>
                     <ul className="radio-grid" >
-                        {options.map(option => (
+                        {options.map(option =>
                             <li key={option}> <StyledRadio group={group} value={option} id={option} label={labels[option]} className="d-inline-block" /> </li>
-                        ))}
+                        )}
                     </ul>
-                )}
+                }
             </StyledRadioGroup>
         </div>
     );

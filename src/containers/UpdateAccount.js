@@ -127,7 +127,7 @@ class StyledForm extends Component {
                         validateError={this.errorValidator}
                         onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <div className="inline">
                                     <TextInput id="firstName" placeholder={label.firstName} />
@@ -148,7 +148,7 @@ class StyledForm extends Component {
                                     <button id="submit" type="submit" className="btn btn-orange">{label.update}</button>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />

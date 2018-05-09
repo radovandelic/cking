@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/footer.css";
 
-export default () => (
+export default () => 
     <footer className="footer" >
         <ul className="list-inline">
             <li>
@@ -14,4 +14,4 @@ export default () => (
             </li>
         </ul>
     </footer>
-);
+;

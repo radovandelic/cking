@@ -67,10 +67,10 @@ class StyledForm extends Component {
             if (!daysFrom || !daysTo) return registerKitchen[lang].days + errors[lang].required;
             daysFrom = Number(daysFrom) || 7;
             daysTo = Number(daysTo) || 7;
-            return daysFrom && daysTo && (daysFrom > daysTo) ? registerKitchen[lang].days + errors[lang].invalid : null;
+            return daysFrom && daysTo && daysFrom > daysTo ? registerKitchen[lang].days + errors[lang].invalid : null;
         };
         const validateHours = (hoursFrom, hoursTo) => {
-            return (!hoursFrom || !hoursTo) ? registerKitchen[lang].hours + errors[lang].required
+            return !hoursFrom || !hoursTo ? registerKitchen[lang].hours + errors[lang].required
                 : Number(hoursFrom) >= Number(hoursTo) ? registerKitchen[lang].hours + errors[lang].invalid
                     : null;
         };
@@ -303,7 +303,7 @@ class StyledForm extends Component {
                         validateSuccess={this.successValidator}
                         defaultValues={kitchen} onSubmitFailure={this.onSubmitFailure}
                         onSubmit={this.submit}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang}>
                                 <h4>{registerKitchen[lang].title}</h4>
                                 <p style={{ textAlign: "justify" }}>
@@ -323,20 +323,20 @@ class StyledForm extends Component {
                                 <div className="form-group">
                                     <label htmlFor="events">{registerKitchen[lang].events}?</label>
                                     <StyledRadioGroup onChange={(e) => { kitchen.events = e; }} field="events">
-                                        {group => (
+                                        {group => 
                                             <ul className="radio-grid" >
                                                 <li> <StyledRadio group={group} value="true" id="true" label={registerKitchen[lang].yes} className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="" id="false" label={registerKitchen[lang].no} className="d-inline-block" /> </li>
                                             </ul>
-                                        )}
+                                        }
                                     </StyledRadioGroup>
                                 </div>
-                                {kitchen.events ? (
+                                {kitchen.events ? 
                                     <div>
                                         <TextInput id="standingCapacity" label={registerKitchen[lang].capacityStanding} type="number" />
                                         <TextInput id="sittingCapacity" label={registerKitchen[lang].capacitySitting} type="number" />
                                     </div>
-                                ) : null}
+                                    : null}
                                 <div className="form-group" id="terms" >
                                     <StyledCheckbox field="agree" id="agree"
                                         label={
@@ -351,7 +351,7 @@ class StyledForm extends Component {
                                 </div>
                                 <div id="header_spacing"></div>
                             </form>
-                        )
+                        
                         }
                     </Form>
 

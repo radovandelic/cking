@@ -180,7 +180,7 @@ class StyledForm extends Component {
                     const daysFrom = Number(values.daysFrom) || 7;
                     const daysTo = Number(values.daysTo) || 7;
 
-                    totalDays = (daysTo - daysFrom) + 1;
+                    totalDays = daysTo - daysFrom + 1;
                     totalHours *= totalDays;
                     totalPrice = totalHours * price;
                     this.setState({ totalDays, totalHours, totalPrice });
@@ -282,7 +282,7 @@ class StyledForm extends Component {
                         onSubmitFailure={this.onSubmitFailure}
                         validateSuccess={this.successValidator}
                         onSubmit={this.submit}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container" key={lang + price}>
                                 <h3>{text.title}</h3>
                                 <Radio id="type" options={radioOptions} labels={radioLabels} onChange={this.onTypeChange} key={rent} />
@@ -315,7 +315,7 @@ class StyledForm extends Component {
                                     <button id="submit" type="submit" className="btn btn-orange">{text.submit}</button>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay} title={this.state.popup.title}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />

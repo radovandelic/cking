@@ -105,7 +105,7 @@ class Browse extends Component {
                 </div>
             );
         }
-        return (<div className="browse-container">
+        return <div className="browse-container">
             <div className="listings">
                 {count === 0
                     ?
@@ -120,7 +120,7 @@ class Browse extends Component {
             <Popup overlay={this.state.overlay} title={popup[lang].errorTitle}
                 message={this.state.popup.message} btn="ok" close={this.closePopup} />
         </div>
-        );
+        ;
     }
 
     closePopup = () => {

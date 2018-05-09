@@ -77,7 +77,7 @@ class StyledForm extends Component {
                     <Form
                         validateError={this.errorValidator}
                         onSubmit={this.submit} onSubmitFailure={e => { console.log(e); }}>
-                        {formApi => (
+                        {formApi => 
                             <form onSubmit={formApi.submitForm} id="form" className="form-container">
 
                                 <h4>Trouvez un job en Extra ou comme Chef </h4>
@@ -89,14 +89,14 @@ class StyledForm extends Component {
                                 <div className="input-div" style={{ height: "150px" }}>
                                     <label>Quel type d'activité recherchez-vous?</label>
                                     <StyledRadioGroup field="type">
-                                        {group => (
+                                        {group => 
                                             <ul className="radio-grid" >
                                                 <li> <StyledRadio group={group} value="extra" id="extra" label="Extra" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="fixe" id="fixe" label="Fixe" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="chef" id="chef" label="Chef sous-traitant" className="d-inline-block" /> </li>
                                                 <li> <StyledRadio group={group} value="plonge" id="plonge" label="Plonge" className="d-inline-block" /> </li>
                                             </ul>
-                                        )}
+                                        }
                                     </StyledRadioGroup>
                                 </div>
                                 <div className="input-div" >
@@ -117,7 +117,7 @@ class StyledForm extends Component {
                                     <button id="submit" type="submit" className="btn btn-orange">Register</button>
                                 </div>
                             </form>
-                        )}
+                        }
                     </Form>
                     <Popup overlay={this.state.overlay} title={"Error"}
                         message={this.state.popup.message} btn="ok" close={this.closePopup} />
