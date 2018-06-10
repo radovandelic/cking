@@ -11,7 +11,7 @@
 }
 
 .accordion {
-    background-color: #ff6114;
+    background-color: #EF4023;
     color: #fff;
     cursor: pointer;
     padding: 12px;
@@ -25,7 +25,7 @@
 
 .accordion.accordion-title,
 .accordion:hover {
-    color: #ff6114;
+    color: #EF4023;
     background-color: #fff;
 }
 
@@ -110,7 +110,7 @@
 
 .faq-container h3 {
     margin: 5px auto;
-    color: #ff6114;
+    color: #EF4023;
 }
 
 @media screen and (max-width: 600px) {

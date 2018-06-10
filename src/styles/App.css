@@ -29,13 +29,13 @@ input {
 
 .btn-orange,
 .btn-orange:focus {
-    background-color: #ff6114;
-    border-color: #ff6114;
+    background-color: #EF4023;
+    border-color: #EF4023;
     font-weight: bold;
     color: #fff;
 }
 
 .btn-orange:hover {
     background-color: #fff;
-    color: #ff6114;
+    color: #EF4023;
 }

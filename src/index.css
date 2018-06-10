@@ -8,11 +8,17 @@ body {
 }
 
 body {
-    background: linear-gradient( rgba(0, 0, 0, .6), rgba(0, 0, 0, .5)), url('https://cookwork.eu/static/media/background.501cc556.jpg') no-repeat center center fixed;
+    background: url('/static/media/background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-color: #fff;
     background-attachment: fixed;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        background: linear-gradient( rgba(0, 0, 0, .6)), url('/static/media/background.jpg') no-repeat center center fixed;
+    }
 }

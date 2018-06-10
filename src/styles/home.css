@@ -7,18 +7,37 @@
 }
 
 .home-container h1 {
-    color: #ff6114;
+    color: #EF4023;
+}
+
+.home-block-1-bg {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    max-width: 900px;
+    transform: translate3d(-50%, -50%, 0);
+    background-image: url('/static/media/Element-CW-round-color.png');
+    opacity: 0.5;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .home-block-1 {
+    z-index: 1;
+    opacity: 1;
     color: #fff;
-    margin: 0 auto;
+    margin: auto;
     max-width: 800px;
-    padding: 50px 0;
+    padding: 0;
+    padding-top: calc(50vh - 260px);
     height: calc(100vh - 100px);
 }
 
 .home-block-1>.home-title>h1 {
+    text-transform: uppercase;
     color: #fff;
 }
 
@@ -94,8 +113,8 @@
     cursor: pointer;
     padding: 10px 10px;
     outline: 0;
-    border: 2px solid #484848;
-    background: #484848;
+    border: 3px solid #ffffff;
+    background: transparent;
     color: #ffffff;
     transition: 0.5s;
     -webkit-appearance: none;
@@ -141,10 +160,12 @@
 }
 
 #go {
-    border: 2px solid #ff6114;
+    border: 3px solid #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     margin: 10px auto;
     width: 30%;
-    height: 40px;
+    height: 45px;
     font-size: 20px;
     font-weight: 500;
     padding-top: 4px;
@@ -152,8 +173,8 @@
 }
 
 #go:hover {
-    color: #ff6114;
-    background-color: #fff;
+    background-color: transparent;
+    color: #ffffff;
 }
 
 .input-div>div>input,
@@ -162,6 +183,10 @@
 }
 
 @media screen and (max-width: 600px) {
+    .home-block-1-bg {
+        display: none;
+        visibility: hidden;
+    }
     .home-block-1 {
         width: 90%;
         height: calc(100vh - 50px);

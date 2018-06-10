@@ -25,6 +25,8 @@ class Home extends Component {
     render = () => {
         const { lang } = this.props;
         return <div className="home-container">
+            <div className="home-block-1-bg" >
+            </div>
             <div className="home-block-1" id="top">
                 <div className="home-title">
                     <h1>{home[lang].title1}</h1>

@@ -18,6 +18,7 @@ nav {
 }
 
 .navbar-header,
+.nav.navbar-left>li>a,
 .nav.navbar-right>li>a {
     padding: 5px 3px;
 }
@@ -50,14 +51,14 @@ nav {
 
 .navbar-btn.nav-link-orange,
 .navbar-btn.nav-link-orange:focus {
-    background-color: #ff6114;
+    background-color: #EF4023;
     color: #fff;
-    border: solid 1px #ff6114;
+    border: solid 1px #EF4023;
 }
 
 .navbar-btn.nav-link-orange:hover {
     background-color: #fff;
-    color: #ff6114;
+    color: #EF4023;
 }
 
 .select.lang {
@@ -73,6 +74,8 @@ nav {
 .select.lang>select {
     height: 36px;
     padding: 5px 3px;
+    border: 2px solid #484848;
+    background: #484848;
 }
 
 .btn.navbar-btn.nav-link {
@@ -84,13 +87,14 @@ nav {
     .navbar-btn.nav-link:active {
         width: 100%;
         text-align: left;
-        background-color: #ff6114;
+        background-color: #EF4023;
         color: #fff;
     }
     .navbar-btn.nav-link:hover {
-        color: #ff6114;
+        color: #EF4023;
         background-color: #fff;
     }
+    .nav.navbar-left>li>a,
     .nav.navbar-right>li>a {
         padding: 0;
     }
@@ -113,5 +117,8 @@ nav {
     .select.lang.mobile .select_arrow {
         right: 10px;
         top: 12px;
+    }
+    .navbar-header.navbar-logo {
+        margin-left: -100px;
     }
 }

@@ -3,7 +3,7 @@ import React from "react";
 export default {
     fr: {
         title1: "Louez une cuisine près de chez vous, facilement",
-        description1: 
+        description1:
             <div className="home-description">
                 <h4>CookWork vous permet de louer un atelier pro
                 aux normes AFSCA en toute flexibilité</h4>
@@ -13,7 +13,7 @@ export default {
         findKitchenButton: "Trouver une cuisine",
 
         title2: "Choisissez votre atelier",
-        description2: 
+        description2:
             <div className="home-description">
                 <h4>Vous lancez votre projet alimentaire ?</h4>
                 <h4>Une grosse production en vue ? </h4>
@@ -21,11 +21,11 @@ export default {
                 <h4>Les cuisines CookWork sont équipées pour la production professionnelle</h4>
             </div>,
 
-        title3: 
+        title3:
             <div className="home-title">
                 <h1>Comment ça fonctionne?</h1>
             </div>,
-        description3: 
+        description3:
             <div className="home-inline" >
                 <div className="inline-element" >
                     <h1>01</h1>
@@ -51,7 +51,7 @@ export default {
     },
     nl: {
         title1: "Huur eenvoudig een keuken bij jou in de buurt",
-        description1: 
+        description1:
             <div className="home-description">
                 <h4>Via CookWork huur je snel en flexibel een professionele,
                 AFSCA goedgekeurde keuken</h4>
@@ -61,7 +61,7 @@ export default {
         findKitchenButton: "Vind een keuken",
 
         title2: "Kies je werkruimte",
-        description2: 
+        description2:
             <div className="home-description">
                 <h4>Lanceer je een voedingsproject?</h4>
                 <h4>Een grote productie in het vooruitzicht?</h4>
@@ -69,11 +69,11 @@ export default {
                 <h4>Alle CookWork-keukens zijn uitgerust voor professionele gebruik/producties</h4>
             </div>,
 
-        title3: 
+        title3:
             <div className="home-title">
                 <h1>Hoe werkt het?</h1>
             </div>,
-        description3: 
+        description3:
             <div className="home-inline" >
                 <div className="inline-element" >
                     <h1>01</h1>
@@ -99,7 +99,7 @@ export default {
     },
     en: {
         title1: "Rent a kitchen near you, easily",
-        description1: 
+        description1:
             <div className="home-description">
                 <h4>CookWork allows you to rent a professional kitchen in all flexibility,
                 approved by AFSCA standards</h4>
@@ -109,7 +109,7 @@ export default {
         findKitchenButton: "Find a kitchen",
 
         title2: "Choose your workspace",
-        description2: 
+        description2:
             <div className="home-description">
                 <h4>Are you launching your food project?</h4>
                 <h4>A big production in sight?</h4>
@@ -117,24 +117,24 @@ export default {
                 <h4>All the Kitchens on CookWork are equipped for professional production</h4>
             </div>,
 
-        title3: 
+        title3:
             <div className="home-title">
                 <h1>How it works?</h1>
             </div>,
-        description3: 
+        description3:
             <div className="home-inline" >
                 <div className="inline-element" >
-                    <h1>01</h1>
+                    <img src="/static/media/Element-CW-vink-color.png" alt="form" />
                     <p><b>Fill in the form</b></p>
                     <p>with your specific needs</p>
                 </div>
                 <div className="inline-element">
-                    <h1>02</h1>
+                    <img src="/static/media/Element-CW-pc-color.png" alt="monitor" />
                     <p><b>Book</b></p>
                     <p>one of the selected kitchens</p>
                 </div>
                 <div className="inline-element">
-                    <h1>03</h1>
+                    <img src="/static/media/Element-CW-lamp-color.png" alt="lamp" />
                     <p><b>Start cooking</b></p>
                     <p>and work in optimal conditions</p>
                 </div>

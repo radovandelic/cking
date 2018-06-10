@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { updateLang, updateUser } from "../actions";
 import { header } from "../data/text";
 import "../styles/header.css";
-import logo from "../logo.jpg";
+import logo from "../logo.png";
 
 class Header extends Component {
 
@@ -67,7 +67,7 @@ class Header extends Component {
                         </div>
                         <div className="collapse navbar-collapse">
                             {!user.id ?
-                                <ul className="nav navbar-nav navbar-right">
+                                <ul className="nav navbar-nav navbar-left">
                                     <li>
                                         <Link to="/login" onClick={this.toggleMenu} >
                                             <button className="btn navbar-btn nav-link nav-link-white">
@@ -82,41 +82,9 @@ class Header extends Component {
                                             </button>
                                         </Link>
                                     </li>
-                                    <li id="faq-navbar-link">
-                                        <a href="#FAQ" onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-grey">
-                                                FAQ
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#contact" onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-grey">
-                                                {header[lang].contact}
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li id="lang">
-                                        <div className="select lang">
-                                            <select key={lang} defaultValue={lang} onChange={this.langChange}>
-                                                <option value="fr" >FR</option>
-                                                <option value="nl" >NL</option>
-                                                <option value="en" >EN</option>
-                                            </select>
-                                            <div className="select_arrow">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <Link to="/register" onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {header[lang].createListing}
-                                            </button>
-                                        </Link>
-                                    </li>
                                 </ul>
                                 :
-                                <ul className="nav navbar-nav navbar-right">
+                                <ul className="nav navbar-nav navbar-left">
                                     <li>
                                         <Link to="/dashboard" onClick={this.toggleMenu}>
                                             <button className="btn navbar-btn nav-link nav-link-grey">
@@ -124,54 +92,64 @@ class Header extends Component {
                                             </button>
                                         </Link>
                                     </li>
-                                    <li id="faq-navbar-link">
-                                        <a href="#FAQ" onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-grey">
-                                                FAQ
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#contact" onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-grey">
-                                                {header[lang].contact}
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li id="lang">
-                                        <div className="select lang">
-                                            <select defaultValue={lang} onChange={this.langChange}>
-                                                <option value="fr" >FR</option>
-                                                <option value="nl" >NL</option>
-                                                <option value="en" >EN</option>
-                                            </select>
-                                            <div className="select_arrow">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>{user.kitchenOwner
-                                        ?
-                                        <Link to={kitchenid ? "/updatekitchen" : "/registerkitchen"}
-                                            onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {kitchenid ? header[lang].editListing : header[lang].createListing}
-                                            </button>
-                                        </Link>
-                                        :
-                                        <Link to="/"
-                                            onClick={this.toggleMenu}>
-                                            <button className="btn navbar-btn nav-link nav-link-orange">
-                                                {header[lang].browseKitchens}
-                                            </button>
-                                        </Link>
-                                    }
-                                    </li>
                                 </ul>
                             }
+                            <ul className="nav navbar-nav navbar-right">
+                                <li id="faq-navbar-link">
+                                    <a href="#FAQ" onClick={this.toggleMenu}>
+                                        <button className="btn navbar-btn nav-link nav-link-grey">
+                                            FAQ
+                                        </button>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#contact" onClick={this.toggleMenu}>
+                                        <button className="btn navbar-btn nav-link nav-link-grey">
+                                            {header[lang].contact}
+                                        </button>
+                                    </a>
+                                </li>
+                                <li id="lang">
+                                    <div className="select lang">
+                                        <select key={lang} defaultValue={lang} onChange={this.langChange}>
+                                            <option value="fr" >FR</option>
+                                            <option value="nl" >NL</option>
+                                            <option value="en" >EN</option>
+                                        </select>
+                                        <div className="select_arrow">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <Link to="/register" onClick={this.toggleMenu}>
+                                        <button className="btn navbar-btn nav-link nav-link-orange">
+                                            {header[lang].createListing}
+                                        </button>
+                                    </Link>
+                                </li>
+
+                                <li>{user.kitchenOwner
+                                    ?
+                                    <Link to={kitchenid ? "/updatekitchen" : "/registerkitchen"}
+                                        onClick={this.toggleMenu}>
+                                        <button className="btn navbar-btn nav-link nav-link-orange">
+                                            {kitchenid ? header[lang].editListing : header[lang].createListing}
+                                        </button>
+                                    </Link>
+                                    :
+                                    <Link to="/"
+                                        onClick={this.toggleMenu}>
+                                        <button className="btn navbar-btn nav-link nav-link-orange">
+                                            {header[lang].browseKitchens}
+                                        </button>
+                                    </Link>
+                                }
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
-            </header>
+            </header >
         );
     }
 }

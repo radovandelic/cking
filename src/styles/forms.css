@@ -124,15 +124,15 @@ textarea.react-form-input {
 }
 
 .react-form-message-error {
-    color: #ff6114;
+    color: #EF4023;
 }
 
 .react-form-message-warning {
-    color: #ff6114;
+    color: #EF4023;
 }
 
 .react-form-message-success {
-    color: #ff6114;
+    color: #EF4023;
 }
 
 .react-form-control>input[type="checkbox"],
@@ -147,7 +147,7 @@ textarea.react-form-input {
 }
 
 .uploaded-message {
-    color: #ff6114;
+    color: #EF4023;
     font-weight: 600;
 }
 
@@ -172,11 +172,11 @@ textarea.react-form-input {
     margin: 27px 22px;
     font-size: 24px;
     z-index: 1;
-    color: #ff6114;
+    color: #EF4023;
 }
 
 .form-group .form-control:focus {
-    border-color: #ff6114;
+    border-color: #EF4023;
 }
 
 #terms {
